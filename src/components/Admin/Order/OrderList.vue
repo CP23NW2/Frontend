@@ -231,7 +231,7 @@
                 </tbody>
               </table>
             </div> -->
-            <nav aria-label="Page navigation" class="flex items-center justify-center mt-4">
+            <!-- <nav aria-label="Page navigation" class="flex items-center justify-center mt-4">
     <ul class="flex items-center h-10 -space-x-px text-base">
       <li>
         <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 border-e-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -265,7 +265,7 @@
         </a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
           </div>
         </div>
       </div>

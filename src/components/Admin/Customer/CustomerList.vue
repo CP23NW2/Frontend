@@ -28,7 +28,7 @@
                 v-model="selectedSearch"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
               >
-                <option value="name" >Name</option>
+                <option value="name">Name</option>
                 <option value="phoneNumber">Phone Number</option>
               </select>
             </div>
@@ -50,14 +50,14 @@
               </div>
             </div>
             <input
-            v-if="selectedSearch === 'name'"
-            v-model="searchName"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-96 px-10"
+              v-if="selectedSearch === 'name'"
+              v-model="searchName"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
             />
             <input
-            v-if="selectedSearch === 'phoneNumber'"
-            v-model="searchPhoneNumber"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-96 px-10"
+              v-if="selectedSearch === 'phoneNumber'"
+              v-model="searchPhoneNumber"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
             />
           </div>
 
@@ -122,7 +122,7 @@
               </tbody>
             </table>
           </div>
-          <nav
+          <!-- <nav
             aria-label="Page navigation"
             class="flex items-center justify-center mt-4"
           >
@@ -210,33 +210,33 @@
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import { Icon } from "@iconify/vue";
-import Swal from "sweetalert2";
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import { Icon } from '@iconify/vue'
+import Swal from 'sweetalert2'
 
-const customerList = ref([]);
+const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    const result = await axios.get("http://localhost:3000/customers");
+    const result = await axios.get('http://localhost:3000/customers')
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-      customerList.value = sortedData;
+      )
+      customerList.value = sortedData
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error)
   }
-};
+}
 
 export default {
   data() {
@@ -245,78 +245,80 @@ export default {
       selectedSearch: 'name',
       searchName: '',
       searchPhoneNumber: ''
-    };
+    }
   },
   computed: {
-  filteredResult: function() {
-    if (this.selectedSearch === 'name') {
-      return this.customerList.filter((customer) => {
-        const fullName = `${customer.customerName} ${customer.customerLastName}`;
-        return fullName.toLowerCase().includes(this.searchName.toLowerCase());
-      });
-    } else if (this.selectedSearch === 'phoneNumber') {
-      return this.customerList.filter((customer) => {
-        return customer.customerTel.toString().includes(this.searchPhoneNumber);
-      });
+    filteredResult: function () {
+      if (this.selectedSearch === 'name') {
+        return this.customerList.filter((customer) => {
+          const fullName = `${customer.customerName} ${customer.customerLastName}`
+          return fullName.toLowerCase().includes(this.searchName.toLowerCase())
+        })
+      } else if (this.selectedSearch === 'phoneNumber') {
+        return this.customerList.filter((customer) => {
+          return customer.customerTel
+            .toString()
+            .includes(this.searchPhoneNumber)
+        })
+      }
+      return []
     }
-    return [];
   },
-},
   methods: {
     EditCustomerPage(customerTel) {
-      this.$router.push(`/editcustomer/${customerTel}`);
+      this.$router.push(`/editcustomer/${customerTel}`)
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://localhost:3000/customers/${this.customerTel}`;
+      const url = `http://localhost:3000/customers/${this.customerTel}`
       axios
         .get(url)
         .then((response) => {
-          this.customerData = response.data;
+          this.customerData = response.data
         })
         .catch((error) => {
-          console.error("Error fetching customer data:", error);
-        });
-    },
+          console.error('Error fetching customer data:', error)
+        })
+    }
   },
   setup() {
     const DeleteCustomer = async (customerTel) => {
       const isConfirmed = await Swal.fire({
-        title: "Are you sure to delete Customer : 0" + customerTel + " ?",
-        text: "You cannot recover this customer!",
-        icon: "warning",
+        title: 'Are you sure to delete Customer : 0' + customerTel + ' ?',
+        text: 'You cannot recover this customer!',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      });
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = `http://localhost:3000/customers/${customerTel}`;
+        const url = `http://localhost:3000/customers/${customerTel}`
         try {
-          await axios.delete(url);
+          await axios.delete(url)
           // Update the data without refreshing the page
-          fetchData();
+          fetchData()
           // ใช้ SweetAlert2 แทน alert
-          Swal.fire("Deleted!", "Customer has been deleted.", "success");
+          Swal.fire('Deleted!', 'Customer has been deleted.', 'success')
         } catch (error) {
-          console.error("Error deleting customer:", error);
+          console.error('Error deleting customer:', error)
           // ใช้ SweetAlert2 แทน alert
-          Swal.fire("Error", "Failed to delete customer", "error");
+          Swal.fire('Error', 'Failed to delete customer', 'error')
         }
       }
-    };
+    }
 
     onMounted(() => {
-      fetchData();
-    });
+      fetchData()
+    })
 
     return {
       Icon,
       customerList,
-      DeleteCustomer,
-    };
-  },
-};
+      DeleteCustomer
+    }
+  }
+}
 </script>

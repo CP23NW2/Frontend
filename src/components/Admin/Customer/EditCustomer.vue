@@ -36,9 +36,9 @@
                     <label class="pb-2 text-sm md:text-lg">Phone number</label>
                     <input
                     v-model="formattedTel"
-                      class="w-full text-sm  bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                      class="w-full text-sm  bg-[#D4D4D433] text-gray-500 border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                      disabled
                     />
-    
                   </div>
                   <div class="w-full ">
                     <label class="pb-2 text-sm md:text-lg">Address</label>

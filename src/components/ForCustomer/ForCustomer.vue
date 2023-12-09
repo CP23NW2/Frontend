@@ -13,9 +13,9 @@
           </div>
         </div>
         <div class="inline-flex items-center justify-center gap-3 md:pb-8">
-          <button @click="selectImage(1)" :class="{ 'md:w-16 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 1, 'bg-white': selectedImage !== 1 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
-          <button @click="selectImage(2)" :class="{ 'md:w-16 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 2, 'bg-white': selectedImage !== 2 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
-          <button @click="selectImage(3)" :class="{ 'md:w-16 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 3, 'bg-white': selectedImage !== 3 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
+          <button @click="selectImage(1)" :class="{ 'md:w-20 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 1, 'bg-white': selectedImage !== 1 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
+          <button @click="selectImage(2)" :class="{ 'md:w-20 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 2, 'bg-white': selectedImage !== 2 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
+          <button @click="selectImage(3)" :class="{ 'md:w-20 w-16 relative bg-[#F5821F] rounded-full': selectedImage === 3, 'bg-white': selectedImage !== 3 }" class="relative w-4 h-4 rounded-full md:h-6 md:w-6"></button>
         </div>
         <SearchStatus />
       </div>
