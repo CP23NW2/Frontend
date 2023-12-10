@@ -56,6 +56,7 @@
             />
             <input
               v-if="selectedSearch === 'phoneNumber'"
+              placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
               v-model="searchPhoneNumber"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
             />

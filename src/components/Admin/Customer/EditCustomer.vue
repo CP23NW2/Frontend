@@ -83,81 +83,91 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import Swal from 'sweetalert2'
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
       customerTel: null, // Initialize customerTel in data
       customerData: {
-        customerTel: ''
-      } // To store customer data
-    }
+        customerTel: "",
+      }, // To store customer data
+    };
   },
   methods: {
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`
+      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`;
       axios
         .get(url)
         .then((response) => {
-          this.customerData = response.data
+          this.customerData = response.data;
         })
         .catch((error) => {
-          console.error('Error fetching customer data:', error)
-        })
+          console.error("Error fetching customer data:", error);
+        });
     },
     updateCustomer() {
-      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`
-      console.log(url)
-      console.log(this.customerData.customerTel)
+      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`;
+      console.log(url);
+      console.log(this.customerData.customerTel);
+
       axios
         .put(url, this.customerData)
         .then((response) => {
-          if (response.status == 200) {
-            console.log('Customer updated successfully')
-            // Optionally, you can redirect the user to another page or perform any other action
+          if (response.status === 200) {
+            console.log("Customer updated successfully");
+            Swal.fire({
+              icon: "success",
+              title: "Editing Success!",
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              this.$router.push(`/customer`);
+            });
           } else {
-            console.error('Failed to update customer:', response.data.error)
+            console.error("Failed to update customer:", response.data.error);
+            Swal.fire({
+              icon: "error",
+              title: "Update Failed",
+              text: response.data.error, // Display the error message from the server
+            });
           }
         })
         .catch((error) => {
-          console.error('Error updating customer:', error)
-        })
-      Swal.fire({
-        icon: 'success',
-        title: 'Editing Success!',
-        showConfirmButton: false,
-        timer: 1500
-      }).then(() => {
-        this.$router.push(`/customer`)
-      })
+          console.error("Error updating customer:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please check Name and Last Name again!", // Display a generic error message
+          });
+        });
     },
     cancel() {
-      this.$router.push(`/customer`)
-    }
+      this.$router.push(`/customer`);
+    },
   },
   mounted() {
     // Retrieve customerTel from the route parameters
-    this.customerTel = this.$route.params.customerTel
+    this.customerTel = this.$route.params.customerTel;
 
     // Fetch customer data using customerTel
-    this.fetchData()
+    this.fetchData();
   },
   computed: {
     formattedTel: {
       get() {
         return this.customerData.customerTel
-          ? '0' + this.customerData.customerTel
-          : '0'
+          ? "0" + this.customerData.customerTel
+          : "0";
       },
       set(value) {
         // Handle the case if you need to update the tel in customerData
-        this.customerData.Tel = value.substring(1) // Remove the leading '0'
-      }
-    }
-  }
-}
+        this.customerData.Tel = value.substring(1); // Remove the leading '0'
+      },
+    },
+  },
+};
 </script>
