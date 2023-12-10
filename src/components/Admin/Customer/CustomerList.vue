@@ -226,7 +226,7 @@ const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    const result = await axios.get('http://localhost:3000/customers')
+    const result = await axios.get('http://20.255.59.8:3000/customers')
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -270,7 +270,7 @@ export default {
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://localhost:3000/customers/${this.customerTel}`
+      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`
       axios
         .get(url)
         .then((response) => {
@@ -295,7 +295,7 @@ export default {
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = `http://localhost:3000/customers/${customerTel}`
+        const url = `http://20.255.59.8:3000/customers/${customerTel}`
         try {
           await axios.delete(url)
           // Update the data without refreshing the page
