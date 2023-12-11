@@ -121,6 +121,11 @@ const CustomerForm = {
         }
       } catch (error) {
         console.error('Error adding customer:', error)
+        Swal.fire({
+          icon: "error", 
+          title: "Error",
+          text: "Please check Name, Last Name and Phone Number again!"
+        });
         // Handle specific error scenarios
       } finally {
         this.isLoading = false
