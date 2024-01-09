@@ -86,7 +86,7 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const API_BASE_URL = 'http://20.255.59.8:3000'
+const API_BASE_URL = 'http://localhost:3000'
 
 const CustomerForm = {
   data() {
@@ -143,7 +143,7 @@ const CustomerForm = {
         try {
           console.log(this.newCustomer.customerTel)
           const response = await axios.post(
-            'http://20.255.59.8:3000/customers/validateTel',
+            'http://localhost:3000/customers/validateTel',
             {
               customerTel: this.newCustomer.customerTel
             }

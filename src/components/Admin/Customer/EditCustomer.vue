@@ -99,7 +99,7 @@ export default {
   methods: {
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`;
+      const url = `http://localhost:3000/customers/${this.customerTel}`;
       axios
         .get(url)
         .then((response) => {
@@ -110,7 +110,7 @@ export default {
         });
     },
     updateCustomer() {
-      const url = `http://20.255.59.8:3000/customers/${this.customerTel}`;
+      const url = `http://localhost:3000/customers/${this.customerTel}`;
       console.log(url);
       console.log(this.customerData.customerTel);
 
