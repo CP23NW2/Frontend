@@ -92,6 +92,7 @@ const CustomerForm = {
   data() {
     return {
       newCustomer: {
+        customerID: '',
         customerName: '',
         customerLastName: '',
         customerTel: '',

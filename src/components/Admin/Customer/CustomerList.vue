@@ -28,6 +28,7 @@
                 v-model="selectedSearch"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
               >
+                <option value="ID">ID</option>
                 <option value="name">Name</option>
                 <option value="phoneNumber">Phone Number</option>
               </select>
@@ -50,13 +51,19 @@
               </div>
             </div>
             <input
+              v-if="selectedSearch === 'ID'"
+              type="number"
+              v-model="searchCustomerID"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
+            />
+            <input
               v-if="selectedSearch === 'name'"
               v-model="searchName"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
             />
             <input
               v-if="selectedSearch === 'phoneNumber'"
-              placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
+              type="number"
               v-model="searchPhoneNumber"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
             />
@@ -74,6 +81,7 @@
                 class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
               >
                 <tr>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">ID</th>
                   <th scope="col" class="px-6 py-3 whitespace-nowrap">Name</th>
                   <th scope="col" class="px-6 py-3 whitespace-nowrap">
                     Phone Number
@@ -91,6 +99,7 @@
                   v-for="customer in filteredResult"
                   :key="customer.customerTel"
                 >
+                <td class="px-6 py-4">{{ customer.customerID }}</td>
                   <th
                     scope="row"
                     class="px-6 font-medium text-gray-900 md:py-4 whitespace-nowrap dark:text-white"
@@ -101,17 +110,17 @@
                     />
                     {{ customer.customerName }} {{ customer.customerLastName }}
                   </th>
-                  <td class="px-6 py-4">0{{ customer.customerTel }}</td>
+                  <td class="px-6 py-4">{{ customer.customerTel }}</td>
                   <td class="px-6 py-4">{{ customer.address }}</td>
                   <td class="px-6 py-4">
                     <div class="flex align-items-center">
-                      <button @click="EditCustomerPage(customer.customerTel)">
+                      <button @click="EditCustomerPage(customer.customerID)">
                         <Icon
                           icon="mdi:edit-circle"
                           class="w-10 h-10 text-[#55BA71]"
                         />
                       </button>
-                      <button @click="DeleteCustomer(customer.customerTel)">
+                      <button @click="DeleteCustomer(customer.customerID)">
                         <Icon
                           icon="mdi:trash-can-circle"
                           class="w-10 h-10 text-[#EB4F54]"
@@ -230,7 +239,7 @@ const fetchData = async () => {
     const result = await axios.get('http://localhost:3000/customers')
     if (result.data) {
       const sortedData = result.data.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       )
       customerList.value = sortedData
     }
@@ -243,14 +252,21 @@ export default {
   data() {
     return {
       customerList: [],
-      selectedSearch: 'name',
+      selectedSearch: 'ID',
       searchName: '',
-      searchPhoneNumber: ''
+      searchPhoneNumber: '',
+      searchCustomerID: ''
     }
   },
   computed: {
     filteredResult: function () {
-      if (this.selectedSearch === 'name') {
+      if (this.selectedSearch === 'ID') {
+        return this.customerList.filter((customer) => {
+          return customer.customerID
+            .toString()
+            .includes(this.searchCustomerID)
+        })
+      } else if (this.selectedSearch === 'name') {
         return this.customerList.filter((customer) => {
           const fullName = `${customer.customerName} ${customer.customerLastName}`
           return fullName.toLowerCase().includes(this.searchName.toLowerCase())
@@ -266,12 +282,12 @@ export default {
     }
   },
   methods: {
-    EditCustomerPage(customerTel) {
-      this.$router.push(`/editcustomer/${customerTel}`)
+    EditCustomerPage(customerID) {
+      this.$router.push(`/editcustomer/${customerID}`)
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://localhost:3000/customers/${this.customerTel}`
+      const url = `http://localhost:3000/customers/${this.customerID}`
       axios
         .get(url)
         .then((response) => {
@@ -283,9 +299,9 @@ export default {
     }
   },
   setup() {
-    const DeleteCustomer = async (customerTel) => {
+    const DeleteCustomer = async (customerID) => {
       const isConfirmed = await Swal.fire({
-        title: 'Are you sure to delete Customer : 0' + customerTel + ' ?',
+        title: 'Are you sure to delete Customer ID : ' + customerID + ' ?',
         text: 'You cannot recover this customer!',
         icon: 'warning',
         showCancelButton: true,
@@ -296,7 +312,7 @@ export default {
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = `http://localhost:3000/customers/${customerTel}`
+        const url = `http://localhost:3000/customers/${customerID}`
         try {
           await axios.delete(url)
           // Update the data without refreshing the page

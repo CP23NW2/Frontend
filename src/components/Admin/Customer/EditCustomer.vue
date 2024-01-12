@@ -10,7 +10,7 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">Edit Customer</p>
+            <p class="text-xl md:px-10 md:text-3xl">Edit Customer ID : {{customerData.customerID}}</p>
           </div>
 
           <form
@@ -42,10 +42,9 @@
                 <div class="w-full pb-4">
                   <label class="pb-2 text-sm md:text-lg">Phone number</label>
                   <input
-                    v-model="formattedTel"
-                    class="w-full text-sm bg-[#D4D4D433] text-gray-500 border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                    disabled
-                  />
+                  maxlength="10"
+                  v-model="customerData.customerTel"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10" />
                 </div>
                 <div class="w-full">
                   <label class="pb-2 text-sm md:text-lg">Address</label>
@@ -156,18 +155,6 @@ export default {
     // Fetch customer data using customerTel
     this.fetchData();
   },
-  computed: {
-    formattedTel: {
-      get() {
-        return this.customerData.customerTel
-          ? "0" + this.customerData.customerTel
-          : "0";
-      },
-      set(value) {
-        // Handle the case if you need to update the tel in customerData
-        this.customerData.Tel = value.substring(1); // Remove the leading '0'
-      },
-    },
-  },
-};
+}
+
 </script>
