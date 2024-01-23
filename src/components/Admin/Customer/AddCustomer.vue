@@ -12,7 +12,7 @@
           >
             <p class="text-xl md:px-10 md:text-3xl">New Customer</p>
           </div>
-
+        
           <form @submit.prevent="addCustomer" class="flex p-4 py-5 md:px-12">
             <div class="w-full pb-4">
               <label class="text-primary-color md:text-2xl">
@@ -36,17 +36,19 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">Phone number</label>
+                  <label class="pb-2 text-sm md:text-lg">Phone Number</label>
                   <input
+                    type="tel"
+                    maxlength="10"
                     v-model="newCustomer.customerTel"
-                    @input="validateTelNumber"
+                    @input="validatePhoneNumber()"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                   <p
-                    v-show="!isValidTelNumber || telNumberErrorMessage !== ''"
+                    v-show="isValidPhone"
                     style="color: red"
                   >
-                    {{ validationErrorMessage || telNumberErrorMessage }}
+                    {{ this.telNumberErrorMessage }}
                   </p>
                 </div>
                 <div class="w-full">
@@ -83,10 +85,12 @@
   </div>
 </template>
 <script>
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const API_BASE_URL = 'http://localhost:3000'
+
 
 const CustomerForm = {
   data() {
@@ -98,6 +102,7 @@ const CustomerForm = {
         customerTel: '',
         address: ''
       },
+      isValidPhone: false,
       isTelNumberUnique: true,
       telNumberErrorMessage: '',
       isLoading: false
@@ -125,42 +130,49 @@ const CustomerForm = {
         Swal.fire({
           icon: "error", 
           title: "Error",
-          text: "Please check Name, Last Name and Phone Number again!"
+          text: error.response.data.error
         });
         // Handle specific error scenarios
       } finally {
         this.isLoading = false
       }
     },
-
-    async validateTelNumber() {
-      this.telNumberErrorMessage = ''
-      if (this.newCustomer.customerTel.length > 10) {
-        this.newCustomer.customerTel = this.newCustomer.customerTel.slice(0, 10)
-        // console.log(this.newCustomer.customerTel)
+    validatePhoneNumber() {
+      let phone = this.newCustomer.customerTel
+    
+      if(!(phone.startsWith('08') || phone.startsWith('09') || phone.startsWith('06'))){
+        // return 'ไม่ใช่เบอร์คนไทย'
+        this.isValidPhone = true
+        this.telNumberErrorMessage = "Phone Number should start with '06', '08', or '09'"
+      }else if(isNaN(phone)){
+        this.isValidPhone = true
+        this.telNumberErrorMessage = "Phone Number contain only numbers"
       }
+      else{
+         this.validateBackend(phone)
+      }  
+    }, 
+    async validateBackend(phone)  {
 
-      if (this.newCustomer.customerTel.length == 10) {
         try {
-          console.log(this.newCustomer.customerTel)
+          // console.log(phone)
           const response = await axios.post(
             'http://localhost:3000/customers/validateTel',
             {
-              customerTel: this.newCustomer.customerTel
+              customerTel: phone,
             }
           )
-        } catch (error) {
-          if (error.response && error.response.status === 404) {
-            console.error('Endpoint not found:', error.response.data.error)
-            // Handle the 404 error here, display an error message or take appropriate action.
-          } else {
-            this.telNumberErrorMessage = 'The Phone Number Must Be Unique.'
-            console.error('Error validating customer tel:', error)
+          if(response.status === 200){
+            this.isValidPhone = false
+            this.telNumberErrorMessage = ''
           }
-        }
-      }
-    },
-
+        } 
+        catch (error) {
+          if(error.response.status === 400){
+            this.isValidPhone = true
+            this.telNumberErrorMessage = error.response.data.error;
+          }
+}},      
     cancel() {
       this.$router.push('/customer')
     },
@@ -177,6 +189,7 @@ const CustomerForm = {
         console.error('Error updating data:', error)
       }
     },
+
     // validate unique number
     showSuccessMessage() {
       Swal.fire({
@@ -189,34 +202,6 @@ const CustomerForm = {
       })
     }
   },
-
-  computed: {
-    numericTelNumber() {
-      return this.newCustomer.customerTel
-    },
-
-    isValidTelNumber() {
-      return this.numericTelNumber.length === 10 && this.isValidPrefix
-    },
-
-    isValidPrefix() {
-      const prefixes = ['08', '09', '06']
-      return prefixes.some((prefix) =>
-        this.newCustomer.customerTel.startsWith(prefix)
-      )
-    },
-
-    validationErrorMessage() {
-      if (this.numericTelNumber.length !== 10) {
-        return 'Please enter a valid telephone number with exactly 10 digits.'
-      } else if (!this.isValidPrefix) {
-        return 'Please enter a valid telephone number starting with 08, 09, or 06.'
-      } else {
-        return this.telNumberErrorMessage
-      }
-    }
   }
-}
-
 export default CustomerForm
 </script>

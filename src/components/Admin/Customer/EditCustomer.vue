@@ -42,6 +42,7 @@
                 <div class="w-full pb-4">
                   <label class="pb-2 text-sm md:text-lg">Phone number</label>
                   <input
+                  type="tel"
                   maxlength="10"
                   v-model="customerData.customerTel"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10" />
