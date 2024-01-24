@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <div class="w-full h-screen mt-4 bg-gray-200 md:mt-12">
+  <div id="printMe">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <div class="w-full h-full mt-4 bg-gray-200 md:mt-12">
       <div class="flex items-center justify-center p-4 py-10 md:py-20 md:p-10">
-        <div
-          id="printMe"
-          class="w-full h-auto mt-4 bg-white rounded-md shadow md:mt-0"
-        >
+        <div class="w-full h-auto mt-4 bg-white rounded-md shadow md:mt-0">
           <!-- Header  -->
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
@@ -22,8 +23,9 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Name</p>
                   <input
+                    v-model="userInformation.name"
                     id="inputConfirm"
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md h-10"
+                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
@@ -35,6 +37,7 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Date</p>
                   <input
+                    v-model="userInformation.date"
                     type="date"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
@@ -46,12 +49,14 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Address</p>
                   <input
+                   v-model="userInformation.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Phone number</p>
                   <input
+                    v-model="userInformation.phoneNumber"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -128,15 +133,157 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Ship type</p>
                   <input
+                  v-model="userInformation.shipType"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
                   <input
+                  v-model="userInformation.trackingNumber"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
+              </div>
+              <div id="EyewearTable">
+                <div
+                  v-for="eyewearIndex in eyewearTables"
+                  :key="eyewearIndex"
+                  :id="'EyewearTable' + eyewearIndex"
+                >
+                  <div class="w-full h-px mt-4 border border-neutral-300"></div>
+                  <div class="flex py-5">
+                    <div class="w-full p-4 md:p-0">
+                      <p class="text-primary-color md:text-2xl">
+                        Order detail {{ eyewearIndex }}
+                      </p>
+                      <div
+                        class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
+                      >
+                        <div class="w-full pb-4">
+                          <p class="pb-2 text-sm md:text-lg">Product</p>
+                          <input
+                            v-model="eyewearDetails.product"
+                            id="inputConfirm"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                          />
+                        </div>
+                        <div class="w-full pb-4">
+                          <p class="pb-2 text-sm md:text-lg">Lens</p>
+                          <input
+                          v-model="eyewearDetails.lens"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                          />
+                        </div>
+                        <div class="w-full pb-4">
+                          <p class="pb-2 text-sm md:text-lg">Price</p>
+                          <input
+                          v-model="eyewearDetails.price"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                          />
+                        </div>
+                      </div>
+                      <div class="justify-between gap-4 mt-4">
+                        <div class="w-full pb-4">
+                          <p class="pb-2 text-sm md:text-lg">Detail</p>
+                          <input
+                          v-model="eyewearDetails.detail"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="tableContainer">
+                    <div class="container pb-4 mx-auto">
+                      <div class="w-full overflow-hidden rounded">
+                        <table class="bg-white border border-black">
+                          <thead>
+                            <tr class="bg-[#F59F54] text-white">
+                              <th class="px-6 py-8 border border-black">
+                                Eyesight
+                              </th>
+                              <th class="px-6 py-8 border border-black">SPH</th>
+                              <th class="px-6 py-8 border border-black">CYL</th>
+                              <th class="px-6 py-8 border border-black">
+                                AXIS
+                              </th>
+                              <th class="px-6 py-8 border border-black">ADD</th>
+                              <th class="px-6 py-8 border border-black">PD</th>
+                              <th class="px-6 py-8 border border-black">SH</th>
+                              <th class="px-6 py-8 border border-black">
+                                Up KT
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              v-for="(eyesight, index) in eyesightData"
+                              :key="index"
+                              class="text-center"
+                            >
+                              <td
+                                class="px-6 py-8 border border-black bg-[#FFCA9C]"
+                              >
+                                {{ eyesight.label }}
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.sph"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.cyl"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.axis"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.add"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.pd"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.sh"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                              <td class="px-6 py-8 border border-black">
+                                <input
+                                  v-model="eyesight.upKt"
+                                  class="w-full h-full text-center"
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="py-2">
+                <button
+                  @click="showNextTable"
+                  class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
+                >
+                  Add New Eyewear +
+                </button>
               </div>
               <div class="flex justify-end mt-5">
                 <div class="mx-2">
@@ -157,6 +304,7 @@
                 </div>
                 <div class="mx-2">
                   <button
+                  @click="cancel"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
                     Cancel
@@ -170,34 +318,89 @@
     </div>
   </div>
 </template>
-
 <script>
-import VueHtmlToPaper from 'vue-html-to-paper'
+import VueHtmlToPaper from 'vue-html-to-paper';
 
 export default {
   data() {
     return {
       output: null,
-      isDropdownVisible: false
-    }
+      isDropdownVisible: false,
+      eyewearTables: 1,
+      userInformation: {
+        name: '',
+        orderID: '',
+        date: '',
+        address: '',
+        phoneNumber: '',
+        shipOption: '',
+        shipType: '',
+        trackingNumber: ''
+      },
+      eyewearDetails:{
+        prompt:'',
+        lens:'',
+        price:'',
+        detail:''
+      },
+      eyesightData: [
+        {
+          label: 'Left',
+          sph: '',
+          cyl: '',
+          axis: '',
+          add: '',
+          pd: '',
+          sh: '',
+          upKt: ''
+        },
+        {
+          label: 'Right',
+          sph: '',
+          cyl: '',
+          axis: '',
+          add: '',
+          pd: '',
+          sh: '',
+          upKt: ''
+        }
+      ]
+    };
   },
   computed: {
     confirm: function () {
-      return alert('Order complete!')
+      this.$router.push('/order')
+      return alert('Order complete!');
     }
   },
   methods: {
     async print() {
-      // Pass the element id here
-      await this.$htmlToPaper('printMe')
+      await this.$htmlToPaper('printMe', {
+        name: '_blank',
+        specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+        styles: [
+          'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+          'https://unpkg.com/kidlat-css/css/kidlat.css'
+        ],
+        data: {
+          userInformation: this.userInformation,
+          eyesightData: this.eyesightData
+        }
+      });
     },
     toggleDropdown() {
-      this.isDropdownVisible = !this.isDropdownVisible
+      this.isDropdownVisible = !this.isDropdownVisible;
     },
-    confirm() {
-      alert('Order complete!')
-    }
+    showNextTable() {
+      
+      this.eyewearTables++;
+    },
+  cancel(){
+  this.$router.push('/order')
+  }
+  },
+  directives: {
+    'html-to-paper': VueHtmlToPaper
   }
 }
 </script>
-<style></style>
