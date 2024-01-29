@@ -83,6 +83,7 @@ const options = {
 //       }
 //     }
 //   })
+  
   const app = createApp(App)
   // app.use(i18n)
   app.use(VueHtmlToPaper, options)

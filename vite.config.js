@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     rollupOptions: {
-      external: ['/style.css'],
+      external: ['style.css'],
     },
   },
   preview: {
