@@ -1,7 +1,7 @@
 // import { createApp } from 'vue'
 import App from './App.vue'
-import '../assets/style.css'
-import '../assets/index.css'
+import '/style.css'
+import '/index.css'
 // import Vue from 'vue';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import router from './Router/index.js';
