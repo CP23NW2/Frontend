@@ -3,4 +3,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
+  PublicPath: process.env.NODE_ENV === 'production'
+  ? './'
+  : './',
 }
