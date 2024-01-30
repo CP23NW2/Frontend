@@ -18,6 +18,8 @@ RUN npx tailwindcss init -p
 # Copy the rest of the application code to the working directory
 COPY . .
 
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
 # Build the Vue.js project
 RUN npm run build
 
