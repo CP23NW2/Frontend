@@ -1,30 +1,33 @@
-# Use an official Node.js runtime as a base image
-FROM node:14
+# Stage 1: Compile and Build angular codebase
 
-# Set the working directory in the container
-WORKDIR /app
+# Use official node image as the base image
+FROM node:14 as build
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Set the working directory
+WORKDIR /usr/local/app
 
-# Install dependencies
+# Add the source code to app
+COPY ./ /usr/local/app/
+
+# Install all the dependencies
 RUN npm install
-
-# Update Browserslist by updating the browserslist package
 RUN npm install browserslist@latest
 RUN npm install -D tailwindcss postcss autoprefixer
 RUN npx tailwindcss init -p
 
-# Copy the rest of the application code to the working directory
-COPY . .
-
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-# Build the Vue.js project
+# Generate the build of the application
 RUN npm run build
 
-# Expose the port that the application will run on
-EXPOSE 5173
+# Stage 2: Serve app with nginx server
 
-# Command to run the application
-CMD ["npm", "run", "preview", "--", "--port", "5173"]
+# Use official nginx image as the base image
+FROM nginx:latest
+
+# Not /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf 
+
+# Copy the build output to replace the default nginx contents.
+COPY --from=build /usr/local/app/dist/ /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
