@@ -13,10 +13,5 @@ export default defineConfig({
   preview: {
     host: true,
     port: 5173
-  },
-  server: {
-    hmr: {
-        host: 'http://capstone23.sit.kmutt.ac.th/nw2/',
-    },
 },
 })
