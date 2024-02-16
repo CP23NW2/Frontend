@@ -10,7 +10,8 @@ import ForCustomer from '../views/Customer/ForCustomer.vue'
 import AboutCustomer from '../views/Customer/About.vue'
 import ContactCustomer from '../views/Customer/Contact.vue'
 import EditCustomer from '../views/Admin/EditCustomer.vue'
-const history=createWebHistory("/NW2"); // Pass the base URL here
+import AddOrderCustomer from '../views/Admin/AddOrderCustomer.vue'
+const history = createWebHistory("/NW2"); // Pass the base URL here
 
 const routes = [
     {

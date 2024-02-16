@@ -800,7 +800,7 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/orders')
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders`)
         if (response.data) {
           const sortedData = response.data.sort(
             (b, a) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -811,11 +811,11 @@ export default {
       } catch (error) {
         console.error('Error fetching customer data:', error)
       }
-      const response = await axios.get('http://localhost:3000/eyewears')
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/eyewears`)
       if (response.data) {
         eyewearList.value = response.data
       }
-      const cusResponse = await axios.get('http://localhost:3000/customers')
+      const cusResponse = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
       if (cusResponse.data) {
         customerList.value = cusResponse.data
       }
@@ -838,7 +838,7 @@ export default {
 
       // If the user clicks OK (confirmed)
       if (isConfirmed.isConfirmed) {
-        const url = `http://localhost:3000/orders/${orderID}`
+        const url = (`${import.meta.env.VITE_BASE_URL}/orders/${orderID}`)
         try {
           await axios.delete(url)
           // Update the data without refreshing the page

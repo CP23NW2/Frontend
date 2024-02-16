@@ -89,9 +89,6 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const API_BASE_URL = 'http://localhost:3000'
-
-
 const CustomerForm = {
   data() {
     return {
@@ -114,7 +111,7 @@ const CustomerForm = {
         this.isLoading = true
 
         const response = await axios.post(
-          `${API_BASE_URL}/customers`,
+          (`${import.meta.env.VITE_BASE_URL}/customers`),
           this.newCustomer
         )
 
@@ -156,8 +153,9 @@ const CustomerForm = {
 
         try {
           // console.log(phone)
-          const response = await axios.post(
-            'http://localhost:3000/customers/validateTel',
+          const response = await axios.post
+           (`${import.meta.env.VITE_BASE_URL}/customers/validateTel`)
+          (
             {
               customerTel: phone,
             }
@@ -179,7 +177,7 @@ const CustomerForm = {
 
     async fetchData() {
       try {
-        const result = await axios.get(`${API_BASE_URL}/customers`)
+        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
         if (result.status == 200) {
           console.log('Data updated successfully')
         } else {

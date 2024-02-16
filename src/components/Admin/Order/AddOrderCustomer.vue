@@ -620,7 +620,7 @@ async addEyewear(orderID) {
     // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
     this.newEyewear.orderID = orderID;
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}eyewears`,
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/eyewears`,
       this.newEyewear
     );
     if (response.status == 200) {

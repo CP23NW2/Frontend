@@ -239,7 +239,7 @@ const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    const result = await axios.get('http://localhost:3000/customers')
+    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -290,7 +290,7 @@ export default {
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = `http://localhost:3000/customers/${this.customerID}`
+      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerID}`)
       axios
         .get(url)
         .then((response) => {
@@ -318,7 +318,7 @@ export default {
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = `http://localhost:3000/customers/${customerID}`
+        const url = (`${import.meta.env.VITE_BASE_URL}/customers/${customerID}`)
         try {
           await axios.delete(url)
           // Update the data without refreshing the page
