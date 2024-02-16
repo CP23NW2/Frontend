@@ -16,28 +16,31 @@
 
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
-              <p class="text-primary-color md:text-2xl">User Information</p>
+              <p class="text-primary-color md:text-2xl">
+                Customer ID : {{ customerData.customerID }}
+              </p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Name</p>
                   <input
-                    v-model="userInformation.name"
+                    v-model="customerData.customerName"
                     id="inputConfirm"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Order ID</p>
+                  <p class="pb-2 text-sm md:text-lg">LastName</p>
                   <input
+                    v-model="customerData.customerLastName"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Date</p>
                   <input
-                    v-model="userInformation.date"
+                    v-model="newOrder.dateOrder"
                     type="date"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
@@ -49,14 +52,21 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Address</p>
                   <input
-                   v-model="userInformation.address"
+                    v-model="customerData.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Phone number</p>
                   <input
-                    v-model="userInformation.phoneNumber"
+                    v-model="customerData.customerTel"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
+                  <input
+                    v-model="newOrder.orderName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -65,30 +75,38 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Ship Option</p>
-                  <button
-                    id="dropdownDelayButton"
-                    @click="toggleDropdown"
+                  <p class="pb-2 text-sm md:text-lg">Delivery</p>
+                  <select
+                    v-model="newOrder.delivery"
                     class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
-                    type="button"
                   >
-                    Dropdown hover
-                    <svg
-                      class="w-2.5 h-2.5 ms-3"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 10 6"
+                    <option disabled value="">Please select one</option>
+                    <option>Delivery</option>
+                    <option>Pickup</option>
+                  </select>
+                  <!-- <button
+                      id="dropdownDelayButton"
+                      @click="toggleDropdown"
+                      class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
+                      type="button"
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 1 4 4 4-4"
-                      />
-                    </svg>
-                  </button>
+                      Dropdown hover
+                      <svg
+                        class="w-2.5 h-2.5 ms-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </button> -->
                   <!-- Dropdown menu -->
                   <div
                     id="dropdownDelay"
@@ -131,20 +149,34 @@
                   </div>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Ship type</p>
-                  <input
-                  v-model="userInformation.shipType"
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                  />
+                  <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
+                  <select
+                    v-model="newOrder.shippingName"
+                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
+                  >
+                    <option disabled value="">Please select one</option>
+                    <option>Flash</option>
+                    <option>EMS</option>
+                    <option>J&T</option>
+                  </select>
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
                   <input
-                  v-model="userInformation.trackingNumber"
+                    v-model="newOrder.tracking"
+                    maxlength="15"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">Price</p>
+                  <input
+                    v-model="newOrder.price"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
               </div>
+
               <div id="EyewearTable">
                 <div
                   v-for="eyewearIndex in eyewearTables"
@@ -161,9 +193,9 @@
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Product</p>
+                          <p class="pb-2 text-sm md:text-lg">Eyewear Name</p>
                           <input
-                            v-model="eyewearDetails.product"
+                            v-model="newEyewear.eyewearName"
                             id="inputConfirm"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
@@ -171,29 +203,43 @@
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Lens</p>
                           <input
-                          v-model="eyewearDetails.lens"
+                            v-model="newEyewear.lens"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Price</p>
                           <input
-                          v-model="eyewearDetails.price"
+                            v-model="newEyewear.price"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
                       </div>
-                      <div class="justify-between gap-4 mt-4">
+                      <div
+                        class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
+                      >
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Detail</p>
                           <input
-                          v-model="eyewearDetails.detail"
+                            v-model="newEyewear.detail"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
+                        </div>
+                        <div class="w-full pb-4">
+                          <p class="pb-2 text-sm md:text-lg">Status</p>
+                          <select
+                            v-model="newEyewear.orderStatus"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                          >
+                          <option value="Preparing">Preparing</option>
+                          <option value="Processing">Processing</option>
+                          <option value="Complete">Complete</option>
+                        </select>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <div class="flex justify-center">
                   <div id="tableContainer">
                     <div class="container pb-4 mx-auto">
                       <div class="w-full overflow-hidden rounded">
@@ -217,56 +263,102 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="(eyesight, index) in eyesightData"
-                              :key="index"
-                              class="text-center"
-                            >
+                            <tr>
                               <td
-                                class="px-6 py-8 border border-black bg-[#FFCA9C]"
+                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                               >
-                                {{ eyesight.label }}
+                                Left
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.sph"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftSPH"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.cyl"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftCYL"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.axis"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftAXIS"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.add"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftADD"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.pd"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftPD"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.sh"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftSH"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
-                              <td class="px-6 py-8 border border-black">
+                              <td class="border border-black">
                                 <input
-                                  v-model="eyesight.upKt"
-                                  class="w-full h-full text-center"
+                                  v-model="newEyewear.leftUpKT"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td
+                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                              >
+                                Right
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightSPH"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightCYL"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightAXIS"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightADD"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightPD"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightSH"
+                                  class="w-full h-20 text-center"
+                                />
+                              </td>
+                              <td class="border border-black">
+                                <input
+                                  v-model="newEyewear.rightUpKT"
+                                  class="w-full h-20 text-center"
                                 />
                               </td>
                             </tr>
@@ -276,7 +368,9 @@
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
+
               <div class="py-2">
                 <button
                   @click="showNextTable"
@@ -285,10 +379,11 @@
                   Add New Eyewear +
                 </button>
               </div>
+
               <div class="flex justify-end mt-5">
                 <div class="mx-2">
                   <button
-                    @click="confirm"
+                    @click="addOrderAndEyewear()"
                     class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                   >
                     Confirm
@@ -304,7 +399,7 @@
                 </div>
                 <div class="mx-2">
                   <button
-                  @click="cancel"
+                    @click="cancel"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
                     Cancel
@@ -319,88 +414,277 @@
   </div>
 </template>
 <script>
-import VueHtmlToPaper from 'vue-html-to-paper';
+import axios from "axios";
+import VueHtmlToPaper from "vue-html-to-paper";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
+      customerID: null,
+      customerData: {
+        customerID: 3,
+      },
       output: null,
       isDropdownVisible: false,
       eyewearTables: 1,
-      userInformation: {
-        name: '',
-        orderID: '',
-        date: '',
-        address: '',
-        phoneNumber: '',
-        shipOption: '',
-        shipType: '',
-        trackingNumber: ''
+      newOrder: {
+        orderName: "",
+        price: "",
+        dateOrder: new Date().toISOString().split("T")[0],
+        delivery: "",
+        shippingName: "",
+        tracking: "",
+        customerID: "",
       },
-      eyewearDetails:{
-        prompt:'',
-        lens:'',
-        price:'',
-        detail:''
+      newEyewear: {
+        eyewearID: 10,
+        eyewearName: "",
+        lens: "",
+        price: "",
+        detail: "",
+        orderStatus: "",
+        datePreparing: new Date().toISOString().split("T")[0],
+        dateProcessing: new Date().toISOString().split("T")[0],
+        dateComplete: new Date().toISOString().split("T")[0],
+        leftSPH: "",
+        leftCYL: "",
+        leftAXIS: "",
+        leftADD: "",
+        leftPD: "",
+        leftSH: "",
+        leftUpKT: "",
+        rightSPH: "",
+        rightCYL: "",
+        rightAXIS: "",
+        rightADD: "",
+        rightPD: "",
+        rightSH: "",
+        rightUpKT: "",
+        orderID: "",
       },
-      eyesightData: [
-        {
-          label: 'Left',
-          sph: '',
-          cyl: '',
-          axis: '',
-          add: '',
-          pd: '',
-          sh: '',
-          upKt: ''
-        },
-        {
-          label: 'Right',
-          sph: '',
-          cyl: '',
-          axis: '',
-          add: '',
-          pd: '',
-          sh: '',
-          upKt: ''
-        }
-      ]
     };
   },
   computed: {
     confirm: function () {
-      this.$router.push('/order')
-      return alert('Order complete!');
-    }
+      this.$router.push("/order");
+      return alert("Order complete!");
+    },
+  },
+  mounted() {
+    // Retrieve customerTel from the route parameters
+    this.customerID = this.$route.params.customerID;
+
+    // Fetch customer data using customerTel
+    this.fetchData();
   },
   methods: {
+    addOrderAndEyewear() {
+      this.addOrder();
+      this.addEyewear();
+    },
+    fetchData() {
+      const url = `http://localhost:3000/customers/${this.customerID}`;
+      axios
+        .get(url)
+        .then((response) => {
+          this.customerData = response.data;
+
+          this.newOrder.customerID = this.customerData.customerID;
+        })
+        .catch((error) => {
+          console.error("Error fetching customer data:", error);
+        });
+    },
+    async fetchOrder() {
+      try {
+        const result = await axios.get(`http://localhost:3000/orders`);
+        if (result.status == 200) {
+          console.log("Data updated successfully");
+        } else {
+          console.error("Failed to update data:", result.data.error);
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+      }
+    },
+    async fetchEyewear() {
+      try {
+        const result = await axios.get(`http://localhost:3000/eyewears`);
+        if (result.status == 200) {
+          console.log("Data updated successfully");
+        } else {
+          console.error("Failed to update data:", result.data.error);
+        }
+      } catch (error) {
+        console.error("Error updating data:", error);
+      }
+    },
+    //     async addOrder() {
+    //       try {
+    //         const response = await axios.post(
+    //           `http://localhost:3000/orders`,
+    //           this.newOrder
+    //         );
+    //         if (response.status == 200) {
+    //           console.log("Order added successfully");
+    //           this.fetchOrder();
+    //           this.showSuccessMessage();
+    //         } else {
+    //           console.error("Failed to add order:", response.data);
+    //         }
+    //       } catch (error) {
+    //         console.error("Error adding order:", error);
+    //         Swal.fire({
+    //           icon: "error",
+    //           title: "Error",
+    //           text: error.response.data.error,
+    //         });
+    //       }
+    //     },
+    //     async addEyewear() {
+    //   try {
+    //     const response = await axios.post(
+    //       `http://localhost:3000/eyewears`,
+    //       this.newEyewear
+    //     );
+    //     if (response.status == 200) {
+    //       console.log("Eyewear added successfully");
+    //       this.fetchEyewear();
+    //       // this.showSuccessMessage();
+    //     } else {
+    //       console.error("Failed to add order:", response.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error adding order:", error);
+    //     if (error.response && error.response.data) {
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: "Error",
+    //         text: error.response.data.error
+    //       });
+    //     } else {
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: "Error",
+    //         text: "An error occurred while adding eyewear."
+    //       });
+    //     }
+    //   }
+    // },
+    async confirmOrder() {
+      console.log("hi");
+      try {
+        await this.addOrder();
+        await this.addEyewear();
+        // Proceed with other confirmation actions if needed
+      } catch (error) {
+        console.error("Error confirming order:", error);
+      }
+    },
+
+    async addOrder() {
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/orders`,
+      this.newOrder
+    );
+    if (response.status == 200) {
+      console.log("Order added successfully");
+      this.fetchOrder();
+      this.showSuccessMessage();
+      // เมื่อเพิ่ม order เรียบร้อย ให้เรียกใช้ฟังก์ชัน addEyewear() เพื่อเพิ่ม eyewear
+      this.addEyewear(response.data.orderID);
+    } else {
+      console.error("Failed to add order:", response.data);
+    }
+  } catch (error) {
+    console.error("Error adding order:", error);
+    if (error.response && error.response.data) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response.data.error,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding the order.",
+      });
+    }
+  }
+},
+
+async addEyewear(orderID) {
+  try {
+    // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
+    this.newEyewear.orderID = orderID;
+
+    const response = await axios.post(
+      `http://localhost:3000/eyewears`,
+      this.newEyewear
+    );
+    if (response.status == 200) {
+      console.log("Eyewear added successfully");
+      this.fetchEyewear();
+      // this.showSuccessMessage();
+    } else {
+      console.error("Failed to add eyewear:", response.data);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding the eyewear.",
+      });
+    }
+  } catch (error) {
+    console.error("Error adding eyewear:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An error occurred while adding the eyewear.",
+    });
+  }
+},
+
+    showSuccessMessage() {
+      Swal.fire({
+        icon: "success",
+        title: "Add New Order Success!",
+        // text: `OrderID: ${orderID}`,
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        this.$router.push("/order");
+      });
+    },
     async print() {
-      await this.$htmlToPaper('printMe', {
-        name: '_blank',
-        specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+      await this.$htmlToPaper("printMe", {
+        name: "_blank",
+        specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
         styles: [
-          'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-          'https://unpkg.com/kidlat-css/css/kidlat.css'
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
         ],
         data: {
           userInformation: this.userInformation,
-          eyesightData: this.eyesightData
-        }
+          eyesightData: this.eyesightData,
+        },
       });
     },
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible;
     },
     showNextTable() {
-      
       this.eyewearTables++;
     },
-  cancel(){
-  this.$router.push('/order')
-  }
+    cancel() {
+      this.$router.push("/order");
+    },
   },
   directives: {
-    'html-to-paper': VueHtmlToPaper
-  }
-}
+    "html-to-paper": VueHtmlToPaper,
+  },
+};
 </script>
+

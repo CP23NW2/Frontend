@@ -68,6 +68,11 @@ const routes = [
         name: 'EditCustomer',
         component: EditCustomer
     },
+    {
+        path: '/AddOrderCustomer/:customerID',
+        name: 'AddOrderCustomer',
+        component: AddOrderCustomer
+    }
 ]
 
 const router = createRouter({ history, routes })

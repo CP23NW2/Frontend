@@ -87,8 +87,9 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
+                            <option value="orderID">Order ID</option>
                             <option value="name">Name</option>
-                            <option value="phoneNumber">Phone Number</option>
+                            <option value="date">Date</option>
                           </select>
                         </div>
                         <div class="relative">
@@ -108,18 +109,17 @@
                             </svg>
                           </div>
                         </div>
+
+                        <!-- Order list All -->
+                        <input
+                          v-if="selectedSearch === 'orderID'"
+                          type="number"
+                          v-model="searchOrderID"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                        />
                         <input
                           v-if="selectedSearch === 'name'"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
-                        />
-                        <input
-                          v-if="selectedSearch === 'phoneNumber'"
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
-                        />
-                        <input
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          type="date"
+                          v-model="searchName"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
@@ -135,76 +135,108 @@
                           </button>
                         </div>
                       </div>
-
+                      <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ orderList.length }} Orders
                       </div>
                       <div class="mt-4 overflow-x-auto">
-                        <table
+                        <div
                           class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] border"
                         >
-                          <!-- Table Head -->
-                          <thead
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] "
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
                           >
-                            <tr class="">
-                              <th
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                Order ID
+                              </div>
+                              <div
                                 scope="col"
                                 class="gap-3 px-6 py-3 whitespace-nowrap"
                               >
                                 Name
-                              </th>
-                              <th
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 Order Total
-                              </th>
-                              <th
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 Status
-                              </th>
-                              <th
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 Shipping
-                              </th>
-                              <th
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 Actions
-                              </th>
-                            </tr>
-                          </thead>
-                          
-                          <tbody>
-                            <tr
-                              v-for="(order, index) in orderList"
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          v-for="(order, index) in filteredResult"
+                          :key="index"
+                          class="mt-2 border"
+                        >
+                          <div
+                            class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
+                          >
+                            <div
+                              v-for="(customer, index) in customerList"
                               :key="index"
+                              class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                              <th
-                                scope="row"
-                                class="px-6 font-medium text-gray-900 md:py-4 whitespace-nowrap dark:text-white"
-                              >
-                                <Icon
-                                  icon="ph:user-circle-light"
-                                  class="inline-block w-10 h-10 mr-2"
-                                />
-                                {{ order.orderName }} 
-                              </th>
-                              <td class="px-6 py-4">{{ order.price }} ฿</td>
-                              <td class="px-6 py-4">{{  }} waiting eyewaer</td>
-                              <td class="px-6 py-4">
-                                <div class="flex align-items-center">
-                                  {{ order.shippingName }}
+                              {{ customer.customerName }}
+                            </div>
+                            <div class="self-center text-[#808080]">
+                              Order Id: {{ order.orderID }}
+                            </div>
+                          </div>
+                          <div>
+                            <div
+                              class="flex flex-row justify-between px-10 py-3"
+                              v-for="eyewear in getEyewearForOrder(
+                                order.orderID
+                              )"
+                              :key="eyewear.eyewearID"
+                            >
+                              <Icon
+                                icon="ion:cart"
+                                style="color: black"
+                                class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
+                              />
+                              <div class="flex flex-col gap-2">
+                                {{ order.orderName }}
+                                <div class="text-[#808080]">
+                                  {{ eyewear.createdAt }}
                                 </div>
-                              </td>
-                              <td class="px-6 py-4">
-                                <div class="flex align-items-center">
+                              </div>
+                              <div class="self-center">
+                                {{ eyewear.price }} bath
+                              </div>
+
+                              <div class="self-center">
+                                {{ eyewear.orderStatus }}
+                              </div>
+
+                              <div class="self-center">
+                                {{ order.delivery }}
+                              </div>
+                              <div class="flex items-stretch">
+                                <div class="self-center">
                                   <button
                                     @click="EditCustomerPage(customerTel)"
                                   >
@@ -213,17 +245,23 @@
                                       class="w-10 h-10 text-[#55BA71]"
                                     />
                                   </button>
-                                  <button @click="DeleteCustomer(customerTel)">
+                                  <button @click="DeleteOrder(order.orderID)">
                                     <Icon
                                       icon="mdi:trash-can-circle"
                                       class="w-10 h-10 text-[#EB4F54]"
                                     />
                                   </button>
+                                  <button @click="DeleteOrder(order.orderID)">
+                                    <Icon
+                                      icon="f7:doc-circle-fill"
+                                      class="w-10 h-10 text-[#808080]"
+                                    />
+                                  </button>
                                 </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -287,82 +325,130 @@
                         </div>
                       </div>
 
+                      <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ length }} Customers
+                        {{ orderList.length }} Orders
                       </div>
                       <div class="mt-4 overflow-x-auto">
-                        <table
+                        <div
                           class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] border"
                         >
-                          <!-- Table Head -->
-                          <thead
+                          <div
                             class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
                           >
-                            <tr>
-                              <th
+                            <div class="flex flex-row justify-between">
+                              <div
                                 scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                Order ID
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
                               >
                                 Name
-                              </th>
-                              <th
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                                Phone Number
-                              </th>
-                              <th
+                                Order Total
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                                Address
-                              </th>
-                              <th
+                                Status
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                Shipping
+                              </div>
+                              <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 Actions
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr
-                              v-for="customer in filteredResult"
-                              :key="customerTel"
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          v-for="(order, index) in filteredResult"
+                          :key="index"
+                          class="mt-2 border"
+                        >
+                          <div
+                            class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
+                          >
+                            <div
+                              v-for="(customer, index) in customerList"
+                              :key="index"
+                              class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                              <th
-                                scope="row"
-                                class="px-6 font-medium text-gray-900 md:py-4 whitespace-nowrap dark:text-white"
-                              >
-                                <Icon
-                                  icon="ph:user-circle-light"
-                                  class="inline-block w-10 h-10 mr-2"
-                                />
-                                {{ customerName }} {{ customerLastName }}
-                              </th>
-                              <td class="px-6 py-4">0{{ customerTel }}</td>
-                              <td class="px-6 py-4">{{ address }}</td>
-                              <td class="px-6 py-4">
-                                <div class="flex align-items-center">
-                                  <button
-                                    @click="EditCustomerPage(customerTel)"
-                                  >
-                                    <Icon
-                                      icon="mdi:edit-circle"
-                                      class="w-10 h-10 text-[#55BA71]"
-                                    />
-                                  </button>
-                                  <button @click="DeleteCustomer(customerTel)">
-                                    <Icon
-                                      icon="mdi:trash-can-circle"
-                                      class="w-10 h-10 text-[#EB4F54]"
-                                    />
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                              {{ customer.customerName }}
+                            </div>
+                            <div class="self-center text-[#808080]">
+                              Order Id: {{ order.orderID }}
+                            </div>
+                          </div>
+                          <div
+                            class="flex flex-row justify-between px-10 py-3"
+                            v-for="eyewear in getEyewearForOrder(order.orderID)"
+                            :key="eyewear.eyewearID"
+                            v-show="eyewear.orderStatus === 'Preparing' "
+                          >
+                            <Icon
+                              icon="ion:cart"
+                              style="color: black"
+                              class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
+                            />
+                            <div class="flex flex-col gap-2"
+                            v-show="eyewear.orderStatus === 'Preparing' ">
+                              {{ order.orderName }}
+                              <div class="text-[#808080]">
+                                {{ eyewear.createdAt }}
+                              </div>
+                            </div>
+                            <div class="self-center">
+                              {{ eyewear.price }} bath
+                            </div>
+
+                            <div class="self-center">
+                              {{ eyewear.orderStatus }}
+                            </div>
+
+                            <div class="self-center">
+                              {{ order.delivery }}
+                            </div>
+                            <div class="flex items-stretch">
+                              <div class="self-center">
+                                <button @click="EditCustomerPage(customerTel)">
+                                  <Icon
+                                    icon="mdi:edit-circle"
+                                    class="w-10 h-10 text-[#55BA71]"
+                                  />
+                                </button>
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="mdi:trash-can-circle"
+                                    class="w-10 h-10 text-[#EB4F54]"
+                                  />
+                                </button>
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="f7:doc-circle-fill"
+                                    class="w-10 h-10 text-[#808080]"
+                                  />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div></div>
                       </div>
                     </div>
                     <div
@@ -404,11 +490,9 @@
                         />
                         <input
                           v-if="selectedSearch === 'phoneNumber'"
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <input
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
                           type="date"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
@@ -691,31 +775,127 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'pink-tabs',
   data() {
     return {
       openTab: 1,
-      orderList:[]
+      orderList: [],
+      eyewearList: [],
+      customerList: [],
+      selectedSearch: 'orderID',
+      searchOrderID: '',
+      searchName: ''
     }
   },
-  mounted(){
-    this.fetchData();
+  setup() {
+    const orderList = ref([]) // Define orderList using ref
+    const eyewearList = ref([])
+    const customerList = ref([])
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/orders')
+        if (response.data) {
+          const sortedData = response.data.sort(
+            (b, a) => new Date(a.createdAt) - new Date(b.createdAt)
+          )
+          orderList.value = sortedData
+        }
+        console.log('Fetched data:', orderList.value) // Log the data to the console
+      } catch (error) {
+        console.error('Error fetching customer data:', error)
+      }
+      const response = await axios.get('http://localhost:3000/eyewears')
+      if (response.data) {
+        eyewearList.value = response.data
+      }
+      const cusResponse = await axios.get('http://localhost:3000/customers')
+      if (cusResponse.data) {
+        customerList.value = cusResponse.data
+      }
+    }
+
+    onMounted(() => {
+      fetchData()
+    })
+
+    const DeleteOrder = async (orderID) => {
+      const isConfirmed = await Swal.fire({
+        title: 'Are you sure to delete Order ID : ' + orderID + ' ?',
+        text: 'You cannot recover this order!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+
+      // If the user clicks OK (confirmed)
+      if (isConfirmed.isConfirmed) {
+        const url = `http://localhost:3000/orders/${orderID}`
+        try {
+          await axios.delete(url)
+          // Update the data without refreshing the page
+          fetchData()
+          // Use SweetAlert2 instead of alert
+          Swal.fire('Deleted!', 'Order has been deleted.', 'success')
+        } catch (error) {
+          console.error('Error deleting order:', error)
+          // Use SweetAlert2 instead of alert
+          Swal.fire('Error', 'Failed to delete order', 'error')
+        }
+      }
+    }
+
+    const getOrdersForCustomer = (customerID) => {
+      return orderList.value.filter((order) => order.customerID === customerID)
+    }
+
+    const getEyewearForOrder = (orderID) => {
+      return eyewearList.value.filter((eyewear) => eyewear.orderID === orderID)
+    }
+
+    return {
+      orderList,
+      eyewearList,
+      customerList,
+      getEyewearForOrder,
+      getOrdersForCustomer,
+      DeleteOrder
+    }
+  },
+
+  computed: {
+    filteredResult: function () {
+      if (this.selectedSearch === 'orderID') {
+        return this.orderList.filter((order) => {
+          return order.orderID.toString().includes(this.searchOrderID)
+        })
+      } else if (this.selectedSearch === 'name') {
+        return this.orderList.filter((order) => {
+          const name = `${order.orderName}`
+          return name.toLowerCase().includes(this.searchName.toLowerCase())
+        })
+      }
+      //  else if (this.selectedSearch === 'phoneNumber') {
+      //   return this.customerList.filter((customer) => {
+      //     return customer.customerTel
+      //       .toString()
+      //       .includes(this.searchPhoneNumber)
+      //   })
+      // }
+      return []
+    }
   },
   methods: {
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber
-    },
-    async fetchData() {
-      try {
-        const response = await axios.get('http://localhost:3000/orders');
-        this.orderList = response.data;
-      } catch (error) {
-        console.error('Error fetching customer data:', error);
-      }
     }
   },
   components: {

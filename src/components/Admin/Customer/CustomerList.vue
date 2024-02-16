@@ -35,7 +35,7 @@
             </div>
             <div class="relative">
               <div
-                class="absolute py-3 left-0 flex items-center pl-3 pointer-events-none text-gray-700 opacity-80 mx-3 mt-1"
+                class="absolute left-0 flex items-center py-3 pl-3 mx-3 mt-1 text-gray-700 pointer-events-none opacity-80"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -54,18 +54,18 @@
               v-if="selectedSearch === 'ID'"
               type="number"
               v-model="searchCustomerID"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
+              class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
             />
             <input
               v-if="selectedSearch === 'name'"
               v-model="searchName"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
+              class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
             />
             <input
               v-if="selectedSearch === 'phoneNumber'"
               type="number"
               v-model="searchPhoneNumber"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg mx-3 rounded-lg md:w-full px-10"
+              class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
             />
           </div>
 
@@ -110,10 +110,13 @@
                     />
                     {{ customer.customerName }} {{ customer.customerLastName }}
                   </th>
-                  <td class="px-6 py-4">{{ customer.customerTel }}</td>
+                  <td class="px-6 py-4">{{ customer.customerTel.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') }}</td>
                   <td class="px-6 py-4">{{ customer.address }}</td>
                   <td class="px-6 py-4">
                     <div class="flex align-items-center">
+                      <button @click="AddOrder(customer.customerID)">
+                        <Icon icon="el:shopping-cart-sign" class="w-9 h-9 text-primary-color" />
+                    </button>
                       <button @click="EditCustomerPage(customer.customerID)">
                         <Icon
                           icon="mdi:edit-circle"
@@ -236,8 +239,7 @@ const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    // const result = await axios.get('http://localhost:3000/customers')
-    const result = await axios.get('http://cp23nw2.sit.kmutt.ac.th:3000/customers')
+    const result = await axios.get('http://localhost:3000/customers')
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -297,6 +299,9 @@ export default {
         .catch((error) => {
           console.error('Error fetching customer data:', error)
         })
+    },
+    AddOrder(customerID){
+      this.$router.push(`/AddOrderCustomer/${customerID}`)
     }
   },
   setup() {
@@ -313,8 +318,7 @@ export default {
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-      //  const url = `http://localhost:3000/customers/${customerID}`
-        const url = `http://cp23nw2.sit.kmutt.ac.th:3000/customers/${customerID}`
+        const url = `http://localhost:3000/customers/${customerID}`
         try {
           await axios.delete(url)
           // Update the data without refreshing the page
