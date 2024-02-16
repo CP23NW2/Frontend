@@ -239,7 +239,7 @@ const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
+    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`);
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
