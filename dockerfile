@@ -31,3 +31,4 @@ EXPOSE 80
 # Command to run the application
 #CMD ["npm", "run", "preview", "--", "--port", "5173"]
 CMD ["nginx", "-g", "daemon off;"]
+
