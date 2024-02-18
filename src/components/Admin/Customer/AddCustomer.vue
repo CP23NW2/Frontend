@@ -153,13 +153,9 @@ const CustomerForm = {
 
         try {
           // console.log(phone)
-          const response = await axios.post
-           (`${import.meta.env.VITE_BASE_URL}/customers/validateTel`)
-          (
-            {
-              customerTel: phone,
-            }
-          )
+          const response = await axios.post('http://localhost:3000/customers/validateTel', {
+            customerTel: phone,
+        });
           if(response.status === 200){
             this.isValidPhone = false
             this.telNumberErrorMessage = ''
