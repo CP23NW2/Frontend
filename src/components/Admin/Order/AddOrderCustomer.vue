@@ -23,7 +23,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Name</p>
+                  <p class="pb-2 text-sm md:text-lg">*Name</p>
                   <input
                     v-model="customerData.customerName"
                     id="inputConfirm"
@@ -31,14 +31,14 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">LastName</p>
+                  <p class="pb-2 text-sm md:text-lg">*LastName</p>
                   <input
                     v-model="customerData.customerLastName"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Date</p>
+                  <p class="pb-2 text-sm md:text-lg">*Date</p>
                   <input
                     v-model="newOrder.dateOrder"
                     type="date"
@@ -57,9 +57,16 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Phone number</p>
+                  <p class="pb-2 text-sm md:text-lg">*Phone number</p>
                   <input
                     v-model="customerData.customerTel"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
+                  <input
+                    v-model="newOrder.orderName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -68,7 +75,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Delivery</p>
+                  <p class="pb-2 text-sm md:text-lg">*Delivery</p>
                   <select
                     v-model="newOrder.delivery"
                     class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
@@ -158,6 +165,7 @@
                   <input
                     required
                     v-model="newOrder.tracking"
+                    placeholder="ถ้ามี"
                     maxlength="15"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
@@ -209,14 +217,14 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Lens</p>
+                          <p class="pb-2 text-sm md:text-lg">*Lens</p>
                           <input
                             v-model="newEyewear.lens"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Price</p>
+                          <p class="pb-2 text-sm md:text-lg">*Price</p>
                           <input
                             v-model="newEyewear.price"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
@@ -235,7 +243,7 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Status</p>
+                          <p class="pb-2 text-sm md:text-lg">*Status</p>
                           <select
                             v-model="newEyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
@@ -635,42 +643,80 @@ export default {
       }
     },
     async addOrder() {
-      try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/orders`,
-          this.newOrder
-        )
-        if (response.status == 200) {
-          console.log('Order added successfully')
-          this.fetchOrder()
-          this.showSuccessMessage()
-          // Call addEyewear() to add eyewear after successfully adding the order
-          this.addEyewear(response.data.orderID)
-        } else {
-          console.error('Failed to add order:', response.data)
-        }
-      } catch (error) {
-        console.error('Error adding order:', error)
-        if (error.response && error.response.data) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.response.data.error
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while adding the order.'
-          })
-        }
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/orders`,
+      this.newOrder
+    );
+    if (response.status == 200) {
+      console.log("Order added successfully");
+      this.fetchOrder();
+      this.showSuccessMessage();
+      // เมื่อเพิ่ม order เรียบร้อย ให้เรียกใช้ฟังก์ชัน addEyewear() เพื่อเพิ่ม eyewear
+      this.addEyewear(response.data.orderID);
+    } else {
+      console.error("Failed to add order:", response.data);
+    }
+  } catch (error) {
+    console.error("Error adding order:", error);
+    if (error.response && error.response.status === 400) {
+      // สำหรับข้อผิดพลาด 400 (Bad Request) ที่ส่งคืนจากเซิร์ฟเวอร์
+      if (error.response.data && error.response.data.error) {
+        // ถ้ามีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
+      } else {
+        // ถ้าไม่มีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
       }
+    } else {
+      // สำหรับข้อผิดพลาดอื่น ๆ
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response.data.error,
+      });
+    }
+  }
     },
+
     async addEyewear(orderID) {
       try {
-        // Set the orderID for the newEyewear
-        this.newEyewear.orderID = orderID
+        // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
+        this.newEyewear.orderID = orderID;
 
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/eyewears`,
+          this.newEyewear
+        );
+        if (response.status == 200) {
+          console.log("Eyewear added successfully");
+          this.fetchEyewear();
+          // this.showSuccessMessage();
+        } else {
+          console.error("Failed to add eyewear:", response.data);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.error
+          });
+        }
+      } catch (error) {
+        console.error("Error adding eyewear:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
+      }
+    
         const response = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/eyewears`,
           this.newEyewear
@@ -686,15 +732,15 @@ export default {
             text: 'An error occurred while adding the eyewear.'
           })
         }
-      } catch (error) {
+      },
+      catch (error) {
         console.error('Error adding eyewear:', error)
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'An error occurred while adding the eyewear.'
         })
-      }
-    },
+      },
     showSuccessMessage() {
       Swal.fire({
         icon: 'success',
@@ -731,6 +777,5 @@ export default {
   },
   directives: {
     'html-to-paper': VueHtmlToPaper
-  }
-}
+  }}
 </script>
