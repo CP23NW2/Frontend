@@ -23,7 +23,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Name</p>
+                  <p class="pb-2 text-sm md:text-lg">*Name</p>
                   <input
                     v-model="customerData.customerName"
                     id="inputConfirm"
@@ -31,14 +31,14 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">LastName</p>
+                  <p class="pb-2 text-sm md:text-lg">*LastName</p>
                   <input
                     v-model="customerData.customerLastName"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Date</p>
+                  <p class="pb-2 text-sm md:text-lg">*Date</p>
                   <input
                     v-model="newOrder.dateOrder"
                     type="date"
@@ -57,14 +57,14 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Phone number</p>
+                  <p class="pb-2 text-sm md:text-lg">*Phone number</p>
                   <input
                     v-model="customerData.customerTel"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
+                  <p class="pb-2 text-sm md:text-lg">*Order Name</p>
                   <input
                     v-model="newOrder.orderName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
@@ -75,7 +75,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Delivery</p>
+                  <p class="pb-2 text-sm md:text-lg">*Delivery</p>
                   <select
                     v-model="newOrder.delivery"
                     class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
@@ -164,12 +164,13 @@
                   <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
                   <input
                     v-model="newOrder.tracking"
+                    placeholder="ถ้ามี"
                     maxlength="15"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Price</p>
+                  <p class="pb-2 text-sm md:text-lg">*Price</p>
                   <input
                     v-model="newOrder.price"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
@@ -193,7 +194,7 @@
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Eyewear Name</p>
+                          <p class="pb-2 text-sm md:text-lg">*Eyewear Name</p>
                           <input
                             v-model="newEyewear.eyewearName"
                             id="inputConfirm"
@@ -201,14 +202,14 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Lens</p>
+                          <p class="pb-2 text-sm md:text-lg">*Lens</p>
                           <input
                             v-model="newEyewear.lens"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Price</p>
+                          <p class="pb-2 text-sm md:text-lg">*Price</p>
                           <input
                             v-model="newEyewear.price"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
@@ -226,148 +227,158 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Status</p>
+                          <p class="pb-2 text-sm md:text-lg">*Status</p>
                           <select
                             v-model="newEyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
-                          <option value="Preparing">Preparing</option>
-                          <option value="Processing">Processing</option>
-                          <option value="Complete">Complete</option>
-                        </select>
+                            <option value="Preparing">Preparing</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Complete">Complete</option>
+                          </select>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="flex justify-center">
-                  <div id="tableContainer">
-                    <div class="container pb-4 mx-auto">
-                      <div class="w-full overflow-hidden rounded">
-                        <table class="bg-white border border-black">
-                          <thead>
-                            <tr class="bg-[#F59F54] text-white">
-                              <th class="px-6 py-8 border border-black">
-                                Eyesight
-                              </th>
-                              <th class="px-6 py-8 border border-black">SPH</th>
-                              <th class="px-6 py-8 border border-black">CYL</th>
-                              <th class="px-6 py-8 border border-black">
-                                AXIS
-                              </th>
-                              <th class="px-6 py-8 border border-black">ADD</th>
-                              <th class="px-6 py-8 border border-black">PD</th>
-                              <th class="px-6 py-8 border border-black">SH</th>
-                              <th class="px-6 py-8 border border-black">
-                                Up KT
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td
-                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                              >
-                                Left
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftSPH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftCYL"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftAXIS"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftADD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftPD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftSH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftUpKT"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                            </tr>
+                    <div id="tableContainer">
+                      <div class="container pb-4 mx-auto">
+                        <div class="w-full overflow-hidden rounded">
+                          <table class="bg-white border border-black">
+                            <thead>
+                              <tr class="bg-[#F59F54] text-white">
+                                <th class="px-6 py-8 border border-black">
+                                  Eyesight
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  SPH
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  CYL
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  AXIS
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  ADD
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  PD
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  SH
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  Up KT
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  Left
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
 
-                            <tr>
-                              <td
-                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                              >
-                                Right
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightSPH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightCYL"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightAXIS"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightADD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightPD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightSH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightUpKT"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  Right
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
               </div>
 
@@ -438,7 +449,7 @@ export default {
         customerID: "",
       },
       newEyewear: {
-        eyewearID: 10,
+        eyewearID: "",
         eyewearName: "",
         lens: "",
         price: "",
@@ -480,11 +491,18 @@ export default {
   },
   methods: {
     addOrderAndEyewear() {
+      // Check if shippingName is not provided, set it to null
+      if (!this.newOrder.shippingName) {
+        this.newOrder.shippingName = null;
+      }
+
       this.addOrder();
       this.addEyewear();
     },
     fetchData() {
-      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerID}`);
+      const url = `${import.meta.env.VITE_BASE_URL}/customers/${
+        this.customerID
+      }`;
       axios
         .get(url)
         .then((response) => {
@@ -498,7 +516,9 @@ export default {
     },
     async fetchOrder() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders`);
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/orders`
+        );
         if (result.status == 200) {
           console.log("Data updated successfully");
         } else {
@@ -510,7 +530,9 @@ export default {
     },
     async fetchEyewear() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/eyewears`);
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/eyewears`
+        );
         if (result.status == 200) {
           console.log("Data updated successfully");
         } else {
@@ -520,58 +542,6 @@ export default {
         console.error("Error updating data:", error);
       }
     },
-    //     async addOrder() {
-    //       try {
-    //         const response = await axios.post(
-    //           `http://localhost:3000/orders`,
-    //           this.newOrder
-    //         );
-    //         if (response.status == 200) {
-    //           console.log("Order added successfully");
-    //           this.fetchOrder();
-    //           this.showSuccessMessage();
-    //         } else {
-    //           console.error("Failed to add order:", response.data);
-    //         }
-    //       } catch (error) {
-    //         console.error("Error adding order:", error);
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: "Error",
-    //           text: error.response.data.error,
-    //         });
-    //       }
-    //     },
-    //     async addEyewear() {
-    //   try {
-    //     const response = await axios.post(
-    //       `http://localhost:3000/eyewears`,
-    //       this.newEyewear
-    //     );
-    //     if (response.status == 200) {
-    //       console.log("Eyewear added successfully");
-    //       this.fetchEyewear();
-    //       // this.showSuccessMessage();
-    //     } else {
-    //       console.error("Failed to add order:", response.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error adding order:", error);
-    //     if (error.response && error.response.data) {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: error.response.data.error
-    //       });
-    //     } else {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: "An error occurred while adding eyewear."
-    //       });
-    //     }
-    //   }
-    // },
     async confirmOrder() {
       console.log("hi");
       try {
@@ -585,7 +555,8 @@ export default {
 
     async addOrder() {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/orders`,
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/orders`,
       this.newOrder
     );
     if (response.status == 200) {
@@ -599,51 +570,64 @@ export default {
     }
   } catch (error) {
     console.error("Error adding order:", error);
-    if (error.response && error.response.data) {
+    if (error.response && error.response.status === 400) {
+      // สำหรับข้อผิดพลาด 400 (Bad Request) ที่ส่งคืนจากเซิร์ฟเวอร์
+      if (error.response.data && error.response.data.error) {
+        // ถ้ามีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
+      } else {
+        // ถ้าไม่มีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
+      }
+    } else {
+      // สำหรับข้อผิดพลาดอื่น ๆ
       Swal.fire({
         icon: "error",
         title: "Error",
         text: error.response.data.error,
       });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while adding the order.",
-      });
     }
   }
-},
+    },
 
-async addEyewear(orderID) {
-  try {
-    // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
-    this.newEyewear.orderID = orderID;
+    async addEyewear(orderID) {
+      try {
+        // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
+        this.newEyewear.orderID = orderID;
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/eyewears`,
-      this.newEyewear
-    );
-    if (response.status == 200) {
-      console.log("Eyewear added successfully");
-      this.fetchEyewear();
-      // this.showSuccessMessage();
-    } else {
-      console.error("Failed to add eyewear:", response.data);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while adding the eyewear.",
-      });
-    }
-  } catch (error) {
-    console.error("Error adding eyewear:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "An error occurred while adding the eyewear.",
-    });
-  }
-},
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/eyewears`,
+          this.newEyewear
+        );
+        if (response.status == 200) {
+          console.log("Eyewear added successfully");
+          this.fetchEyewear();
+          // this.showSuccessMessage();
+        } else {
+          console.error("Failed to add eyewear:", response.data);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.error
+          });
+        }
+      } catch (error) {
+        console.error("Error adding eyewear:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.error,
+        });
+      }
+    },
 
     showSuccessMessage() {
       Swal.fire({
@@ -685,4 +669,3 @@ async addEyewear(orderID) {
   },
 };
 </script>
-
