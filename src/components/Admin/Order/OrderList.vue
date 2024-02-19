@@ -189,7 +189,7 @@
                         <div
                           v-for="(order, index) in filteredResult"
                           :key="index"
-                          class="mt-2 cursor-pointer hover:bg-sky-700"
+                          class="mt-2 border hover:bg-sky-700"
                           @click="fetchOrderDetails(order.orderID)"
                         >
                           <div
@@ -833,7 +833,7 @@ export default {
     }
   },
   setup() {
-    const orderList = ref([]) 
+    const orderList = ref([])
     const eyewearList = ref([])
     const customerList = ref([])
 
@@ -991,18 +991,18 @@ export default {
       return uniqueCompleteOrderIDs.length - 1
     },
     fetchOrderDetails(orderID) {
-      this.$router.push({ name: 'OrderById', params: { orderID } });
+      this.$router.push({ name: 'OrderById', params: { orderID } })
     },
     async OrderDetails(orderID) {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
-      );
-      console.log('Order details:', response.data);
-    } catch (error) {
-      console.error('Error fetching order details:', error);
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
+        )
+        console.log('Order details:', response.data)
+      } catch (error) {
+        console.error('Error fetching order details:', error)
+      }
     }
-  }
   },
 
   components: {

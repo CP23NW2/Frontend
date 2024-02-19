@@ -63,12 +63,26 @@
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
+              </div>
+              <div
+                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
+              >
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Order Name</p>
                   <input
                     v-model="newOrder.orderName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg text-primary-color">
+                    Total Price
+                  </p>
+                  <div
+                    class="w-full text-sm bg-[#D4D4D433] border-primary-color border rounded-md md:text-lg md:px-5 flex items-center h-10"
+                  >
+                    {{ newEyewear.price }}
+                  </div>
                 </div>
               </div>
               <div
@@ -171,34 +185,9 @@
                   />
                 </div>
               </div>
-              <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
-              >
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
-                  <input
-                    v-model="newOrder.orderName"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg text-primary-color">
-                    Total Price
-                  </p>
-                  <div
-                    class="w-full text-sm bg-[#D4D4D433] border-primary-color border rounded-md md:text-lg md:px-5 flex items-center h-10"
-                  >
-                    {{ newEyewear.price }}
-                  </div>
-                </div>
-              </div>
 
               <div id="EyewearTable">
-                <div
-                  v-for="eyewearIndex in eyewearTables"
-                  :key="eyewearIndex"
-                  :id="'EyewearTable' + eyewearIndex"
-                >
+                <div v-for="(eyewear, index) in newEyewear" :key="index">
                   <div class="w-full h-px mt-4 border border-neutral-300"></div>
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
@@ -211,7 +200,9 @@
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Product</p>
                           <input
-                            v-model="newEyewear.eyewearName"
+                            v-model="newEyewear[index]"
+                            :id="'newEyewear' + index"
+                            :name="'newEyewear' + index"
                             id="inputConfirm"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
                           />
@@ -400,7 +391,7 @@
 
               <div class="py-2">
                 <button
-                  @click="showNextTable"
+                  @click="addNewEyewear"
                   class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
                 >
                   Add New Eyewear +
@@ -444,17 +435,15 @@
 import axios from 'axios'
 import VueHtmlToPaper from 'vue-html-to-paper'
 import Swal from 'sweetalert2'
-
 export default {
   data() {
     return {
       customerID: null,
       customerData: {
-        customerID: 3
+        customerID: ''
       },
       output: null,
       isDropdownVisible: false,
-      eyewearTables: 1,
       newOrder: {
         orderName: 'Order',
         price: '',
@@ -464,32 +453,12 @@ export default {
         tracking: '',
         customerID: ''
       },
-      newEyewear: {
-        eyewearID: 10,
-        eyewearName: '',
-        lens: '',
-        price: '',
-        detail: '',
-        orderStatus: '',
-        datePreparing: new Date().toISOString().split('T')[0],
-        dateProcessing: new Date().toISOString().split('T')[0],
-        dateComplete: new Date().toISOString().split('T')[0],
-        leftSPH: '',
-        leftCYL: '',
-        leftAXIS: '',
-        leftADD: '',
-        leftPD: '',
-        leftSH: '',
-        leftUpKT: '',
-        rightSPH: '',
-        rightCYL: '',
-        rightAXIS: '',
-        rightADD: '',
-        rightPD: '',
-        rightSH: '',
-        rightUpKT: '',
-        orderID: ''
-      }
+      newEyewear: [
+        {
+          eyewearName: '',
+          lens: ''
+        }
+      ]
     }
   },
   computed: {
@@ -508,13 +477,13 @@ export default {
   methods: {
     addOrderAndEyewear() {
       this.addOrder()
-      this.addEyewear()
+      this.addNewEyewear()
+    },
+    addNewEyewear() {
+      this.newEyewear.push('')
     },
     handlePriceInput(price) {
-      // กำหนดค่า newEyewear.price ตาม input ที่ผู้ใช้ป้อน
       this.newEyewear.price = price
-
-      // ให้ newOrder.price มีค่าเท่ากับ newEyewear.price
       this.newOrder.price = this.newEyewear.price
     },
     fetchData() {
@@ -560,63 +529,11 @@ export default {
         console.error('Error updating data:', error)
       }
     },
-    //     async addOrder() {
-    //       try {
-    //         const response = await axios.post(
-    //           `${import.meta.env.VITE_BASE_URL}/orders`,
-    //           this.newOrder
-    //         );
-    //         if (response.status == 200) {
-    //           console.log("Order added successfully");
-    //           this.fetchOrder();
-    //           this.showSuccessMessage();
-    //         } else {
-    //           console.error("Failed to add order:", response.data);
-    //         }
-    //       } catch (error) {
-    //         console.error("Error adding order:", error);
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: "Error",
-    //           text: error.response.data.error,
-    //         });
-    //       }
-    //     },
-    //     async addEyewear() {
-    //   try {
-    //     const response = await axios.post(
-    //       `${import.meta.env.VITE_BASE_URL}/eyewears`,
-    //       this.newEyewear
-    //     );
-    //     if (response.status == 200) {
-    //       console.log("Eyewear added successfully");
-    //       this.fetchEyewear();
-    //       // this.showSuccessMessage();
-    //     } else {
-    //       console.error("Failed to add order:", response.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error adding order:", error);
-    //     if (error.response && error.response.data) {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: error.response.data.error
-    //       });
-    //     } else {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: "An error occurred while adding eyewear."
-    //       });
-    //     }
-    //   }
-    // },
     async confirmOrder() {
       console.log('hi')
       try {
         await this.addOrder()
-        await this.addEyewear()
+        await this.addEyewear('')
         // Proceed with other confirmation actions if needed
       } catch (error) {
         console.error('Error confirming order:', error)
@@ -715,9 +632,9 @@ export default {
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible
     },
-    showNextTable() {
-      this.eyewearTables++
-    },
+    // showNextTable() {
+    //   this.eyewearTables++
+    // },
     cancel() {
       this.$router.push('/order')
     }
