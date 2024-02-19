@@ -851,7 +851,7 @@ export default {
     }
   },
   setup() {
-    const orderList = ref([]) 
+    const orderList = ref([])
     const eyewearList = ref([])
     const customerList = ref([])
 
@@ -1007,18 +1007,18 @@ export default {
       return uniqueCompleteOrderIDs.length - 1
     },
     fetchOrderDetails(orderID) {
-      this.$router.push({ name: 'OrderById', params: { orderID } });
+      this.$router.push({ name: 'OrderById', params: { orderID } })
     },
     async OrderDetails(orderID) {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
-      );
-      console.log('Order details:', response.data);
-    } catch (error) {
-      console.error('Error fetching order details:', error);
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
+        )
+        console.log('Order details:', response.data)
+      } catch (error) {
+        console.error('Error fetching order details:', error)
+      }
     }
-  }
   },
 
   components: {
