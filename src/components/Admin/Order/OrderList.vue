@@ -88,7 +88,8 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
                             <option value="orderID">Order ID</option>
-                            <option value="name">Name</option>
+                            <option value="customerName">Customer Name</option>
+                            <option value="eyewearName">Product Name</option>
                             <option value="date">Date</option>
                           </select>
                         </div>
@@ -118,8 +119,15 @@
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <input
-                          v-if="selectedSearch === 'name'"
-                          v-model="searchName"
+                          v-if="selectedSearch === 'customerName'"
+                          type="text"
+                          v-model="searchCustomerName"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                        />
+                        <input
+                          v-if="selectedSearch === 'eyewearName'"
+                          type="text"
+                          v-model="searchEyewearName"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
@@ -190,7 +198,6 @@
                           v-for="(order, index) in filteredResult"
                           :key="index"
                           class="mt-2 cursor-pointer hover:bg-sky-700"
-                          @click="fetchOrderDetails(order.orderID)"
                         >
                           <div
                             class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
@@ -201,11 +208,13 @@
                               )"
                               :key="index"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
+                              @click="fetchOrderDetails(order.orderID)"
                             >
                               {{ customer.customerName }}
                               {{ customer.customerLastName }}
                             </div>
-                            <div class="self-center text-[#808080]">
+                            <div class="self-center text-[#808080]"
+                            @click="fetchOrderDetails(order.orderID)">
                               Order Id: {{ order.orderID }}
                             </div>
                           </div>
@@ -217,26 +226,34 @@
                               )"
                               :key="eyewear.eyewearID"
                             >
-                              <Icon
-                                icon="ion:cart"
-                                style="color: rgb(2, 2, 2)"
-                                class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                              />
-                              <div class="flex flex-col gap-2">
+                              <div 
+                                @click="fetchOrderDetails(order.orderID)">
+                                  <Icon
+                                    icon="ion:cart"
+                                    style="color: rgb(2, 2, 2)"
+                                    class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
+                                  />
+                              </div>
+                              <div class="flex flex-col gap-2"
+                                @click="fetchOrderDetails(order.orderID)">
                                 {{ eyewear.eyewearName }}
-                                <div class="text-[#808080]">
+                                <div class="text-[#808080]"
+                                @click="fetchOrderDetails(order.orderID)">
                                   {{ formatDate(eyewear.createdAt) }}
                                 </div>
                               </div>
-                              <div class="self-center">
+                              <div class="self-center"
+                                @click="fetchOrderDetails(order.orderID)">
                                 {{ eyewear.price }} bath
                               </div>
 
-                              <div class="self-center">
+                              <div class="self-center"
+                                @click="fetchOrderDetails(order.orderID)">
                                 {{ eyewear.orderStatus }}
                               </div>
 
-                              <div class="self-center">
+                              <div class="self-center"
+                                @click="fetchOrderDetails(order.orderID)">
                                 {{ order.delivery }}
                               </div>
                               <div class="flex items-stretch">
@@ -829,7 +846,8 @@ export default {
       customerList: [],
       selectedSearch: 'orderID',
       searchOrderID: '',
-      searchName: ''
+      searchCustomerName: '',
+      searchEyewearName: ''
     }
   },
   setup() {
@@ -905,11 +923,13 @@ export default {
     const getEyewearForOrder = (orderID) => {
       return eyewearList.value.filter((eyewear) => eyewear.orderID === orderID)
     }
+
     const getCustomersByOrderId = (customerID) => {
       return customerList.value.filter(
         (customer) => customer.customerID === customerID
       )
     }
+    
 
     return {
       orderList,
@@ -928,19 +948,15 @@ export default {
         return this.orderList.filter((order) => {
           return order.orderID.toString().includes(this.searchOrderID)
         })
-        // } else if (this.selectedSearch === 'name') {
-        //   return this.orderList.filter((order) => {
-        //     const name = `${order.orderName}`
-        //     return name.toLowerCase().includes(this.searchName.toLowerCase())
-        //   })
-      }
-      //  else if (this.selectedSearch === 'phoneNumber') {
-      //   return this.customerList.filter((customer) => {
-      //     return customer.customerTel
-      //       .toString()
-      //       .includes(this.searchPhoneNumber)
-      //   })
-      // }
+        } else if (this.selectedSearch === 'customerName') {
+          return this.customerList.filter((customer) => {
+            return customer.customerName.toLowerCase().includes(this.searchCustomerName.toLowerCase())
+          })
+       } else if (this.selectedSearch === 'eyewearName') {
+          return this.eyewearList.filter((eyewear) => {
+            return eyewear.eyewearName.toLowerCase().includes(this.searchEyewearName.toLowerCase())
+          })
+       } 
       return []
     },
     preparingEyewearList: function () {

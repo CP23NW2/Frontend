@@ -193,7 +193,7 @@
                   <div class="flex justify-center">
                     <div id="tableContainer">
                       <div class="container pb-4 mx-auto">
-                        <div class="w-full overflow-hidden rounded">
+                        <div class="w-full overflow-hidden rounded ">
                           <table class="bg-white border border-black">
                             <thead>
                               <tr class="bg-[#F59F54] text-white">
@@ -396,8 +396,7 @@ export default {
         delivery: '',
         shippingName: '',
         tracking: '',
-        customerID: '',
-        eyewearList: []
+        customerID: ''
       },
       newEyewear: {
         eyewearID: 10,
@@ -452,78 +451,6 @@ export default {
       // ให้ newOrder.price มีค่าเท่ากับ newEyewear.price
       this.newOrder.price = this.newEyewear.price
     },
-
-    addEyewear(orderID) {
-      for (
-        let eyewearIndex = 1;
-        eyewearIndex <=  this.eyewearTables;
-        eyewearIndex++
-      ) {
-        // สร้าง array เพื่อเก็บ eyewear แต่ละรายการ
-        const eyewearArray = []
-
-        const newEyewear = {
-          eyewearID: 10,
-          eyewearName: this.newEyewear.eyewearName,
-          lens: this.newEyewear.lens,
-          price: this.newEyewear.price,
-          detail: this.newEyewear.detail,
-          orderStatus: this.newEyewear.orderStatus,
-          datePreparing: new Date().toISOString().split('T')[0],
-          dateProcessing: new Date().toISOString().split('T')[0],
-          dateComplete: new Date().toISOString().split('T')[0],
-          leftSPH: this.newEyewear.leftSPH,
-          leftCYL: this.newEyewear.leftCYL,
-          leftAXIS: this.newEyewear.leftAXIS,
-          leftADD: this.newEyewear.leftADD,
-          leftPD: this.newEyewear.leftPD,
-          leftSH: this.newEyewear.leftSH,
-          leftUpKT: this.newEyewear.leftUpKT,
-          rightSPH: this.newEyewear.rightSPH,
-          rightCYL: this.newEyewear.rightCYL,
-          rightAXIS: this.newEyewear.rightAXIS,
-          rightADD: this.newEyewear.rightADD,
-          rightPD: this.newEyewear.rightPD,
-          rightSH: this.newEyewear.rightSH,
-          rightUpKT: this.newEyewear.rightUpKT,
-          orderID: orderID
-        }
-
-        // เพิ่ม newEyewear เข้าไปใน array ของ eyewearArray
-        eyewearArray.push({ ...newEyewear })
-
-        // เพิ่ม eyewearArray ลงใน eyewearList
-        this.newOrder.eyewearList.push(eyewearArray)
-      }
-
-      // Reset newEyewear
-      this.newEyewear = {
-        eyewearID: 10,
-        eyewearName: '',
-        lens: '',
-        price: '',
-        detail: '',
-        orderStatus: '',
-        datePreparing: new Date().toISOString().split('T')[0],
-        dateProcessing: new Date().toISOString().split('T')[0],
-        dateComplete: new Date().toISOString().split('T')[0],
-        leftSPH: '',
-        leftCYL: '',
-        leftAXIS: '',
-        leftADD: '',
-        leftPD: '',
-        leftSH: '',
-        leftUpKT: '',
-        rightSPH: '',
-        rightCYL: '',
-        rightAXIS: '',
-        rightADD: '',
-        rightPD: '',
-        rightSH: '',
-        rightUpKT: '',
-        orderID: ''
-      }
-    },
     fetchData() {
       const url = `${import.meta.env.VITE_BASE_URL}/customers/${
         this.customerID
@@ -532,6 +459,7 @@ export default {
         .get(url)
         .then((response) => {
           this.customerData = response.data
+
           this.newOrder.customerID = this.customerData.customerID
         })
         .catch((error) => {
@@ -566,6 +494,58 @@ export default {
         console.error('Error updating data:', error)
       }
     },
+    //     async addOrder() {
+    //       try {
+    //         const response = await axios.post(
+    //           `${import.meta.env.VITE_BASE_URL}/orders`,
+    //           this.newOrder
+    //         );
+    //         if (response.status == 200) {
+    //           console.log("Order added successfully");
+    //           this.fetchOrder();
+    //           this.showSuccessMessage();
+    //         } else {
+    //           console.error("Failed to add order:", response.data);
+    //         }
+    //       } catch (error) {
+    //         console.error("Error adding order:", error);
+    //         Swal.fire({
+    //           icon: "error",
+    //           title: "Error",
+    //           text: error.response.data.error,
+    //         });
+    //       }
+    //     },
+    //     async addEyewear() {
+    //   try {
+    //     const response = await axios.post(
+    //       `${import.meta.env.VITE_BASE_URL}/eyewears`,
+    //       this.newEyewear
+    //     );
+    //     if (response.status == 200) {
+    //       console.log("Eyewear added successfully");
+    //       this.fetchEyewear();
+    //       // this.showSuccessMessage();
+    //     } else {
+    //       console.error("Failed to add order:", response.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error adding order:", error);
+    //     if (error.response && error.response.data) {
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: "Error",
+    //         text: error.response.data.error
+    //       });
+    //     } else {
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: "Error",
+    //         text: "An error occurred while adding eyewear."
+    //       });
+    //     }
+    //   }
+    // },
     async confirmOrder() {
       try {
         await this.addOrder()
@@ -575,81 +555,45 @@ export default {
         console.error('Error confirming order:', error)
       }
     },
+
     async addOrder() {
-  try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/orders`,
-      this.newOrder
-    );
-    if (response.status == 200) {
-      console.log("Order added successfully");
-      this.fetchOrder();
-      this.showSuccessMessage();
-      // เมื่อเพิ่ม order เรียบร้อย ให้เรียกใช้ฟังก์ชัน addEyewear() เพื่อเพิ่ม eyewear
-      this.addEyewear(response.data.orderID);
-    } else {
-      console.error("Failed to add order:", response.data);
-    }
-  } catch (error) {
-    console.error("Error adding order:", error);
-    if (error.response && error.response.status === 400) {
-      // สำหรับข้อผิดพลาด 400 (Bad Request) ที่ส่งคืนจากเซิร์ฟเวอร์
-      if (error.response.data && error.response.data.error) {
-        // ถ้ามีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.response.data.error,
-        });
-      } else {
-        // ถ้าไม่มีข้อความข้อผิดพลาดในข้อมูลที่ส่งกลับมา
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.response.data.error,
-        });
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/orders`,
+          this.newOrder
+        )
+        if (response.status == 200) {
+          console.log('Order added successfully')
+          this.fetchOrder()
+          this.showSuccessMessage()
+          // เมื่อเพิ่ม order เรียบร้อย ให้เรียกใช้ฟังก์ชัน addEyewear() เพื่อเพิ่ม eyewear
+          this.addEyewear(response.data.orderID)
+        } else {
+          console.error('Failed to add order:', response.data)
+        }
+      } catch (error) {
+        console.error('Error adding order:', error)
+        if (error.response && error.response.data) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.response.data.error
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while adding the order.'
+          })
+        }
       }
-    } else {
-      // สำหรับข้อผิดพลาดอื่น ๆ
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.response.data.error,
-      });
-    }
-  }
     },
 
     async addEyewear(orderID) {
       try {
         // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
-        this.newEyewear.orderID = orderID;
+        this.newEyewear.orderID = orderID
 
-        const response = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/eyewears`,
-          this.newEyewear
-        );
-        if (response.status == 200) {
-          console.log("Eyewear added successfully");
-          this.fetchEyewear();
-          // this.showSuccessMessage();
-        } else {
-          console.error("Failed to add eyewear:", response.data);
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: error.response.data.error
-          });
-        }
-      } catch (error) {
-        console.error("Error adding eyewear:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.response.data.error,
-        });
-      }
-    
         const response = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/eyewears`,
           this.newEyewear
@@ -657,6 +601,7 @@ export default {
         if (response.status == 200) {
           console.log('Eyewear added successfully')
           this.fetchEyewear()
+          // this.showSuccessMessage();
         } else {
           console.error('Failed to add eyewear:', response.data)
           Swal.fire({
@@ -665,19 +610,21 @@ export default {
             text: 'An error occurred while adding the eyewear.'
           })
         }
-      },
-      catch (error) {
+      } catch (error) {
         console.error('Error adding eyewear:', error)
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'An error occurred while adding the eyewear.'
         })
-      },
+      }
+    },
+
     showSuccessMessage() {
       Swal.fire({
         icon: 'success',
         title: 'Add New Order Success!',
+        // text: `OrderID: ${orderID}`,
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
@@ -710,7 +657,8 @@ export default {
   },
   directives: {
     'html-to-paper': VueHtmlToPaper
-  }}
+  }
+}
 </script>
 <style>
 
