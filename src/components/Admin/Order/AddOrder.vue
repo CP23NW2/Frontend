@@ -25,25 +25,55 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Name</p>
                   <input
+                    required
                     v-model="customerData.customerName"
-                    id="inputConfirm"
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                    :class="{
+                      'error-input': nameError,
+                      'border-red-500': nameError && !newCustomer.customerName
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                   />
+                  <p v-if="nameError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    Please enter your name
+                  </p>
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">LastName</p>
                   <input
+                    required
                     v-model="customerData.customerLastName"
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                    :class="{
+                      'error-input': lasnameError,
+                      'border-red-500': lasnameError && !newCustomer.customerLastName
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                   />
+                  <p
+                  v-if="lasnameError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    Please enter your last name
+                  </p>
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Date</p>
                   <input
+                    required
                     v-model="newOrder.dateOrder"
                     type="date"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                    :class="{
+                      'error-input': dateError,
+                      'border-red-500': dateError && !newOrder.dateOrder
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                   />
+                  <p v-if="dateError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    Please enter date
+                  </p>
                 </div>
               </div>
               <div
@@ -59,15 +89,48 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Phone number</p>
                   <input
+                    required
                     v-model="customerData.customerTel"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                    :class="{
+                      'error-input': phoneErrorError,
+                      'border-red-500': phoneError && !newCustomer.customerTel
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                   />
+                  <p
+                  v-if="phoneError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    Please enter phone number
+                  </p>
                 </div>
+
+                <!-- Order  -->
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Order Name</p>
                   <input
+                    required
                     v-model="newOrder.orderName"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                    :class="{
+                      'error-input': orderNameError,
+                      'border-red-500': orderNameError && !newOrder.orderName
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
+                  />
+                  <p
+                    v-if="orderNameError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    Please enter order name!
+                  </p>
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg text-primary-color">
+                    Total Price
+                  </p>
+                  <input
+                    v-model="newEyewear.price"
+                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 border-primary-color border text-primary-color"
                   />
                 </div>
               </div>
@@ -77,84 +140,33 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Delivery</p>
                   <select
+                    required
                     v-model="newOrder.delivery"
-                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
+                    :class="{
+                      'error-input': deliveryError,
+                      'border-red-500': deliveryError && !newOrder.delivery
+                    }"
+                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between peer border border-slate-400"
                   >
                     <option disabled value="">Please select one</option>
                     <option>Delivery</option>
                     <option>Pickup</option>
                   </select>
-                  <!-- <button
-                      id="dropdownDelayButton"
-                      @click="toggleDropdown"
-                      class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
-                      type="button"
-                    >
-                      Dropdown hover
-                      <svg
-                        class="w-2.5 h-2.5 ms-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 10 6"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m1 1 4 4 4-4"
-                        />
-                      </svg>
-                    </button> -->
-                  <!-- Dropdown menu -->
-                  <div
-                    id="dropdownDelay"
-                    v-show="isDropdownVisible"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                  <p
+                    v-if="deliveryError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    <ul
-                      class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                      aria-labelledby="dropdownDelayButton"
-                    >
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Dashboard</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Settings</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Earnings</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Sign out</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
+                    Please select one!
+                  </p>
                 </div>
+
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
                   <select
                     v-model="newOrder.shippingName"
-                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
+                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
                   >
-                    <option disabled value="">Please select one</option>
+                    <option disabled value="">For Delivery</option>
                     <option>Flash</option>
                     <option>EMS</option>
                     <option>J&T</option>
@@ -164,14 +176,8 @@
                   <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
                   <input
                     v-model="newOrder.tracking"
+                    placeholder="ถ้ามี"
                     maxlength="15"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Price</p>
-                  <input
-                    v-model="newOrder.price"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -193,26 +199,60 @@
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Eyewear Name</p>
+                          <p class="pb-2 text-sm md:text-lg">Product</p>
                           <input
+                            required
                             v-model="newEyewear.eyewearName"
-                            id="inputConfirm"
-                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                            :class="{
+                              'error-input': eyewearError,
+                              'border-red-500':
+                                eyewearError && !newEyewear.eyewearName
+                            }"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           />
+                          <p
+                            v-if="eyewearError"
+                            class="invisible text-sm text-red-500 peer-invalid:visible"
+                          >
+                            Please enter product!
+                          </p>
                         </div>
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Lens</p>
                           <input
+                            required
                             v-model="newEyewear.lens"
-                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                            :class="{
+                              'error-input': lensError,
+                              'border-red-500': lensError && !newEyewear.lens
+                            }"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           />
+                          <p
+                            v-if="lensError"
+                            class="invisible text-sm text-red-500 peer-invalid:visible"
+                          >
+                            Please enter lens!
+                          </p>
                         </div>
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Price</p>
                           <input
+                            required
                             v-model="newEyewear.price"
-                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                            type="number"
+                            :class="{
+                              'error-input': priceError,
+                              'border-red-500': priceError && !newEyewear.price
+                            }"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           />
+                          <p
+                            v-if="priceError"
+                            class="invisible text-sm text-red-500 peer-invalid:visible"
+                          >
+                            Please enter price!
+                          </p>
                         </div>
                       </div>
                       <div
@@ -222,152 +262,176 @@
                           <p class="pb-2 text-sm md:text-lg">Detail</p>
                           <input
                             v-model="newEyewear.detail"
+                            placeholder="ถ้ามี"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Status</p>
                           <select
+                            required
                             v-model="newEyewear.orderStatus"
-                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                            :class="{
+                              'error-input': statusError,
+                              'border-red-500':
+                                statusError && !newEyewear.status
+                            }"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           >
-                          <option value="Preparing">Preparing</option>
-                          <option value="Processing">Processing</option>
-                          <option value="Complete">Complete</option>
-                        </select>
+                            <option disabled value="">Please select one</option>
+                            <option value="Preparing">Preparing</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Complete">Complete</option>
+                          </select>
+                          <p
+                            v-if="statusError"
+                            class="invisible text-sm text-red-500 peer-invalid:visible"
+                          >
+                            Please enter status!
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="flex justify-center">
-                  <div id="tableContainer">
-                    <div class="container pb-4 mx-auto">
-                      <div class="w-full overflow-hidden rounded">
-                        <table class="bg-white border border-black">
-                          <thead>
-                            <tr class="bg-[#F59F54] text-white">
-                              <th class="px-6 py-8 border border-black">
-                                Eyesight
-                              </th>
-                              <th class="px-6 py-8 border border-black">SPH</th>
-                              <th class="px-6 py-8 border border-black">CYL</th>
-                              <th class="px-6 py-8 border border-black">
-                                AXIS
-                              </th>
-                              <th class="px-6 py-8 border border-black">ADD</th>
-                              <th class="px-6 py-8 border border-black">PD</th>
-                              <th class="px-6 py-8 border border-black">SH</th>
-                              <th class="px-6 py-8 border border-black">
-                                Up KT
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td
-                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                              >
-                                Left
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftSPH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftCYL"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftAXIS"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftADD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftPD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftSH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.leftUpKT"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                            </tr>
+                    <div id="tableContainer">
+                      <div class="container pb-4 mx-auto">
+                        <div class="w-full overflow-hidden rounded">
+                          <table class="bg-white border border-black">
+                            <thead>
+                              <tr class="bg-[#F59F54] text-white">
+                                <th class="px-6 py-8 border border-black">
+                                  Eyesight
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  SPH
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  CYL
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  AXIS
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  ADD
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  PD
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  SH
+                                </th>
+                                <th class="px-6 py-8 border border-black">
+                                  Up KT
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  Left
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.leftUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
 
-                            <tr>
-                              <td
-                                class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                              >
-                                Right
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightSPH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightCYL"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightAXIS"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightADD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightPD"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightSH"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                              <td class="border border-black">
-                                <input
-                                  v-model="newEyewear.rightUpKT"
-                                  class="w-full h-20 text-center"
-                                />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  Right
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="newEyewear.rightUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
               </div>
 
@@ -414,275 +478,295 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import VueHtmlToPaper from "vue-html-to-paper";
-import Swal from "sweetalert2";
+import axios from 'axios'
+import VueHtmlToPaper from 'vue-html-to-paper'
+import Swal from 'sweetalert2'
 
 export default {
   data() {
     return {
+      nameError: false,
+      lasnameError: false,
+      phoneError: false,
+      
+      dateError: false,
+      orderNameError: false,
+      totalPriceError: false,
+      deliveryError: false,
+      
+      eyewearError: false,
+      lensError: false,
+      statusError: false,
+      priceError: false,
       customerID: null,
       customerData: {
-        customerID: 3,
+        customerID: 3
       },
       output: null,
       isDropdownVisible: false,
       eyewearTables: 1,
+      newCustomer: {
+        customerID: '',
+        customerName: '',
+        customerLastName: '',
+        customerTel: '',
+        address: ''
+      },
       newOrder: {
-        orderName: "",
-        price: "",
-        dateOrder: new Date().toISOString().split("T")[0],
-        delivery: "",
-        shippingName: "",
-        tracking: "",
-        customerID: "",
+        orderName: '',
+        price: '',
+        dateOrder: new Date().toISOString().split('T')[0],
+        delivery: '',
+        shippingName: '',
+        tracking: '',
+        customerID: ''
       },
       newEyewear: {
-        eyewearID: 10,
-        eyewearName: "",
-        lens: "",
-        price: "",
-        detail: "",
-        orderStatus: "",
-        datePreparing: new Date().toISOString().split("T")[0],
-        dateProcessing: new Date().toISOString().split("T")[0],
-        dateComplete: new Date().toISOString().split("T")[0],
-        leftSPH: "",
-        leftCYL: "",
-        leftAXIS: "",
-        leftADD: "",
-        leftPD: "",
-        leftSH: "",
-        leftUpKT: "",
-        rightSPH: "",
-        rightCYL: "",
-        rightAXIS: "",
-        rightADD: "",
-        rightPD: "",
-        rightSH: "",
-        rightUpKT: "",
-        orderID: "",
-      },
-    };
+        eyewearID: '',
+        eyewearName: '',
+        lens: '',
+        price: '',
+        detail: '',
+        orderStatus: '',
+        datePreparing: new Date().toISOString().split('T')[0],
+        dateProcessing: new Date().toISOString().split('T')[0],
+        dateComplete: new Date().toISOString().split('T')[0],
+        leftSPH: '',
+        leftCYL: '',
+        leftAXIS: '',
+        leftADD: '',
+        leftPD: '',
+        leftSH: '',
+        leftUpKT: '',
+        rightSPH: '',
+        rightCYL: '',
+        rightAXIS: '',
+        rightADD: '',
+        rightPD: '',
+        rightSH: '',
+        rightUpKT: '',
+        orderID: ''
+      }
+    }
   },
   computed: {
     confirm: function () {
-      this.$router.push("/order");
-      return alert("Order complete!");
-    },
-  },
-  mounted() {
-    // Retrieve customerTel from the route parameters
-    this.customerID = this.$route.params.customerID;
-
-    // Fetch customer data using customerTel
-    this.fetchData();
+      this.$router.push('/order')
+      return alert('Order complete!')
+    }
   },
   methods: {
-    addOrderAndEyewear() {
-      this.addOrder();
-      this.addEyewear();
+    button() {
+      console.log(this.isError)
     },
-    fetchData() {
-      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerID}`);
-      axios
-        .get(url)
-        .then((response) => {
-          this.customerData = response.data;
-
-          this.newOrder.customerID = this.customerData.customerID;
-        })
-        .catch((error) => {
-          console.error("Error fetching customer data:", error);
-        });
+    addOrderAndEyewear() {
+      this.addOrder()
+      this.addEyewear()
+      this.AddCustomer()
+    },
+    async fetchCustomer() {
+      try {
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/customers`
+        )
+        if (result.status == 200) {
+          console.log('Data updated successfully')
+        } else {
+          console.error('Failed to update data:', result.data.error)
+        }
+      } catch (error) {
+        console.error('Error updating data:', error)
+      }
     },
     async fetchOrder() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders`);
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/orders`
+        )
         if (result.status == 200) {
-          console.log("Data updated successfully");
+          console.log('Data updated successfully')
         } else {
-          console.error("Failed to update data:", result.data.error);
+          console.error('Failed to update data:', result.data.error)
         }
       } catch (error) {
-        console.error("Error updating data:", error);
+        console.error('Error updating data:', error)
       }
     },
     async fetchEyewear() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/eyewears`);
-        if (result.status == 200) {
-          console.log("Data updated successfully");
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/eyewears`
+        )
+        if (result.status === 200) {
+          console.log('Data updated successfully')
         } else {
-          console.error("Failed to update data:", result.data.error);
+          console.error('Failed to update data:', result.data.error)
         }
       } catch (error) {
-        console.error("Error updating data:", error);
+        console.error('Error updating data:', error)
       }
     },
-    //     async addOrder() {
-    //       try {
-    //         const response = await axios.post(
-    //           `http://localhost:3000/orders`,
-    //           this.newOrder
-    //         );
-    //         if (response.status == 200) {
-    //           console.log("Order added successfully");
-    //           this.fetchOrder();
-    //           this.showSuccessMessage();
-    //         } else {
-    //           console.error("Failed to add order:", response.data);
-    //         }
-    //       } catch (error) {
-    //         console.error("Error adding order:", error);
-    //         Swal.fire({
-    //           icon: "error",
-    //           title: "Error",
-    //           text: error.response.data.error,
-    //         });
-    //       }
-    //     },
-    //     async addEyewear() {
-    //   try {
-    //     const response = await axios.post(
-    //       `http://localhost:3000/eyewears`,
-    //       this.newEyewear
-    //     );
-    //     if (response.status == 200) {
-    //       console.log("Eyewear added successfully");
-    //       this.fetchEyewear();
-    //       // this.showSuccessMessage();
-    //     } else {
-    //       console.error("Failed to add order:", response.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error adding order:", error);
-    //     if (error.response && error.response.data) {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: error.response.data.error
-    //       });
-    //     } else {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Error",
-    //         text: "An error occurred while adding eyewear."
-    //       });
-    //     }
-    //   }
-    // },
     async confirmOrder() {
-      console.log("hi");
       try {
-        await this.addOrder();
-        await this.addEyewear();
-        // Proceed with other confirmation actions if needed
+        await this.AddCustomer()
+        await this.addOrder()
+        await this.addEyewear()
       } catch (error) {
-        console.error("Error confirming order:", error);
+        console.error('Error confirming order:', error)
+      }
+    },
+    async AddCustomer() {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/custumers`,
+          this.newCustomer
+        )
+        if (response.status === 200) {
+          console.log('Customer added successfully')
+          this.fetchCustomer()
+          this.showSuccessMessage()
+        } else {
+          console.error('Failed to add customer')
+        }
+      } catch (error) {
+        console.error('Error adding customer')
+        if (error.response && error.response.status === 400) {
+          this.nameError = false
+          this.lasnameError = false
+          this.phoneError = false
+        }
+        if (!this.newCustomer.customerName) {
+          this.nameError = true
+        }
+        if (!this.newCustomer.customerLastName) {
+          this.lasnameError = true
+        }
+        if (!this.newCustomer.customerTel) {
+          this.phoneError = true
+        }
+        if (this.nameError || this.lasnameError || this.phoneError ){
+          return
+        }
+      }
+    },
+    async addOrder() {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/orders`,
+          this.newOrder
+        )
+        if (response.status === 200) {
+          console.log('Order added successfully')
+          this.fetchOrder()
+          this.showSuccessMessage()
+          this.addEyewear(response.data.orderID)
+        } else {
+          console.error('Failed to add order')
+        }
+      } catch (error) {
+        console.error('Error adding order')
+        if (error.response && error.response.status === 400) {
+          this.orderNameError = false
+          this.deliveryError = false
+          if (!this.newOrder.orderName) {
+            this.orderNameError = true
+          }
+          if (!this.newOrder.delivery) {
+            this.deliveryError = true
+          }
+          if(!this.newOrder.dateOrder){
+            this.dateError = true
+          }
+          if (this.orderNameError || this.deliveryError || this.dateError) {
+            return
+          }
+        }
       }
     },
 
-    async addOrder() {
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/orders`,
-      this.newOrder
-    );
-    if (response.status == 200) {
-      console.log("Order added successfully");
-      this.fetchOrder();
-      this.showSuccessMessage();
-      // เมื่อเพิ่ม order เรียบร้อย ให้เรียกใช้ฟังก์ชัน addEyewear() เพื่อเพิ่ม eyewear
-      this.addEyewear(response.data.orderID);
-    } else {
-      console.error("Failed to add order:", response.data);
-    }
-  } catch (error) {
-    console.error("Error adding order:", error);
-    if (error.response && error.response.data) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.response.data.error,
-      });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while adding the order.",
-      });
-    }
-  }
-},
-
-async addEyewear(orderID) {
-  try {
-    // ใส่ orderID ที่ได้จาก addOrder() เข้าไปในข้อมูลของ eyewear
-    this.newEyewear.orderID = orderID;
-
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}eyewears`,
-      this.newEyewear
-    );
-    if (response.status == 200) {
-      console.log("Eyewear added successfully");
-      this.fetchEyewear();
-      // this.showSuccessMessage();
-    } else {
-      console.error("Failed to add eyewear:", response.data);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An error occurred while adding the eyewear.",
-      });
-    }
-  } catch (error) {
-    console.error("Error adding eyewear:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "An error occurred while adding the eyewear.",
-    });
-  }
-},
+    async addEyewear(orderID) {
+      try {
+        this.newEyewear.orderID = orderID
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/eyewears`,
+          this.newEyewear
+        )
+        if (response.status == 200) {
+          console.log('Eyewear added successfully')
+          this.fetchEyewear()
+        } else {
+          console.error('Failed to add eyewear:', response.data)
+        }
+      } catch (error) {
+        console.error('Error adding eyewear')
+        if (error.response && error.response.status === 400) {
+          this.eyewearError = false
+          this.lensError = false
+          this.priceError = false
+          this.statusError = false
+          if (!this.newEyewear.eyewearName) {
+            this.eyewearError = true
+          }
+          if (!this.newEyewear.lens) {
+            this.lensError = true
+          }
+          if (!this.newEyewear.price) {
+            this.priceError = true
+          }
+          if (!this.newEyewear.status) {
+            this.statusError = true
+          }
+          if (
+            this.eyewearError ||
+            this.lensError ||
+            priceError ||
+            statusError
+          ) {
+            return
+          }
+        }
+      }
+    },
 
     showSuccessMessage() {
       Swal.fire({
-        icon: "success",
-        title: "Add New Order Success!",
+        icon: 'success',
+        title: 'Add New Order Success!',
         // text: `OrderID: ${orderID}`,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1500
       }).then(() => {
-        this.$router.push("/order");
-      });
+        this.$router.push('/order')
+      })
     },
     async print() {
-      await this.$htmlToPaper("printMe", {
-        name: "_blank",
-        specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+      await this.$htmlToPaper('printMe', {
+        name: '_blank',
+        specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
         styles: [
-          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
-          "https://unpkg.com/kidlat-css/css/kidlat.css",
+          'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+          'https://unpkg.com/kidlat-css/css/kidlat.css'
         ],
         data: {
           userInformation: this.userInformation,
-          eyesightData: this.eyesightData,
-        },
-      });
+          eyesightData: this.eyesightData
+        }
+      })
     },
     toggleDropdown() {
-      this.isDropdownVisible = !this.isDropdownVisible;
+      this.isDropdownVisible = !this.isDropdownVisible
     },
     showNextTable() {
-      this.eyewearTables++;
+      this.eyewearTables++
     },
     cancel() {
-      this.$router.push("/order");
-    },
+      this.$router.push('/order')
+    }
   },
   directives: {
-    "html-to-paper": VueHtmlToPaper,
-  },
-};
+    'html-to-paper': VueHtmlToPaper
+  }
+}
 </script>
 
+<style scoped></style>
