@@ -70,6 +70,16 @@
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg text-primary-color">
+                    Total Price
+                  </p>
+                  <div
+                    class="w-full text-sm bg-[#D4D4D433] border-primary-color border rounded-md md:text-lg md:px-5 flex items-center h-10"
+                  >
+                    {{ newEyewear.price }}
+                  </div>
+                </div>
               </div>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
@@ -84,69 +94,7 @@
                     <option>Delivery</option>
                     <option>Pickup</option>
                   </select>
-                  <!-- <button
-                      id="dropdownDelayButton"
-                      @click="toggleDropdown"
-                      class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 py-2.5 w-full text-center inline-flex items-center justify-between"
-                      type="button"
-                    >
-                      Dropdown hover
-                      <svg
-                        class="w-2.5 h-2.5 ms-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 10 6"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m1 1 4 4 4-4"
-                        />
-                      </svg>
-                    </button> -->
-                  <!-- Dropdown menu -->
-                  <div
-                    id="dropdownDelay"
-                    v-show="isDropdownVisible"
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                  >
-                    <ul
-                      class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                      aria-labelledby="dropdownDelayButton"
-                    >
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Dashboard</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Settings</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Earnings</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          >Sign out</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
+  
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
@@ -154,7 +102,7 @@
                     v-model="newOrder.shippingName"
                     class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
                   >
-                    <option disabled value="">Please select one</option>
+                    <option disabled value="">For Delivery</option>
                     <option>Flash</option>
                     <option>EMS</option>
                     <option>J&T</option>
@@ -174,23 +122,6 @@
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
-                  <input
-                    v-model="newOrder.orderName"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg text-primary-color">
-                    Total Price
-                  </p>
-                  <div
-                    class="w-full text-sm bg-[#D4D4D433] border-primary-color border rounded-md md:text-lg md:px-5 flex items-center h-10"
-                  >
-                    {{ newEyewear.price }}
-                  </div>
-                </div>
               </div>
 
               <div id="EyewearTable">
@@ -226,8 +157,9 @@
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">*Price</p>
                           <input
+                            type="number"
                             v-model="newEyewear.price"
-                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 border-[#D4D4D433]"
                             @input="handlePriceInput(newEyewear.price)"
                           />
                         </div>
@@ -238,6 +170,7 @@
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Detail</p>
                           <input
+                          placeholder="ถ้ามี"
                             v-model="newEyewear.detail"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
@@ -248,6 +181,7 @@
                             v-model="newEyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
+                          <option disabled value="">Please select one</option>
                             <option value="Preparing">Preparing</option>
                             <option value="Processing">Processing</option>
                             <option value="Complete">Complete</option>
@@ -522,7 +456,7 @@ export default {
     addEyewear(orderID) {
       for (
         let eyewearIndex = 1;
-        eyewearIndex <= this.eyewearTables;
+        eyewearIndex <=  this.eyewearTables;
         eyewearIndex++
       ) {
         // สร้าง array เพื่อเก็บ eyewear แต่ละรายการ
@@ -633,7 +567,6 @@ export default {
       }
     },
     async confirmOrder() {
-      console.log('hi')
       try {
         await this.addOrder()
         await this.addEyewear()
@@ -779,3 +712,7 @@ export default {
     'html-to-paper': VueHtmlToPaper
   }}
 </script>
+<style>
+
+
+</style>
