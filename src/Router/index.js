@@ -11,6 +11,7 @@ import AboutCustomer from '../views/Customer/About.vue'
 import ContactCustomer from '../views/Customer/Contact.vue'
 import EditCustomer from '../views/Admin/EditCustomer.vue'
 import AddOrderCustomer from '../views/Admin/AddOrderCustomer.vue'
+import OrderById from '../views/Admin/OrderById.vue'
 const history=createWebHistory("/nw2"); // Pass the base URL here
 
 const routes = [
@@ -73,7 +74,13 @@ const routes = [
         path: '/AddOrderCustomer/:customerID',
         name: 'AddOrderCustomer',
         component: AddOrderCustomer
-    }
+    },
+    {
+        path: '/orders/:orderID',
+        name: 'OrderById',
+        component: OrderById,
+  },
+    
 ]
 
 const router = createRouter({ history, routes })
