@@ -149,10 +149,10 @@
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] border"
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] "
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] "
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -197,7 +197,7 @@
                         <div
                           v-for="(order, index) in filteredResult"
                           :key="index"
-                          class="mt-2 cursor-pointer hover:bg-sky-700"
+                          class="mt-2 border cursor-pointer hover:bg-sky-700"
                         >
                           <div
                             class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
@@ -213,8 +213,10 @@
                               {{ customer.customerName }}
                               {{ customer.customerLastName }}
                             </div>
-                            <div class="self-center text-[#808080]"
-                            @click="fetchOrderDetails(order.orderID)">
+                            <div
+                              class="self-center text-[#808080]"
+                              @click="fetchOrderDetails(order.orderID)"
+                            >
                               Order Id: {{ order.orderID }}
                             </div>
                           </div>
@@ -226,34 +228,43 @@
                               )"
                               :key="eyewear.eyewearID"
                             >
-                              <div 
-                                @click="fetchOrderDetails(order.orderID)">
-                                  <Icon
-                                    icon="ion:cart"
-                                    style="color: rgb(2, 2, 2)"
-                                    class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                                  />
+                              <div @click="fetchOrderDetails(order.orderID)">
+                                <Icon
+                                  icon="ion:cart"
+                                  style="color: rgb(2, 2, 2)"
+                                  class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
+                                />
                               </div>
-                              <div class="flex flex-col gap-2"
-                                @click="fetchOrderDetails(order.orderID)">
+                              <div
+                                class="flex flex-col gap-2"
+                                @click="fetchOrderDetails(order.orderID)"
+                              >
                                 {{ eyewear.eyewearName }}
-                                <div class="text-[#808080]"
-                                @click="fetchOrderDetails(order.orderID)">
+                                <div
+                                  class="text-[#808080]"
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
                                   {{ formatDate(eyewear.createdAt) }}
                                 </div>
                               </div>
-                              <div class="self-center"
-                                @click="fetchOrderDetails(order.orderID)">
+                              <div
+                                class="self-center"
+                                @click="fetchOrderDetails(order.orderID)"
+                              >
                                 {{ eyewear.price }} bath
                               </div>
 
-                              <div class="self-center"
-                                @click="fetchOrderDetails(order.orderID)">
+                              <div
+                                class="self-center"
+                                @click="fetchOrderDetails(order.orderID)"
+                              >
                                 {{ eyewear.orderStatus }}
                               </div>
 
-                              <div class="self-center"
-                                @click="fetchOrderDetails(order.orderID)">
+                              <div
+                                class="self-center"
+                                @click="fetchOrderDetails(order.orderID)"
+                              >
                                 {{ order.delivery }}
                               </div>
                               <div class="flex items-stretch">
@@ -929,7 +940,6 @@ export default {
         (customer) => customer.customerID === customerID
       )
     }
-    
 
     return {
       orderList,
@@ -948,15 +958,19 @@ export default {
         return this.orderList.filter((order) => {
           return order.orderID.toString().includes(this.searchOrderID)
         })
-        } else if (this.selectedSearch === 'customerName') {
-          return this.customerList.filter((customer) => {
-            return customer.customerName.toLowerCase().includes(this.searchCustomerName.toLowerCase())
-          })
-       } else if (this.selectedSearch === 'eyewearName') {
-          return this.eyewearList.filter((eyewear) => {
-            return eyewear.eyewearName.toLowerCase().includes(this.searchEyewearName.toLowerCase())
-          })
-       } 
+      } else if (this.selectedSearch === 'customerName') {
+        return this.customerList.filter((customer) => {
+          return customer.customerName
+            .toLowerCase()
+            .includes(this.searchCustomerName.toLowerCase())
+        })
+      } else if (this.selectedSearch === 'eyewearName') {
+        return this.eyewearList.filter((eyewear) => {
+          return eyewear.eyewearName
+            .toLowerCase()
+            .includes(this.searchEyewearName.toLowerCase())
+        })
+      }
       return []
     },
     preparingEyewearList: function () {
