@@ -11,14 +11,11 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">Add Order</p>
+            <p class="text-xl md:px-10 md:text-3xl">Add Customer and Order</p>
           </div>
 
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
-              <p class="text-primary-color md:text-2xl">
-                Customer ID : {{ customerData.customerID }}
-              </p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
@@ -26,7 +23,7 @@
                   <p class="pb-2 text-sm md:text-lg">Name</p>
                   <input
                     required
-                    v-model="customerData.customerName"
+                    v-model="newCustomer.customerName"
                     :class="{
                       'error-input': nameError,
                       'border-red-500': nameError && !newCustomer.customerName
@@ -43,7 +40,7 @@
                   <p class="pb-2 text-sm md:text-lg">LastName</p>
                   <input
                     required
-                    v-model="customerData.customerLastName"
+                    v-model="newCustomer.customerLastName"
                     :class="{
                       'error-input': lasnameError,
                       'border-red-500': lasnameError && !newCustomer.customerLastName
@@ -82,15 +79,16 @@
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Address</p>
                   <input
-                    v-model="customerData.address"
+                    v-model="newCustomer.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">Phone number</p>
                   <input
+                  maxlength="10"
                     required
-                    v-model="customerData.customerTel"
+                    v-model="newCustomer.customerTel"
                     :class="{
                       'error-input': phoneErrorError,
                       'border-red-500': phoneError && !newCustomer.customerTel
@@ -129,7 +127,8 @@
                     Total Price
                   </p>
                   <input
-                    v-model="newEyewear.price"
+                    type="number"
+                    v-model="newOrder.price"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 border-primary-color border text-primary-color"
                   />
                 </div>
@@ -274,7 +273,7 @@
                             :class="{
                               'error-input': statusError,
                               'border-red-500':
-                                statusError && !newEyewear.status
+                                statusError && !newEyewear.orderStatus
                             }"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           >
@@ -447,7 +446,7 @@
               <div class="flex justify-end mt-5">
                 <div class="mx-2">
                   <button
-                    @click="addOrderAndEyewear()"
+                    @click="addCustomerAndOrderAndEyewear()"
                     class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                   >
                     Confirm
@@ -498,10 +497,6 @@ export default {
       lensError: false,
       statusError: false,
       priceError: false,
-      customerID: null,
-      customerData: {
-        customerID: 3
-      },
       output: null,
       isDropdownVisible: false,
       eyewearTables: 1,
@@ -513,6 +508,7 @@ export default {
         address: ''
       },
       newOrder: {
+        orderID: '',
         orderName: '',
         price: '',
         dateOrder: new Date().toISOString().split('T')[0],
@@ -559,20 +555,35 @@ export default {
     button() {
       console.log(this.isError)
     },
-    addOrderAndEyewear() {
-      this.addOrder()
-      this.addEyewear()
-      this.AddCustomer()
-    },
+    async addCustomerAndOrderAndEyewear() {
+    try {
+      await this.addCustomer(); // เพิ่มข้อมูลลูกค้า
+      // เมื่อข้อมูลลูกค้าเพิ่มเสร็จสิ้น ก็เรียกใช้ addOrder และส่ง customerID ไปด้วย
+    await this.addOrder(this.newCustomer.customerID); 
+    // this.newEyewear.orderID = this.newOrder.orderID;
+    await this.addEyewear();
+      // หลังจากเพิ่มข้อมูลทั้ง 3 ชุดเรียบร้อยแล้วให้เปลี่ยนเส้นทางไปยังหน้า order
+      this.$router.push('/order');
+    } catch (error) {
+      console.error('Error adding customer, order, or eyewear:', error);
+      // แสดง SweetAlert เมื่อมีข้อผิดพลาด
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to add customer, order, or eyewear. Please check your input and try again.'
+      });
+    }
+  },
     async fetchCustomer() {
       try {
         const result = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/customers`
+          // `http://localhost:3000/customers`
         )
         if (result.status == 200) {
           console.log('Data updated successfully')
         } else {
-          console.error('Failed to update data:', result.data.error)
+          console.error('Failed to update data:', result.data.error) 
         }
       } catch (error) {
         console.error('Error updating data:', error)
@@ -582,6 +593,7 @@ export default {
       try {
         const result = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/orders`
+          // `http://localhost:3000/orders`
         )
         if (result.status == 200) {
           console.log('Data updated successfully')
@@ -596,6 +608,7 @@ export default {
       try {
         const result = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/eyewears`
+          // `http://localhost:3000/eyewears`
         )
         if (result.status === 200) {
           console.log('Data updated successfully')
@@ -606,89 +619,89 @@ export default {
         console.error('Error updating data:', error)
       }
     },
-    async confirmOrder() {
-      try {
-        await this.AddCustomer()
-        await this.addOrder()
-        await this.addEyewear()
-      } catch (error) {
-        console.error('Error confirming order:', error)
-      }
-    },
-    async AddCustomer() {
+    // confirmOrder() {
+    //   this.addCustomer()
+    // .then(() => {
+    //   return this.addOrder();
+    // })
+    // .then(() => {
+    //   return this.addEyewear();
+    // })
+    // .then(() => {
+    //   this.$router.push('/order');
+    // })
+    // .catch((error) => {
+    //   console.error('Error adding customer, order, or eyewear:', error);
+    //   // แสดงข้อความแจ้งเตือนให้ผู้ใช้ทราบว่ามีข้อผิดพลาดเกิดขึ้น
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Error',
+    //     text: 'An error occurred while adding customer, order, or eyewear. Please try again later.',
+    //   });
+    // });
+    // },
+    async addCustomer() {
       try {
         const response = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/custumers`,
+          `${import.meta.env.VITE_BASE_URL}/customers`,
+          // `http://localhost:3000/customers`,
           this.newCustomer
         )
         if (response.status === 200) {
           console.log('Customer added successfully')
+          this.newOrder.customerID = response.data.customerID
           this.fetchCustomer()
           this.showSuccessMessage()
+          return newCustomer.customerID
         } else {
           console.error('Failed to add customer')
         }
       } catch (error) {
-        console.error('Error adding customer')
-        if (error.response && error.response.status === 400) {
-          this.nameError = false
-          this.lasnameError = false
-          this.phoneError = false
-        }
-        if (!this.newCustomer.customerName) {
-          this.nameError = true
-        }
-        if (!this.newCustomer.customerLastName) {
-          this.lasnameError = true
-        }
-        if (!this.newCustomer.customerTel) {
-          this.phoneError = true
-        }
-        if (this.nameError || this.lasnameError || this.phoneError ){
-          return
-        }
+        console.error('Error adding customer', error)
+        
       }
     },
-    async addOrder() {
+    async addOrder(customerID) {
       try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/orders`,
-          this.newOrder
-        )
+    // ตรวจสอบความถูกต้องของข้อมูลก่อนที่จะส่ง request 
+    const response = await axios.post(
+      `http://localhost:3000/orders`,
+      this.newOrder
+    );
         if (response.status === 200) {
-          console.log('Order added successfully')
+          console.log('Order added successfully' + this.newOrder)
+          this.newEyewear.orderID = response.data.orderID
           this.fetchOrder()
           this.showSuccessMessage()
-          this.addEyewear(response.data.orderID)
         } else {
-          console.error('Failed to add order')
+          console.error('Failed to add order' + this.newOrder )
         }
       } catch (error) {
-        console.error('Error adding order')
-        if (error.response && error.response.status === 400) {
-          this.orderNameError = false
-          this.deliveryError = false
-          if (!this.newOrder.orderName) {
-            this.orderNameError = true
-          }
-          if (!this.newOrder.delivery) {
-            this.deliveryError = true
-          }
-          if(!this.newOrder.dateOrder){
-            this.dateError = true
-          }
-          if (this.orderNameError || this.deliveryError || this.dateError) {
-            return
-          }
-        }
-      }
+         console.error('Error adding order', error.response.data.error)
+      //   if (error.response && error.response.status === 400) {
+      //     this.orderNameError = false
+      //     this.deliveryError = false
+      //     if (!this.newOrder.orderName) {
+      //       this.orderNameError = true
+      //     }
+      //     if (!this.newOrder.delivery) {
+      //       this.deliveryError = true
+      //     }
+      //     if(!this.newOrder.dateOrder){
+      //       this.dateError = true
+      //     }
+      //     if (this.orderNameError || this.deliveryError || this.dateError) {
+      //       return
+      //     }
+      //   }
+      } 
     },
 
-    async addEyewear(orderID) {
+    async addEyewear() {
       try {
-        this.newEyewear.orderID = orderID
-        const response = await axios.post(
+        const response = await axios.post( 
           `${import.meta.env.VITE_BASE_URL}/eyewears`,
+          // `http://localhost:3000/eyewears`,
           this.newEyewear
         )
         if (response.status == 200) {
@@ -699,32 +712,32 @@ export default {
         }
       } catch (error) {
         console.error('Error adding eyewear')
-        if (error.response && error.response.status === 400) {
-          this.eyewearError = false
-          this.lensError = false
-          this.priceError = false
-          this.statusError = false
-          if (!this.newEyewear.eyewearName) {
-            this.eyewearError = true
-          }
-          if (!this.newEyewear.lens) {
-            this.lensError = true
-          }
-          if (!this.newEyewear.price) {
-            this.priceError = true
-          }
-          if (!this.newEyewear.status) {
-            this.statusError = true
-          }
-          if (
-            this.eyewearError ||
-            this.lensError ||
-            priceError ||
-            statusError
-          ) {
-            return
-          }
-        }
+        // if (error.response && error.response.status === 400) {
+        //   this.eyewearError = false
+        //   this.lensError = false
+        //   this.priceError = false
+        //   this.statusError = false
+        //   if (!this.newEyewear.eyewearName) {
+        //     this.eyewearError = true
+        //   }
+        //   if (!this.newEyewear.lens) {
+        //     this.lensError = true
+        //   }
+        //   if (!this.newEyewear.price) {
+        //     this.priceError = true
+        //   }
+        //   if (!this.newEyewear.status) {
+        //     this.statusError = true
+        //   }
+        //   if (
+        //     this.eyewearError ||
+        //     this.lensError ||
+        //     priceError ||
+        //     statusError
+        //   ) {
+        //     return
+        //   }
+        // }
       }
     },
 
