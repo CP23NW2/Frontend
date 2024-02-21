@@ -111,7 +111,7 @@
                     Total Price
                   </p>
                   <input
-                    v-model="newEyewear.price"
+                    v-model="newOrder.price"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 border-primary-color border text-primary-color"
                   />
                 </div>
@@ -599,7 +599,6 @@ export default {
         if (response.status === 200) {
           console.log('Order added successfully')
           this.fetchOrder()
-          this.showSuccessMessage()
           this.addEyewear(response.data.orderID)
         } else {
           console.error('Failed to add order')
@@ -607,6 +606,7 @@ export default {
       } catch (error) {
         console.error('Error adding order')
         if (error.response && error.response.status === 400) {
+          console.log(error.response.data.error)
           this.orderNameError = false
           this.deliveryError = false
           if (!this.newOrder.orderName) {
@@ -657,7 +657,7 @@ export default {
         if (response.status == 200) {
           console.log('Eyewear added successfully')
           this.fetchEyewear()
-          // this.showSuccessMessage();
+          this.showSuccessMessage();
         } else {
           console.error('Failed to add eyewear:', response.data)
           // Swal.fire({
@@ -696,7 +696,6 @@ export default {
         }
       }
     },
-
     showSuccessMessage() {
       Swal.fire({
         icon: 'success',
