@@ -566,7 +566,10 @@ export default {
         // this.newEyewear.orderID = this.newOrder.orderID;
         await this.addEyewear();
         // หลังจากเพิ่มข้อมูลทั้ง 3 ชุดเรียบร้อยแล้วให้เปลี่ยนเส้นทางไปยังหน้า order
+        console.log('sussess')
+        this.$router.push("/order");
       } catch (error) {
+        console.log('fails')
         console.error("Error adding customer, order, or eyewear:", error);
         // แสดง SweetAlert เมื่อมีข้อผิดพลาด
         Swal.fire({
@@ -653,7 +656,7 @@ export default {
           console.log("Customer added successfully");
           this.newOrder.customerID = response.data.customerID;
           this.fetchCustomer();
-          return newCustomer.customerID;
+          // return newCustomer.customerID;
         } else {
           console.error("Failed to add customer");
         }
@@ -717,12 +720,12 @@ export default {
         if (response.status == 200) {
           console.log("Eyewear added successfully");
           this.fetchEyewear();
-          showSuccessMessage();
+          // showSuccessMessage();
         } else {
           console.error("Failed to add eyewear:", response.data);
         }
       } catch (error) {
-        console.error("Error adding eyewear");
+        console.log(error)
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -756,17 +759,17 @@ export default {
         // }
       }
     },
-    showSuccessMessage() {
-      Swal.fire({
-        icon: "success",
-        title: "Add New Order Success!",
-        // text: `OrderID: ${orderID}`,
-        showConfirmButton: false,
-        timer: 1500,
-      }).then(() => {
-        this.$router.push("/order");
-      });
-    },
+    // showSuccessMessage() {
+    //   Swal.fire({
+    //     icon: "success",
+    //     title: "Add New Order Success!",
+    //     // text: `OrderID: ${orderID}`,
+    //     // showConfirmButton: false,
+    //     timer: 1500,
+    //   }).then(() => {
+    //     this.$router.push("/order");
+    //   });
+    // },
     async print() {
       await this.$htmlToPaper("printMe", {
         name: "_blank",
