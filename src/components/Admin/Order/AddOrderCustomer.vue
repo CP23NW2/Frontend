@@ -111,7 +111,8 @@
                     Total Price
                   </p>
                   <input
-                    v-model="newEyewear.price"
+                    disabled
+                    :value="totalPrice"
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 border-primary-color border text-primary-color"
                   />
                 </div>
@@ -166,16 +167,12 @@
               </div>
 
               <div id="EyewearTable">
-                <div
-                  v-for="eyewearIndex in eyewearTables"
-                  :key="eyewearIndex"
-                  :id="'EyewearTable' + eyewearIndex"
-                >
+                <div v-for="item in items" :key="item.id">
                   <div class="w-full h-px mt-4 border border-neutral-300"></div>
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        Order detail {{ eyewearIndex }}
+                        Order detail {{ item.id }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
@@ -184,7 +181,7 @@
                           <p class="pb-2 text-sm md:text-lg">Product</p>
                           <input
                             required
-                            v-model="newEyewear.eyewearName"
+                            v-model="item.item"
                             :class="{
                               'error-input': eyewearError,
                               'border-red-500':
@@ -203,7 +200,7 @@
                           <p class="pb-2 text-sm md:text-lg">Lens</p>
                           <input
                             required
-                            v-model="newEyewear.lens"
+                            v-model="item.lens"
                             :class="{
                               'error-input': lensError,
                               'border-red-500': lensError && !newEyewear.lens
@@ -211,7 +208,7 @@
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           />
                           <p
-                          v-if="lensError"
+                            v-if="lensError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
                             Please enter lens!
@@ -221,7 +218,7 @@
                           <p class="pb-2 text-sm md:text-lg">Price</p>
                           <input
                             required
-                            v-model="newEyewear.price"
+                            v-model="item.price"
                             type="number"
                             :class="{
                               'error-input': priceError,
@@ -230,7 +227,7 @@
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           />
                           <p
-                          v-if="priceError"
+                            v-if="priceError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
                             Please enter price!
@@ -243,7 +240,7 @@
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Detail</p>
                           <input
-                            v-model="newEyewear.detail"
+                            v-model="item.detail"
                             placeholder="ถ้ามี"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
@@ -252,10 +249,11 @@
                           <p class="pb-2 text-sm md:text-lg">Status</p>
                           <select
                             required
-                            v-model="newEyewear.orderStatus"
+                            v-model="item.orderStatus"
                             :class="{
                               'error-input': statusError,
-                              'border-red-500': statusError && !newEyewear.status
+                              'border-red-500':
+                                statusError && !newEyewear.status
                             }"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
                           >
@@ -265,7 +263,7 @@
                             <option value="Complete">Complete</option>
                           </select>
                           <p
-                          v-if="statusError"
+                            v-if="statusError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
                             Please enter status!
@@ -316,43 +314,43 @@
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftSPH"
+                                    v-model="item.leftSPH"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftCYL"
+                                    v-model="item.leftCYL"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftAXIS"
+                                    v-model="item.leftAXIS"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftADD"
+                                    v-model="item.leftADD"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftPD"
+                                    v-model="item.leftPD"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftSH"
+                                    v-model="item.leftSH"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.leftUpKT"
+                                    v-model="item.leftUpKT"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
@@ -366,43 +364,43 @@
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightSPH"
+                                    v-model="item.rightSPH"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightCYL"
+                                    v-model="item.rightCYL"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightAXIS"
+                                    v-model="item.rightAXIS"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightADD"
+                                    v-model="item.rightADD"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightPD"
+                                    v-model="item.rightPD"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightSH"
+                                    v-model="item.rightSH"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
                                 <td class="border border-black">
                                   <input
-                                    v-model="newEyewear.rightUpKT"
+                                    v-model="item.rightUpKT"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
@@ -418,7 +416,7 @@
 
               <div class="py-2">
                 <button
-                  @click="showNextTable"
+                  @click="addEyewearTable"
                   class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
                 >
                   Add New Eyewear +
@@ -466,6 +464,36 @@ import Swal from 'sweetalert2'
 export default {
   data() {
     return {
+      items: [
+        {
+          id: '1',
+          eyewearID: '',
+          eyewearName: '',
+          lens: '',
+          price: '',
+          detail: '',
+          orderStatus: '',
+          datePreparing: new Date().toISOString().split('T')[0],
+          dateProcessing: new Date().toISOString().split('T')[0],
+          dateComplete: new Date().toISOString().split('T')[0],
+          leftSPH: '',
+          leftCYL: '',
+          leftAXIS: '',
+          leftADD: '',
+          leftPD: '',
+          leftSH: '',
+          leftUpKT: '',
+          rightSPH: '',
+          rightCYL: '',
+          rightAXIS: '',
+          rightADD: '',
+          rightPD: '',
+          rightSH: '',
+          rightUpKT: '',
+          orderID: ''
+        }
+      ],
+      eyewearTablesCount: 1,
       orderNameError: false,
       totalPriceError: false,
       deliveryError: false,
@@ -481,7 +509,7 @@ export default {
       isDropdownVisible: false,
       eyewearTables: 1,
       newOrder: {
-        orderName: '',
+        orderName: 'Order',
         price: '',
         dateOrder: new Date().toISOString().split('T')[0],
         delivery: '',
@@ -518,6 +546,9 @@ export default {
     }
   },
   computed: {
+    totalPrice() {
+      return this.items.reduce((acc, item) => acc + Number(item.price), 0)
+    },
     confirm: function () {
       this.$router.push('/order')
       return alert('Order complete!')
@@ -531,10 +562,42 @@ export default {
     this.fetchData()
   },
   methods: {
+    addEyewearTable() {
+      this.eyewearTablesCount++
+      const newObject = {
+        id: `${this.eyewearTablesCount}`,
+        eyewearID: '',
+        eyewearName: '',
+        lens: '',
+        price: '',
+        detail: '',
+        orderStatus: '',
+        datePreparing: new Date().toISOString().split('T')[0],
+        dateProcessing: new Date().toISOString().split('T')[0],
+        dateComplete: new Date().toISOString().split('T')[0],
+        leftSPH: '',
+        leftCYL: '',
+        leftAXIS: '',
+        leftADD: '',
+        leftPD: '',
+        leftSH: '',
+        leftUpKT: '',
+        rightSPH: '',
+        rightCYL: '',
+        rightAXIS: '',
+        rightADD: '',
+        rightPD: '',
+        rightSH: '',
+        rightUpKT: '',
+        orderID: ''
+      }
+      this.items.push(newObject)
+    },
     button() {
       console.log(this.isError)
     },
     addOrderAndEyewear() {
+      console.log(this.items)
       this.addOrder()
       this.addEyewear()
     },
@@ -690,7 +753,12 @@ export default {
           if (!this.newEyewear.status) {
             this.statusError = true
           }
-          if (this.eyewearError || this.lensError || priceError || statusError) {
+          if (
+            this.eyewearError ||
+            this.lensError ||
+            priceError ||
+            statusError
+          ) {
             return
           }
         }
