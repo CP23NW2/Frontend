@@ -117,51 +117,42 @@
       class="justify-between w-full md:gap-10 gap-2 md:my-[40px] mt-4"
       v-if="showResults"
     >
-      <div
-        class="flex items-stretch w-full gap-4 pb-4"
-        v-for="(order, index) in filteredResult"
-        :key="index"
-      >
+      <div class="flex items-stretch w-full gap-4 pb-4">
         <div class="self-center text-xl whitespace-nowrap">
           Result of Order number
         </div>
         <div
           class="text-center self-center rounded-3xl py-[12px] bg-white px-[60px] border-2 border-[#F5821F] text-[#F5821F]"
         >
-          {{ order.order.orderID }}
+          {{ orderStatus.orderID }}
         </div>
         <div class="self-center w-full text-[#808080]">
           <p class="w-full">
-            {{ order.customer.customerName }}
-            {{ order.customer.customerLastName }}
+            {{ customer.customerName }} {{ customer.customerLastName }}
           </p>
-          <p class="w-full">
-            {{ order.customer.customerTel }}
-          </p>
+          <p class="w-full">{{ customer.customerTel }}</p>
         </div>
+
         <div>
-          <p class="pb-1 text-[#808080]">{{ order.order.delivery }}</p>
+          <p class="pb-1 text-[#808080]">{{ orderStatus.delivery }}</p>
           <div class="px-8 py-2 bg-white rounded-xl whitespace-nowrap">
-            <span class="text-[#808080]whitespace-pre">
-              {{ order.order.shippingName }} :
+            <span class="text-[#808080]whitespace-pre"
+              >{{ orderStatus.shippingName }} :
             </span>
-            <span> {{ order.order.tracking }} </span>
+            <span>{{ orderStatus.tracking }} </span>
           </div>
         </div>
       </div>
-      <div class="w-full" v-for="(order, index) in filteredResult" :key="index">
-        <div
-          class="flex flex-col gap-8"
-          v-if="order.eyewears && order.eyewears.length"
-        >
+      <div class="w-full">
+        <div class="flex flex-col gap-8">
           <div
             class="container p-8 bg-white rounded-md"
             id="tableContainer"
-            v-for="(eyewear, eyewearIndex) in order.eyewears"
-            :key="eyewearIndex"
+            v-for="(eyewear, index) in orderStatus.Eyewears"
+            :key="index"
           >
             <p class="text-3xl font-semibold text-[#F59F54] pb-4">
-              # {{ eyewear.eyewearID }} {{ eyewear.eyewearName }}
+              #{{ eyewear.eyewearID }} {{ eyewear.eyewearName }}
             </p>
             <div class="flex justify-between gap-8 overflow-hidden">
               <table class="w-full bg-white border border-black">
@@ -177,7 +168,7 @@
                     <th class="px-4 py-6 border border-black">Up KT</th>
                   </tr>
                 </thead>
-                <tbody v-if="order.eyewears && order.eyewears.length">
+                <tbody>
                   <tr>
                     <td
                       class="px-4 py-6 border border-black bg-[#FFCA9C] text-center"
@@ -237,10 +228,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div
-                class="flex flex-col justify-between py-4"
-                v-if="order.eyewears && order.eyewears.length"
-              >
+              <div class="flex flex-col justify-between py-4">
                 <div class="flex gap-8">
                   <div class="bg-[#F59F54] w-10 h-10 rounded-full"></div>
                   <div class="whitespace-nowrap">
@@ -299,162 +287,73 @@
   </div>
 </template>
 <script>
-import { ref, onMounted, getCurrentInstance } from 'vue'
 import axios from 'axios'
 
 export default {
   data() {
     return {
-      isPopupVisible: false,
       searchOrderID: '',
-      customerList: [],
-      orderList: {},
-      eyewearList: [],
-      groupedData: [],
-      numberEntered: false,
+      orderStatus: [],
       inputNumber1: '',
       inputNumber2: '',
       inputNumber3: '',
       inputNumber4: '',
-      matchingCustomers: [],
-      showResults: false
-    }
-  },
-  computed: {
-    filteredResult: function () {
-      if (this.searchOrderID) {
-        const searchStr = this.searchOrderID.toString()
-        const filteredData = this.groupedData.filter((group) =>
-          group.order.orderID.toString().includes(searchStr)
-        )
-        return filteredData
-      }
-      return []
-    },
-    showResults: function () {
-      const hasMatchingCustomers =
-        this.matchingCustomers && this.matchingCustomers.length > 0
-      const hasFilteredResult =
-        this.filteredResult && this.filteredResult.length > 0
-      if (hasMatchingCustomers && hasFilteredResult) {
-        return true
-      }
-      return false
+      showResults: false,
+      isPopupVisible: false,
+      customer: null
     }
   },
   methods: {
+    async fetchCustomer(customerID) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/customers/${customerID}`
+        )
+        this.customer = response.data
+        console.log('customer data', this.customer)
+      } catch (error) {
+        console.error('Error fetching customer data:', error)
+      }
+    },
     async fetchData() {
       try {
-        // Fetch customers
-        const customersResult = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/customers`
-        )
-        if (customersResult.data) {
-          this.customerList = customersResult.data
+        // Fetch order status data
+        const requestData = {
+          orderID: this.searchOrderID,
+          lastFourDigits:
+            this.inputNumber1 +
+            this.inputNumber2 +
+            this.inputNumber3 +
+            this.inputNumber4
         }
-
-        // Fetch orders
-        const ordersResult = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/orders/${this.searchOrderID}`
+        const searchStatus = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/validate`,
+          requestData
         )
-        if (ordersResult.data) {
-          this.orderList = ordersResult.data
-        }
+        if (searchStatus.data) {
+          this.orderStatus = searchStatus.data
+          this.showResults = true
 
-        // Fetch eyewears
-        const eyewearsResult = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/eyewears`
-        )
-        if (eyewearsResult.data) {
-          this.eyewearList = eyewearsResult.data
+          // Fetch customer data if order status data is successfully fetched
+          await this.fetchCustomer(searchStatus.data.customerID)
         }
-
-        // Now you can process the data and establish relationships
-        this.processData()
-        this.groupData()
       } catch (error) {
         console.error('Error fetching data:', error)
       }
     },
-    submitForm() {
-      this.showResults = false
-      const enteredDigits =
-        this.inputNumber1 +
-        this.inputNumber2 +
-        this.inputNumber3 +
-        this.inputNumber4
-      const enteredDigitsToMatch = enteredDigits.toLowerCase()
-
-      // Filter the array to get only the matching customers
-      const matchingCustomers = this.groupedData
-        .filter(
-          (group) =>
-            group.customer &&
-            group.customer.customerTel.endsWith(enteredDigitsToMatch)
-        )
-        .map((group) => group.customer)
-
-      if (matchingCustomers.length > 0) {
-        // Display or use the matching customers as needed
-        this.matchingCustomers = matchingCustomers
-        this.showResults = true
-        this.isPopupVisible = false
-        this.inputNumber1 = ''
-        this.inputNumber2 = ''
-        this.inputNumber3 = ''
-        this.inputNumber4 = ''
-      } else {
-        // No matching customers found
-        this.matchingCustomers = []
-        this.showResults = false
-        this.inputNumber1 = ''
-        this.inputNumber2 = ''
-        this.inputNumber3 = ''
-        this.inputNumber4 = ''
-      }
-    },
     async showPopup() {
-      await this.fetchData()
       this.isPopupVisible = true
-    },
-    searchOrderIDChanged(event) {
-      this.searchOrderID = event.target.value
-    },
-    processData() {
-      // Example: Matching orders with customers
-      const customer = this.customerList.find(
-        (customer) => customer.customerID === this.orderList.customerID
-      )
-      if (customer) {
-        this.orderList.customer = customer // Attach customer information to each order
-      }
     },
     handleInput(index) {
       const nextIndex = index + 1
       const nextInputRef = `inputNumber${nextIndex}`
 
-      // Check if the next input element exists and the current input has a value
       if (
         this.$refs[nextInputRef] &&
         this[`inputNumber${index}`].length === 1
       ) {
-        // Focus on the next input element
         this.$refs[nextInputRef].focus()
       }
-    },
-    groupData() {
-      this.groupedData = this.orderList.map((order) => {
-        const customer = order.customer
-        const eyewears = this.eyewearList.filter(
-          (eyewear) => eyewear.orderID === order.orderID
-        )
-        return {
-          order: order,
-          customer: customer,
-          eyewears: eyewears
-        }
-      })
-      console.log('group data:', this.groupedData)
     },
     closePopup() {
       this.isPopupVisible = false
@@ -464,8 +363,22 @@ export default {
         window.location.reload()
       } else {
         this.searchOrderID = ''
-        this.groupedData = []
       }
+    },
+    submitForm() {
+      this.showResults = false
+      this.isPopupVisible = false
+        if (
+          this.inputNumber1 &&
+          this.inputNumber2 &&
+          this.inputNumber3 &&
+          this.inputNumber4
+        ) {
+          // If all input fields are filled, fetch data
+          this.fetchData()
+        } else {
+          console.error('Please fill in all input fields.')
+        }
     },
     formatDate(dateString) {
       const inputDate = new Date(dateString)
@@ -476,15 +389,10 @@ export default {
 
       return `${day}/${month}/${year}`
     }
-  },
-  watch: {
-    orderList: {
-      handler: 'processData',
-      deep: true
-    }
   }
 }
 </script>
+
 <style scoped>
 /* สไตล์ CSS สำหรับ Popup นี้ */
 .popup {
