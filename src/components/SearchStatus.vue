@@ -422,13 +422,12 @@ export default {
     },
     processData() {
       // Example: Matching orders with customers
-        const customer = this.customerList.find(
-          (customer) => customer.customerID === this.orderList.customerID
-        )
-        if (customer) {
-          this.orderList.customer = customer // Attach customer information to each order
-        }
-      
+      const customer = this.customerList.find(
+        (customer) => customer.customerID === this.orderList.customerID
+      )
+      if (customer) {
+        this.orderList.customer = customer // Attach customer information to each order
+      }
     },
     handleInput(index) {
       const nextIndex = index + 1
