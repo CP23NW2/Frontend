@@ -221,7 +221,7 @@
             <ul
               class="flex flex-col items-center mt-4 border border-gray-100 rounded-lg peer bg-gray-50 md:flex-row md:space-x-4 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-700"
             >
-              <router-link to="/customer"
+              <router-link to="/admin/login"
                 ><div
                   class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1 items-center inline-flex gap-1 rounded-xl"
                 >
