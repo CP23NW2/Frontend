@@ -347,12 +347,15 @@ export default {
     handleInput(index) {
       const nextIndex = index + 1
       const nextInputRef = `inputNumber${nextIndex}`
+      const prevIndex = index - 1
+      const prevInputRef = `inputNumber${prevIndex}`
 
-      if (
-        this.$refs[nextInputRef] &&
-        this[`inputNumber${index}`].length === 1
-      ) {
-        this.$refs[nextInputRef].focus()
+      if (this.$refs[nextInputRef]) {
+        if (this[`inputNumber${index}`].length === 0) {
+          this.$refs[prevInputRef].focus()
+        } else if (this[`inputNumber${index}`].length === 1) {
+          this.$refs[nextInputRef].focus()
+        }
       }
     },
     closePopup() {
@@ -368,17 +371,22 @@ export default {
     submitForm() {
       this.showResults = false
       this.isPopupVisible = false
-        if (
-          this.inputNumber1 &&
-          this.inputNumber2 &&
-          this.inputNumber3 &&
-          this.inputNumber4
-        ) {
-          // If all input fields are filled, fetch data
-          this.fetchData()
-        } else {
-          console.error('Please fill in all input fields.')
-        }
+      if (
+        this.inputNumber1 &&
+        this.inputNumber2 &&
+        this.inputNumber3 &&
+        this.inputNumber4
+      ) {
+        // If all input fields are filled, fetch data
+        this.fetchData()
+
+        this.inputNumber1 = ''
+        this.inputNumber2 = ''
+        this.inputNumber3 = ''
+        this.inputNumber4 = ''
+      } else {
+        console.error('Please fill in all input fields.')
+      }
     },
     formatDate(dateString) {
       const inputDate = new Date(dateString)
