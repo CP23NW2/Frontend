@@ -99,7 +99,7 @@
                   v-for="customer in filteredResult"
                   :key="customer.customerTel"
                 >
-                <td class="px-6 py-4">{{ customer.customerID }}</td>
+                  <td class="px-6 py-4">{{ customer.customerID }}</td>
                   <th
                     scope="row"
                     class="px-6 font-medium text-gray-900 md:py-4 whitespace-nowrap dark:text-white"
@@ -110,13 +110,23 @@
                     />
                     {{ customer.customerName }} {{ customer.customerLastName }}
                   </th>
-                  <td class="px-6 py-4">{{ customer.customerTel.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') }}</td>
+                  <td class="px-6 py-4">
+                    {{
+                      customer.customerTel.replace(
+                        /(\d{3})(\d{3})(\d{4})/,
+                        '$1-$2-$3'
+                      )
+                    }}
+                  </td>
                   <td class="px-6 py-4">{{ customer.address }}</td>
                   <td class="px-6 py-4">
                     <div class="flex align-items-center">
                       <button @click="AddOrder(customer.customerID)">
-                        <Icon icon="el:shopping-cart-sign" class="w-9 h-9 text-primary-color" />
-                    </button>
+                        <Icon
+                          icon="el:shopping-cart-sign"
+                          class="w-9 h-9 text-primary-color"
+                        />
+                      </button>
                       <button @click="EditCustomerPage(customer.customerID)">
                         <Icon
                           icon="mdi:edit-circle"
@@ -239,7 +249,7 @@ const customerList = ref([])
 
 const fetchData = async () => {
   try {
-    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`);
+    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -261,13 +271,12 @@ export default {
       searchCustomerID: ''
     }
   },
+
   computed: {
     filteredResult: function () {
       if (this.selectedSearch === 'ID') {
         return this.customerList.filter((customer) => {
-          return customer.customerID
-            .toString()
-            .includes(this.searchCustomerID)
+          return customer.customerID.toString().includes(this.searchCustomerID)
         })
       } else if (this.selectedSearch === 'name') {
         return this.customerList.filter((customer) => {
@@ -290,7 +299,9 @@ export default {
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerID}`)
+      const url = `${import.meta.env.VITE_BASE_URL}/customers/${
+        this.customerID
+      }`
       axios
         .get(url)
         .then((response) => {
@@ -300,7 +311,7 @@ export default {
           console.error('Error fetching customer data:', error)
         })
     },
-    AddOrder(customerID){
+    AddOrder(customerID) {
       this.$router.push(`/AddOrderCustomer/${customerID}`)
     }
   },
@@ -318,7 +329,7 @@ export default {
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = (`${import.meta.env.VITE_BASE_URL}/customers/${customerID}`)
+        const url = `${import.meta.env.VITE_BASE_URL}/customers/${customerID}`
         try {
           await axios.delete(url)
           // Update the data without refreshing the page
