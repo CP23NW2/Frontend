@@ -170,7 +170,7 @@
                             v-if="eyewearError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
-                            Please enter product!
+                            Please enter brand!
                           </p>
                         </div>
                         <div class="w-full pb-4">
@@ -211,9 +211,7 @@
                           </p>
                         </div>
                       </div>
-                      <div
-                        class="justify-between gap-4 mt-4 md:flex-row"
-                      >
+                      <div class="justify-between gap-4 mt-4 md:flex-row">
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">Detail</p>
                           <input
@@ -222,7 +220,6 @@
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
-                       
                       </div>
                     </div>
                   </div>
@@ -366,7 +363,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              
 
               <div class="py-2">
                 <button
@@ -421,6 +418,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import axios from 'axios'
@@ -469,8 +467,6 @@ export default {
       },
       newEyewear: [],
       eyewearTablesCount: 1,
-      orderNameError: false,
-      totalPriceError: false,
       deliveryError: false,
       eyewearError: false,
       lensError: false,
@@ -611,10 +607,19 @@ export default {
           return response.data.orderID
         } else {
           console.error('Failed to add order:', response.status, response.data)
+          this.deliveryError = true
+          this.eyewearError = true
+          this.lensError = true
+          this.priceError = true
         }
       } catch (error) {
         console.error('Error adding order', error)
-        console.log(error.response.data)
+        if (error.response && error.response.status === 400) {
+          this.deliveryError = true
+          this.eyewearError = true
+          this.lensError = true
+          this.priceError = true
+        }
         throw error
       }
     },
