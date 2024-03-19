@@ -14,7 +14,9 @@ export default {
       "grey" : "#08080",
       "bright-grey" : "#AAAAAA",
       "color-5" : "#D4D4D4",
-      "color-6" : "#EAEAEA"
+      "color-6" : "#EAEAEA",
+      "gradient-t" : "#CD6023",
+      "gradient-u" : "#DD8757"
     }
   },
   plugins: [
