@@ -87,6 +87,7 @@
                   </p>
                 </div>
               </div>
+              <!-- Order -->
               <div class="w-full h-px border border-neutral-300"></div>
               <p class="py-4 text-primary-color md:text-2xl">Order Details</p>
               <div
@@ -143,6 +144,7 @@
                   </div>
                 </div>
               </div>
+              <!-- Eyewear -->
               <div id="EyewearTable">
                 <div v-for="item in newOrder.eyewearItems" :key="item.id">
                   <div class="w-full h-px mt-4 border border-neutral-300"></div>
@@ -363,53 +365,53 @@
                     </div>
                   </div>
                 </div>
-              
+                <!-- footer -->
+                <div class="py-2">
+                  <button
+                    @click="addEyewearTable"
+                    class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
+                  >
+                    Add New Eyewear +
+                  </button>
+                </div>
 
-              <div class="py-2">
-                <button
-                  @click="addEyewearTable"
-                  class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
-                >
-                  Add New Eyewear +
-                </button>
-              </div>
-
-              <div class="flex justify-end mt-5">
-                <div class="flex items-center w-full gap-2">
-                  <p
-                    class="text-sm md:text-lg text-primary-color whitespace-nowrap"
-                  >
-                    Total Price:
-                  </p>
-                  <p
-                    class="text-sm text-center rounded-md md:text-lg text-primary-color"
-                  >
-                    {{ totalPrice() }}
-                  </p>
-                </div>
-                <div class="mx-2">
-                  <button
-                    @click="addOrderAndEyewear()"
-                    class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
-                  >
-                    Confirm
-                  </button>
-                </div>
-                <div>
-                  <button
-                    @click="print"
-                    class="bg-green-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-600"
-                  >
-                    Print
-                  </button>
-                </div>
-                <div class="mx-2">
-                  <button
-                    @click="cancel"
-                    class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
-                  >
-                    Cancel
-                  </button>
+                <div class="flex justify-end mt-5">
+                  <div class="flex items-center w-full gap-2">
+                    <p
+                      class="text-sm md:text-lg text-primary-color whitespace-nowrap"
+                    >
+                      Total Price:
+                    </p>
+                    <p
+                      class="text-sm text-center rounded-md md:text-lg text-primary-color"
+                    >
+                      {{ totalPrice() }}
+                    </p>
+                  </div>
+                  <div class="mx-2">
+                    <button
+                      @click="addOrderAndEyewear()"
+                      class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      @click="print"
+                      class="bg-green-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-600"
+                    >
+                      Print
+                    </button>
+                  </div>
+                  <div class="mx-2">
+                    <button
+                      @click="cancel"
+                      class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -418,7 +420,6 @@
       </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 import axios from 'axios'
