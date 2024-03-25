@@ -46,12 +46,12 @@
   <div class="justify-center">
     <div class="grid md:grid-cols-2 grid-cols-1">
       <div
-        class="hidden md:flex md:justify-center md:items-center bg-orange-200 h-screen"
+        class="hidden md:flex md:justify-center md:items-center bg-orange-100 h-screen"
       >
-        <div class="flex flex-col items-center px-48 py-28">
+        <div class="flex flex-col items-center">
           <img
-            class="h-72 mx-auto"
-            src="../../../Public/images/5663165.png"
+            class="h-full w-full flex mx-10"
+            src="../../../Public/images/login.png"
             alt="Success Image"
           />
           <h1 class="mt-10 text-5xl font-semibold font-sans">
@@ -68,11 +68,11 @@
 
       <div class="flex justify-center items-center h-full bg-orange-100">
         <div
-          class="bg-almost-white md:w-4/6 md:h-[600px] opacity-100 rounded-2xl shadow-2xl"
+          class="bg-almost-white md:w-[600px] md:h-[800px] opacity-100 rounded-3xl shadow-2xl"
         >
-          <div class="flex px-10 pt-16">
+          <div class="flex px-10 py-12">
             <div class="grid grid-cols-1 w-full">
-              <div class="flex justify-center">
+              <div class="flex">
                 <div
                   class="md:w-24 md:h-24 w-10 h-10 rounded-full bg-primary-color"
                 >
@@ -82,24 +82,32 @@
                     <Icon icon="la:vr-cardboard" color="white" width="60" />
                   </div>
                 </div>
+                <h1 class="mx-4 mt-8 text-2xl font-sans font-semibold">Buddy Glasses</h1>
+              </div>
+              <div class="flex pt-8">
+                <h2 class="text-5xl font-semibold font-sans">Log in</h2>
               </div>
               <div class="pt-8">
+                <p>Email Address</p>
                 <input
                   v-model="login.email"
                   type="email"
-                  placeholder="Email"
-                  class="flex md:text-lg border border-gray-300 items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
+                  placeholder="Email Address"
+                  :class="{ 'border-red-500 border-2': emailError }"
+                  class="flex md:text-lg mt-2 border border-gray-300 items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
                 />
               </div>
               <div>
+                <p>Password</p>
                 <input
                   v-model="login.password"
                   type="password"
                   placeholder="Enter a password"
-                  class="flex md:text-lg border border-gray-300 items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
+                  :class="{ 'border-red-500 border-2': passwordError }"
+                  class="flex md:text-lg mt-2 border border-gray-300 items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
                 />
               </div>
-              <div class="pt-2">
+              <div class="pt-8">
                 <button
                   @click="loginAdmin()"
                   class="md:text-xl text-lg bg-primary-color w-full items-center px-5 py-4 mb-5 mr-2 rounded-lg font-bold outline-none text-white text-center"
@@ -130,9 +138,15 @@ export default {
       },
       otp: "",
       isPopupVisible: false,
+      showPassword: false,
+      emailError: false,
+      passwordError: false,
     };
   },
   methods: {
+    toggleShowPassword() {
+        this.showPassword = !this.showPassword;
+    },
     async loginAdmin() {
       try {
         const response = await axios.post(
@@ -152,6 +166,8 @@ export default {
         // Handle network errors or other exceptions
         console.error("Error logging in:", error);
         this.clearLoginForm();
+        this.emailError = true,
+        this.passwordError= true
         Swal.fire({
           icon: "error",
           title: "The email address or Password not correct!",

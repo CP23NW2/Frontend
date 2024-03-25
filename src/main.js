@@ -85,6 +85,8 @@ const options = {
 //   })
   
   const app = createApp(App)
+  // กำหนดตัวแปร global ใน app.config.globalProperties
+// app.config.globalProperties.$isLoggedIn = false;
   // app.use(i18n)
   app.use(VueHtmlToPaper, options)
   app.component('Icon', Icon)

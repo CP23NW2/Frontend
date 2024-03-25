@@ -13,6 +13,7 @@ import EditCustomer from '../views/Admin/EditCustomer.vue'
 import AddOrderCustomer from '../views/Admin/AddOrderCustomer.vue'
 import OrderById from '../views/Admin/OrderById.vue'
 import Login from '../views/Admin/Login.vue'
+import ErrorPage from '../views/error.vue'
 const history=createWebHistory("/nw2"); // Pass the base URL here
 
 const routes = [
@@ -85,9 +86,14 @@ const routes = [
         path: '/admin/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'Error',
+        component: ErrorPage
     }
     
 ]
-
+  
 const router = createRouter({ history, routes })
 export default router
