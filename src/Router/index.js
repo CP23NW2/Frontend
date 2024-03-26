@@ -14,8 +14,8 @@ import AddOrderCustomer from '../views/Admin/AddOrderCustomer.vue'
 import OrderById from '../views/Admin/OrderById.vue'
 import Login from '../views/Admin/Login.vue'
 import ErrorPage from '../views/error.vue'
-const history=createWebHistory("/nw2"); // Pass the base URL here
 
+const history=createWebHistory("/nw2"); 
 const routes = [
     {
         path: '/',
@@ -73,7 +73,7 @@ const routes = [
         component: EditCustomer
     },
     {
-        path: '/AddOrderCustomer/:customerID',
+        path: '/addordercustomer/:customerID',
         name: 'AddOrderCustomer',
         component: AddOrderCustomer
     },

@@ -149,10 +149,10 @@
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] "
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] "
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -270,7 +270,7 @@
                               <div class="flex items-stretch">
                                 <div class="self-center">
                                   <button
-                                    @click="EditCustomerPage(customerTel)"
+                                    @click="fetchOrderDetails(order.orderID)"
                                   >
                                     <Icon
                                       icon="mdi:edit-circle"
@@ -767,7 +767,7 @@
                                 <div class="flex items-stretch">
                                   <div class="self-center">
                                     <button
-                                      @click="EditCustomerPage(customerTel)"
+                                      @click="UpdateStatusOrderPage(order.orderID)"
                                     >
                                       <Icon
                                         icon="mdi:edit-circle"
@@ -1006,19 +1006,19 @@ export default {
       const uniquePreparingOrderIDs = [
         ...new Set(this.preparingEyewearList.map((eyewear) => eyewear.orderID))
       ]
-      return uniquePreparingOrderIDs.length - 1
+      return uniquePreparingOrderIDs.length
     },
     getProcessingOrdersCount() {
       const uniqueProcessingOrderIDs = [
-        ...new Set(this.preparingEyewearList.map((eyewear) => eyewear.orderID))
+        ...new Set(this.processingEyewearList.map((eyewear) => eyewear.orderID))
       ]
-      return uniqueProcessingOrderIDs.length - 1
+      return uniqueProcessingOrderIDs.length
     },
     getCompleteOrdersCount() {
       const uniqueCompleteOrderIDs = [
         ...new Set(this.completeEyewearList.map((eyewear) => eyewear.orderID))
       ]
-      return uniqueCompleteOrderIDs.length - 1
+      return uniqueCompleteOrderIDs.length
     },
     fetchOrderDetails(orderID) {
       this.$router.push({ name: 'OrderById', params: { orderID } })

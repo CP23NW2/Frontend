@@ -10,10 +10,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{ orderList.length }}
+            {{ getPrepareOrdersCount() }}
           </div>
           <div class="font-medium text-[8px] md:text-base text-zinc-500">
-            All Order
+            Unpaid
           </div>
         </div>
         <div
@@ -22,10 +22,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{ getCompleteOrdersCount() }}
+            {{ getDeliveryCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Order Complete
+            To Ship
           </div>
         </div>
         <div
@@ -37,7 +37,7 @@
             {{ getPickupCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Pickup
+            To Pickup
           </div>
         </div>
         <div
@@ -46,10 +46,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{getDeliveryCount()}}
+            {{ getCompleteOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Delivery
+            Completed
           </div>
         </div>
       </div>
@@ -141,6 +141,11 @@ export default {
         (eyewear) => eyewear.orderStatus === 'Complete'
       )
     },
+    PrepareEyewearList: function () {
+      return this.eyewearList.filter(
+        (eyewear) => eyewear.orderStatus === 'Preparing'
+      )
+    },
     pickupEyewearList: function () {
       return this.orderList.filter((eyewear) => eyewear.delivery === 'Pickup')
     },
@@ -153,7 +158,13 @@ export default {
       const uniqueCompleteOrderIDs = [
         ...new Set(this.completeEyewearList.map((eyewear) => eyewear.orderID))
       ]
-      return uniqueCompleteOrderIDs.length - 1
+      return uniqueCompleteOrderIDs.length
+    },
+    getPrepareOrdersCount() {
+      const uniquePrepareOrderIDs = [
+        ...new Set(this.PrepareEyewearList.map((eyewear) => eyewear.orderID))
+      ]
+      return uniquePrepareOrderIDs.length
     },
     getPickupCount() {
       const pickupOrder = [
@@ -166,7 +177,8 @@ export default {
         ...new Set(this.deliveryEyewearList.map((eyewear) => eyewear.orderID))
       ]
       return deliveryOrder.length
-  }},
+    }
+  },
   components: {
     Icon,
     SearchStatus

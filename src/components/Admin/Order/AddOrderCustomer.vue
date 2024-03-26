@@ -36,7 +36,7 @@
                   </p>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">LastName</p>
+                  <p class="pb-2 text-sm md:text-lg">Last Name</p>
                   <input
                     required
                     v-model="customerData.customerLastName"
@@ -394,14 +394,6 @@
                       class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                     >
                       Confirm
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      @click="print"
-                      class="bg-green-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-600"
-                    >
-                      Print
                     </button>
                   </div>
                   <div class="mx-2">

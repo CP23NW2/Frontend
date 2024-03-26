@@ -79,10 +79,12 @@
                   />
                 </div>
               </div>
+              <div class="w-full h-px border border-neutral-300"></div>
+              <p class="py-4 text-primary-color md:text-2xl">Order Details</p>
               <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
+                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
-                <div class="w-full pb-4">
+                <div class="w-full pb-4 md:col-span-3">
                   <p class="pb-2 text-sm md:text-lg">Delivery</p>
                   <input
                     disabled
@@ -92,53 +94,41 @@
                     class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
                   />
                 </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
-                  <input
-                    disabled
-                    :value="
-                      groupedData.order ? groupedData.order.shippingName : 'N/A'
-                    "
-                    class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
-                  <input
-                    disabled
-                    :value="
-                      groupedData.order ? groupedData.order.tracking : 'N/A'
-                    "
-                    maxlength="15"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-              </div>
-              <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
-              >
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Order Name</p>
-                  <input
-                    disabled
-                    :value="
-                      groupedData.order ? groupedData.order.orderName : 'N/A'
-                    "
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg text-primary-color">
-                    Total Price
-                  </p>
-                  <div
-                    class="w-full text-sm bg-[#D4D4D433] border-primary-color border rounded-md md:text-lg md:px-5 flex items-center h-10"
-                  >
-                    {{ groupedData.order ? groupedData.order.price : 'N/A' }}
+                <div
+                  class="w-full pb-4 md:col-span-3"
+                  v-if="
+                    groupedData.order &&
+                    groupedData.order.delivery === 'Delivery'
+                  "
+                >
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
+                      <input
+                        disabled
+                        :value="
+                          groupedData.order
+                            ? groupedData.order.shippingName
+                            : 'N/A'
+                        "
+                        class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
+                      />
+                    </div>
+                    <div class="w-full pb-4">
+                      <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
+                      <input
+                        disabled
+                        :value="
+                          groupedData.order ? groupedData.order.tracking : 'N/A'
+                        "
+                        maxlength="15"
+                        class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-
+              <!-- Eyewear -->
               <div id="EyewearTable">
                 <div
                   v-for="(eyewear, index) in groupedData.eyewears"
@@ -148,7 +138,7 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        Order detail :{{ eyewear.eyewearID }}
+                        Order detail : {{ eyewear.eyewearID }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
@@ -188,70 +178,77 @@
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           />
                         </div>
-                        <p class="pb-8 text-sm md:text-lg">Status</p>
-
-                        <ol class="flex justify-center">
-                          <li class="relative w-full mb-12">
-                            <div class="flex items-center">
-                              <div
-                                class="z-10 flex justify-center w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0 bg-primary-color"
-                              >
-                                <div class="text-center">
-                                  <h3
-                                    class="mt-8 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                        <!--Status dropdraw-->
+                        <div>
+                          <p class="pb-2 text-sm md:text-lg">Status</p>
+                          <select
+                            v-model="eyewearData.orderStatus"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                          >
+                            <option value="">-- เลือกสถานะ --</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Complete">Complete</option>
+                          </select>
+                          <!--Status status-->
+                          <div class="w-full px-8 pt-8">
+                            <ol class="flex justify-center">
+                              <li class="w-full pb-4">
+                                <div
+                                  class="flex items-center justify-between space-x-8"
+                                >
+                                  <div
+                                    v-for="(status, index) in [
+                                      'Preparing',
+                                      'Processing',
+                                      'Complete'
+                                    ]"
+                                    :key="index"
+                                    class="flex flex-col items-center"
                                   >
-                                    {{ eyewear.orderStatus }}
-                                  </h3>
-                                  <h3 class="text-sm text-[#808080]">
-                                    {{ formatDate(eyewear.datePreparing) }}
-                                  </h3>
+                                    <div
+                                      :class="{
+                                        ' bg-green-500':
+                                          eyewear.orderStatus === status,
+                                        'bg-gray-300':
+                                          eyewear.orderStatus !== status,
+                                        'w-12': true,
+                                        'h-12': true,
+                                        'rounded-full': true,
+                                        'ring-white': true,
+                                        'dark:bg-blue-900': true,
+                                        'sm:ring-8': true,
+                                        'dark:ring-gray-900': true,
+                                        'shrink-0': true
+                                      }"
+                                    ></div>
+                                    <h3
+                                      class="mt-2 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                                    >
+                                      {{ status }}
+                                    </h3>
+                                    <p v-if="status === 'Preparing'">
+                                      {{
+                                        formatDateandTime(eyewear.datePreparing)
+                                      }}
+                                    </p>
+                                    <p v-else-if="status === 'Processing'">
+                                      {{
+                                        formatDateandTime(
+                                          eyewear.dateProcessing
+                                        )
+                                      }}
+                                    </p>
+                                    <p v-else>
+                                      {{
+                                        formatDateandTime(eyewear.dateComplete)
+                                      }}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div
-                                class="flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"
-                              ></div>
-                            </div>
-                          </li>
-                          <li class="relative w-full mb-6">
-                            <div class="flex items-center">
-                              <div
-                                class="z-10 flex justify-center w-6 h-6 rounded-full bg-primary-color ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0"
-                              >
-                                <div class="text-center">
-                                  <h3
-                                    class="mt-8 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                                  >
-                                    {{ eyewear.orderStatus }}
-                                  </h3>
-                                  <h3 class="text-sm text-[#808080]">
-                                    {{ formatDate(eyewear.dateProcessing) }}
-                                  </h3>
-                                </div>
-                              </div>
-                              <div
-                                class="flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"
-                              ></div>
-                            </div>
-                          </li>
-                          <li class="relative mb-6">
-                            <div class="flex items-center">
-                              <div
-                                class="z-10 flex justify-center w-6 h-6 rounded-full bg-primary-color ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0"
-                              >
-                                <div class="text-center">
-                                  <h3
-                                    class="mt-8 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                                  >
-                                    {{ eyewear.orderStatus }}
-                                  </h3>
-                                  <h3 class="text-sm text-[#808080]">
-                                    {{ formatDate(eyewear.dateComplete) }}
-                                  </h3>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        </ol>
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -410,6 +407,42 @@
                   </div>
                 </div>
               </div>
+              <!-- footer -->
+
+              <div class="flex justify-end mt-5">
+                <div class="flex items-center w-full gap-2">
+                  <p
+                    class="text-sm md:text-lg text-primary-color whitespace-nowrap"
+                  >
+                    Total Price: {{ totalPrice() }}
+                  </p>
+                  <p
+                    class="text-sm text-center rounded-md md:text-lg text-primary-color"
+                  ></p>
+                </div>
+                <div class="mx-2">
+                  <button
+                    @click="updateEyewear"
+                    class="bg-green-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-600"
+                  >
+                    Confirm
+                  </button>
+                </div>
+                <div class="mx-2">
+                  <button
+                    class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div class="mx-2">
+                  <button
+                    class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600"
+                  >
+                    Print
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -428,6 +461,7 @@ export default {
     const eyewear = ref({})
     const customer = ref({})
     const groupedData = ref([])
+    const eyewearData = ref({})
 
     const fetchData = async () => {
       try {
@@ -448,29 +482,28 @@ export default {
         }
 
         const eyewearResponse = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/eyewears`
+          `${import.meta.env.VITE_BASE_URL}/eyewears?orderID=${orderID}`
         )
         if (eyewearResponse.data) {
           eyewear.value = eyewearResponse.data
+          groupData() // Call the groupData() function to group the eyewear data
         }
 
-        groupData()
+        console.log('eyewear', eyewear.value) // Check the eyewear value
       } catch (error) {
         console.error('Error fetching data:', error)
       }
     }
+
     const groupData = () => {
-      // Assuming there's a one-to-one relationship between order and customer
       const matchedCustomer = customer.value.find(
         (c) => c.customerID === order.value.customerID
       )
 
-      // Assuming there's a one-to-many relationship between order and eyewear
       const matchedEyewears = eyewear.value.filter(
         (e) => e.orderID === order.value.orderID
       )
 
-      // Combine data into a single object
       groupedData.value = {
         order: order.value,
         customer: matchedCustomer,
@@ -480,20 +513,11 @@ export default {
       console.log('groupedData', groupedData.value)
     }
 
-    // Fetch data when the component is mounted
     onMounted(() => {
       fetchData()
     })
 
-    return {
-      order,
-      eyewear,
-      customer,
-      groupedData
-    }
-  },
-  methods: {
-    formatDate(dateString) {
+    const formatDate = (dateString) => {
       const inputDate = new Date(dateString)
 
       const day = String(inputDate.getDate()).padStart(2, '0')
@@ -502,6 +526,61 @@ export default {
 
       return `${day}/${month}/${year}`
     }
+
+    const formatDateandTime = (dateString) => {
+      const inputDate = new Date(dateString)
+
+      const day = String(inputDate.getDate()).padStart(2, '0')
+      const month = String(inputDate.getMonth() + 1).padStart(2, '0')
+      const year = String(inputDate.getFullYear())
+      const hours = String(inputDate.getHours()).padStart(2, '0')
+      const minutes = String(inputDate.getMinutes()).padStart(2, '0')
+
+      return `${day}/${month}/${year} ${hours}:${minutes}`
+    }
+
+    const totalPrice = () => {
+      if (
+        !groupedData.value ||
+        !groupedData.value.order ||
+        !Array.isArray(groupedData.value.eyewears)
+      ) {
+        return 0
+      }
+      return groupedData.value.eyewears.reduce((acc, item) => {
+        if (typeof item.price !== 'number') {
+          return acc
+        }
+        return acc + item.price
+      }, 0)
+    }
+
+    const updateEyewear = async (eyewearID) => {
+      try {
+        const updatedEyewear = await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/eyewears/status/${eyewearID}`,
+          {
+            orderStatus: eyewearData.value
+          }
+        )
+        console.log('Updated eyewear:', updatedEyewear.data)
+      } catch (error) {
+        console.error('Error updating eyewear:', error)
+      }
+    }
+
+    return {
+      order,
+      eyewear,
+      customer,
+      groupedData,
+      eyewearData,
+      formatDate,
+      formatDateandTime,
+      totalPrice,
+      updateEyewear
+    }
   }
 }
 </script>
+

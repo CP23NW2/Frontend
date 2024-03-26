@@ -312,7 +312,7 @@ export default {
         })
     },
     AddOrder(customerID) {
-      this.$router.push(`/AddOrderCustomer/${customerID}`)
+      this.$router.push(`/addordercustomer/${customerID}`)
     }
   },
   setup() {

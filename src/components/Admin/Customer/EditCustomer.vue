@@ -10,7 +10,9 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">Edit Customer ID : {{customerData.customerID}}</p>
+            <p class="text-xl md:px-10 md:text-3xl">
+              Edit Customer ID : {{ customerData.customerID }}
+            </p>
           </div>
 
           <form
@@ -42,10 +44,11 @@
                 <div class="w-full pb-4">
                   <label class="pb-2 text-sm md:text-lg">Phone number</label>
                   <input
-                  type="tel"
-                  maxlength="10"
-                  v-model="customerData.customerTel"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10" />
+                    type="tel"
+                    maxlength="10"
+                    v-model="customerData.customerTel"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
                 </div>
                 <div class="w-full">
                   <label class="pb-2 text-sm md:text-lg">Address</label>
@@ -83,79 +86,82 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import Swal from "sweetalert2";
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
   data() {
     return {
       customerTel: null, // Initialize customerTel in data
       customerData: {
-        customerTel: "",
-      }, // To store customer data
-    };
+        customerTel: ''
+      } // To store customer data
+    }
   },
   methods: {
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
-      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerTel}`);
+      const url = `${import.meta.env.VITE_BASE_URL}/customers/${
+        this.customerTel
+      }`
       axios
         .get(url)
         .then((response) => {
-          this.customerData = response.data;
+          this.customerData = response.data
         })
         .catch((error) => {
-          console.error("Error fetching customer data:", error);
-        });
+          console.error('Error fetching customer data:', error)
+        })
     },
     updateCustomer() {
-      const url = (`${import.meta.env.VITE_BASE_URL}/customers/${this.customerTel}`);
-      console.log(url);
-      console.log(this.customerData.customerTel);
+      const url = `${import.meta.env.VITE_BASE_URL}/customers/${
+        this.customerTel
+      }`
+      console.log(url)
+      console.log(this.customerData.customerTel)
 
       axios
         .put(url, this.customerData)
         .then((response) => {
           if (response.status === 200) {
-            console.log("Customer updated successfully");
+            console.log('Customer updated successfully')
             Swal.fire({
-              icon: "success",
-              title: "Editing Success!",
+              icon: 'success',
+              title: 'Editing Success!',
               showConfirmButton: false,
-              timer: 1500,
+              timer: 1500
             }).then(() => {
-              this.$router.push(`/customer`);
-            });
+              this.$router.push(`/customer`)
+            })
           } else {
-            console.error("Failed to update customer:", response.data.error);
+            console.error('Failed to update customer:', response.data.error)
             Swal.fire({
-              icon: "error",
-              title: "Update Failed",
-              text: response.data.error, // Display the error message from the server
-            });
+              icon: 'error',
+              title: 'Update Failed',
+              text: response.data.error // Display the error message from the server
+            })
           }
         })
         .catch((error) => {
-          console.error("Error updating customer:", error);
+          console.error('Error updating customer:', error)
           Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Please check Name and Last Name again!", // Display a generic error message
-          });
-        });
+            icon: 'error',
+            title: 'Error',
+            text: 'Please check Name and Last Name again!' // Display a generic error message
+          })
+        })
     },
     cancel() {
-      this.$router.push(`/customer`);
-    },
+      this.$router.push(`/customer`)
+    }
   },
   mounted() {
     // Retrieve customerTel from the route parameters
-    this.customerTel = this.$route.params.customerTel;
+    this.customerTel = this.$route.params.customerTel
 
     // Fetch customer data using customerTel
-    this.fetchData();
-  },
+    this.fetchData()
+  }
 }
-
 </script>
