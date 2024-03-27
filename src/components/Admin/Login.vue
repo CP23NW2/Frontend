@@ -16,7 +16,7 @@
           <div class="mt-5">
             <input
               v-model="otp"
-              class="text-lg w-36 h-10"
+              class="h-10 text-lg w-36"
               maxlength="6"
               type="number"
             />
@@ -44,17 +44,17 @@
   </div>
 
   <div class="justify-center">
-    <div class="grid md:grid-cols-2 grid-cols-1">
+    <div class="grid grid-cols-1 md:grid-cols-2">
       <div
-        class="hidden md:flex md:justify-center md:items-center bg-orange-100 h-screen"
+        class="hidden h-screen bg-orange-100 md:flex md:justify-center md:items-center"
       >
         <div class="flex flex-col items-center">
           <img
-            class="h-full w-full flex mx-10"
+            class="flex w-full h-full mx-10"
             src="../../../Public/images/login.png"
             alt="Success Image"
           />
-          <h1 class="mt-10 text-5xl font-semibold font-sans">
+          <h1 class="mt-10 font-sans text-5xl font-semibold">
             Buddy Glasses Website
           </h1>
           <div class="mt-5 text-lg text-center">
@@ -66,26 +66,26 @@
         </div>
       </div>
 
-      <div class="flex justify-center items-center h-full bg-orange-100">
+      <div class="flex items-center justify-center h-full bg-orange-100">
         <div
           class="bg-almost-white md:w-[700px] md:h-[1000px] opacity-100 rounded-3xl shadow-2xl"
         >
           <div class="flex px-10 py-12">
-            <div class="grid grid-cols-1 w-full">
+            <div class="grid w-full grid-cols-1">
               <div class="flex">
                 <div
-                  class="md:w-24 md:h-24 w-10 h-10 rounded-full bg-primary-color"
+                  class="w-10 h-10 rounded-full md:w-24 md:h-24 bg-primary-color"
                 >
                   <div
-                    class="flex items-center justify-center md:w-24 md:h-24 w-10 h-10 text-center"
+                    class="flex items-center justify-center w-10 h-10 text-center md:w-24 md:h-24"
                   >
                     <Icon icon="la:vr-cardboard" color="white" width="60" />
                   </div>
                 </div>
-                <h1 class="mx-4 mt-8 text-2xl font-sans font-semibold">Buddy Glasses</h1>
+                <h1 class="mx-4 mt-8 font-sans text-2xl font-semibold">Buddy Glasses</h1>
               </div>
               <div class="flex pt-8">
-                <h2 class="text-5xl font-semibold font-sans">Log in</h2>
+                <h2 class="font-sans text-5xl font-semibold">Log in</h2>
               </div>
               <div class="pt-8">
                 <p>Email Address</p>
@@ -94,7 +94,7 @@
                   type="email"
                   placeholder="Email Address"
                   :class="{ 'border-red-500 border-2': emailError }"
-                  class="flex md:text-lg mt-2 border border-gray-300 items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
+                  class="flex items-center w-full px-5 py-4 mt-2 mr-2 text-sm font-medium border border-gray-300 rounded-lg outline-none md:text-lg focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900"
                 />
               </div>
               <div>
@@ -104,13 +104,13 @@
                   type="password"
                   placeholder="Enter a password"
                   :class="{ 'border-red-500 border-2': passwordError }"
-                  class="flex md:text-lg mt-2 border border-gray-300 items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-lg"
+                  class="flex items-center w-full px-5 py-4 mt-2 mb-5 mr-2 text-sm font-medium border border-gray-300 rounded-lg outline-none md:text-lg focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900"
                 />
               </div>
               <div class="pt-8">
                 <button
                   @click="loginAdmin()"
-                  class="md:text-xl text-lg bg-primary-color w-full items-center px-5 py-4 mb-5 mr-2 rounded-lg font-bold outline-none text-white text-center"
+                  class="items-center w-full px-5 py-4 mb-5 mr-2 text-lg font-bold text-center text-white rounded-lg outline-none md:text-xl bg-primary-color"
                 >
                   Log in
                 </button>
@@ -158,7 +158,7 @@ export default {
           console.log("isPopupVisible : ", this.isPopupVisible);
           // Login successful, redirect or perform other actions
           console.log("Login successful");
-
+          
         } else {
           // Login failed
           console.error("Login failed:", response.data.error);

@@ -585,6 +585,7 @@ export default {
             price: this.newOrder.price,
             dateOrder: this.newOrder.dateOrder,
             delivery: this.newOrder.delivery,
+            shippingName: this.newOrder.shippingName,
             tracking: this.newOrder.tracking,
             customerID: this.newOrder.customerID,
             eyewearItems: eyewearItems

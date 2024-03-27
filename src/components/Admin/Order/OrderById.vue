@@ -7,7 +7,7 @@
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
               <p class="text-primary-color md:text-2xl">
-                Customer ID :
+                Order ID :
                 {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
               </p>
               <div
@@ -117,10 +117,7 @@
                     <div class="w-full pb-4">
                       <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
                       <input
-                        disabled
-                        :value="
-                          groupedData.order ? groupedData.order.tracking : 'N/A'
-                        "
+                        v-model="groupedData.order.tracking"
                         maxlength="15"
                         class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                       />
@@ -182,7 +179,7 @@
                         <div>
                           <p class="pb-2 text-sm md:text-lg">Status</p>
                           <select
-                            v-model="eyewearData.orderStatus"
+                            v-model="eyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
                             <option value="">-- เลือกสถานะ --</option>
@@ -422,7 +419,13 @@
                 </div>
                 <div class="mx-2">
                   <button
-                    @click="updateEyewear"
+                    @click="
+                      updateEyewear(
+                        groupedData.order.orderID,
+                        groupedData.order.tracking,
+                        groupedData.eyewears
+                      )
+                    "
                     class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
                   >
                     Confirm
@@ -430,6 +433,7 @@
                 </div>
                 <div class="mx-2">
                   <button
+                    @click="cancel()"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
                     Cancel
@@ -482,11 +486,12 @@ export default {
         }
 
         const eyewearResponse = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/eyewears?orderID=${orderID}`
+          `${import.meta.env.VITE_BASE_URL}/eyewears`
         )
         if (eyewearResponse.data) {
           eyewear.value = eyewearResponse.data
           groupData() // Call the groupData() function to group the eyewear data
+          console.log('eyewear', eyewear.value) // Check the eyewear value
         }
 
         console.log('eyewear', eyewear.value) // Check the eyewear value
@@ -509,7 +514,7 @@ export default {
         customer: matchedCustomer,
         eyewears: matchedEyewears
       }
-
+      console.log('test', matchedEyewears)
       console.log('groupedData', groupedData.value)
     }
 
@@ -555,13 +560,17 @@ export default {
       }, 0)
     }
 
-    const updateEyewear = async (eyewearID) => {
+    const updateEyewear = async (orderID, tracking, eyewear) => {
       try {
-        const updatedEyewear = await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/eyewears/status/${eyewearID}`,
+        const updateOrder = await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`,
           {
-            orderStatus: eyewearData.value
+            tracking: tracking
           }
+        )
+        const updatedEyewear = await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}/eyewears`,
+          eyewear
         )
         console.log('Updated eyewear:', updatedEyewear.data)
       } catch (error) {
@@ -579,6 +588,11 @@ export default {
       formatDateandTime,
       totalPrice,
       updateEyewear
+    }
+  },
+  methods: {
+    cancel() {
+      this.$router.push(`/order`)
     }
   }
 }

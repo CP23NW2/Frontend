@@ -132,7 +132,8 @@
                         <div class="flex gap-2 align-items-center">
                           <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                            @click="reset">
+                            @click="reset"
+                          >
                             Reset
                           </button>
                         </div>
@@ -214,76 +215,85 @@
                               Order Id: {{ order.orderID }}
                             </div>
                           </div>
-                          <div>
-                            <div
-                              class="flex flex-row justify-between px-10 py-3"
-                              v-for="eyewear in getEyewearForOrder(
-                                order.orderID
-                              )"
-                              :key="eyewear.eyewearID"
-                            >
-                              <div @click="fetchOrderDetails(order.orderID)">
-                                <Icon
-                                  icon="ion:cart"
-                                  style="color: rgb(2, 2, 2)"
-                                  class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                                />
-                              </div>
+                          <div class="flex justify-between px-10 py-3">
+                            <div class="w-full">
                               <div
-                                class="flex flex-col gap-2"
-                                @click="fetchOrderDetails(order.orderID)"
+                                class="flex flex-row justify-between"
+                                v-for="eyewear in getEyewearForOrder(
+                                  order.orderID
+                                )"
+                                :key="eyewear.eyewearID"
                               >
-                                {{ eyewear.eyewearName }}
                                 <div
-                                  class="text-[#808080]"
+                                  class="flex items-center"
                                   @click="fetchOrderDetails(order.orderID)"
                                 >
-                                  {{ formatDate(eyewear.createdAt) }}
+                                  <Icon
+                                    icon="ion:cart"
+                                    style="color: rgb(2, 2, 2)"
+                                    class="w-8 h-8 mr-2 text-primary-color"
+                                  />
                                 </div>
-                              </div>
-                              <div
-                                class="self-center"
-                                @click="fetchOrderDetails(order.orderID)"
-                              >
-                                {{ eyewear.price }} bath
-                              </div>
-
-                              <div
-                                class="self-center"
-                                @click="fetchOrderDetails(order.orderID)"
-                              >
-                                {{ eyewear.orderStatus }}
-                              </div>
-
-                              <div
-                                class="self-center"
-                                @click="fetchOrderDetails(order.orderID)"
-                              >
-                                {{ order.delivery }}
-                              </div>
-                              <div class="flex items-stretch">
-                                <div class="self-center">
-                                  <button
+                                <div
+                                  class="flex flex-col gap-2"
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  {{ eyewear.eyewearName }}
+                                  <div
+                                    class="text-[#808080]"
                                     @click="fetchOrderDetails(order.orderID)"
                                   >
-                                    <Icon
-                                      icon="mdi:edit-circle"
-                                      class="w-10 h-10 text-[#55BA71]"
-                                    />
-                                  </button>
-                                  <button @click="DeleteOrder(order.orderID)">
-                                    <Icon
-                                      icon="mdi:trash-can-circle"
-                                      class="w-10 h-10 text-[#EB4F54]"
-                                    />
-                                  </button>
-                                  <button @click="DeleteOrder(order.orderID)">
-                                    <Icon
-                                      icon="f7:doc-circle-fill"
-                                      class="w-10 h-10 text-[#808080]"
-                                    />
-                                  </button>
+                                    {{ formatDate(eyewear.createdAt) }}
+                                  </div>
                                 </div>
+                                <div
+                                  class="self-center"
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  {{ eyewear.price }} bath
+                                </div>
+
+                                <div
+                                  class="self-center"
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  {{ eyewear.orderStatus }}
+                                </div>
+
+                                <div
+                                  class="self-center"
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  {{ order.delivery }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="flex items-stretch pl-16">
+                              <div class="self-center">
+                                <button
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  <Icon
+                                    icon="mdi:edit-circle"
+                                    class="w-10 h-10 text-[#55BA71]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="mdi:trash-can-circle"
+                                    class="w-10 h-10 text-[#EB4F54]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="f7:doc-circle-fill"
+                                    class="w-10 h-10 text-[#808080]"
+                                  />
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -302,7 +312,7 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                          <option value="orderID">OrderID</option>
+                            <option value="orderID">OrderID</option>
                             <option value="name">Name</option>
                             <option value="phoneNumber">Phone Number</option>
                           </select>
@@ -339,7 +349,8 @@
                         <div class="flex gap-2 align-items-center">
                           <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                            @click="reset">
+                            @click="reset"
+                          >
                             Reset
                           </button>
                         </div>
@@ -500,7 +511,8 @@
                         <div class="flex gap-2 align-items-center">
                           <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                          @click="reset">
+                            @click="reset"
+                          >
                             Reset
                           </button>
                         </div>
@@ -624,7 +636,7 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                          <option value="orderID">OrderID</option>
+                            <option value="orderID">OrderID</option>
                             <option value="name">Name</option>
                             <option value="phoneNumber">Phone Number</option>
                           </select>
@@ -661,7 +673,8 @@
                         <div class="flex gap-2 align-items-center">
                           <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                            @click="reset">
+                            @click="reset"
+                          >
                             Reset
                           </button>
                         </div>
@@ -745,7 +758,9 @@
                                 <div class="flex items-stretch">
                                   <div class="self-center">
                                     <button
-                                      @click="UpdateStatusOrderPage(order.orderID)"
+                                      @click="
+                                        UpdateStatusOrderPage(order.orderID)
+                                      "
                                     >
                                       <Icon
                                         icon="mdi:edit-circle"
@@ -857,6 +872,7 @@ export default {
         const url = `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
         try {
           await axios.delete(url)
+          console.log('delete order')
           // Update the data without refreshing the page
           fetchData()
           // Use SweetAlert2 instead of alert
@@ -932,12 +948,12 @@ export default {
     }
   },
   methods: {
-    reset(){
+    reset() {
       console.log('reset')
-      this.selectedSearch = 'orderID',
-      this.searchOrderID = '',
-      this.searchCustomerName = '',
-      this.searchEyewearName = ''
+      ;(this.selectedSearch = 'orderID'),
+        (this.searchOrderID = ''),
+        (this.searchCustomerName = ''),
+        (this.searchEyewearName = '')
     },
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber
@@ -953,7 +969,9 @@ export default {
     },
     getPreparingOrdersCount() {
       const uniquePreparingOrderIDs = [
-        ...new Set(this.preparingEyewearList.map((eyewear) => eyewear.orderID))
+        ...new Set(
+          this.preparingEyewearList.map((eyewear) => eyewear.eyewearID)
+        )
       ]
       return uniquePreparingOrderIDs.length
     },
@@ -965,7 +983,7 @@ export default {
     },
     getCompleteOrdersCount() {
       const uniqueCompleteOrderIDs = [
-        ...new Set(this.completeEyewearList.map((eyewear) => eyewear.orderID))
+        ...new Set(this.completeEyewearList.map((eyewear) => eyewear.eyewearID))
       ]
       return uniqueCompleteOrderIDs.length
     },
