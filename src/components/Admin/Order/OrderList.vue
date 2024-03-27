@@ -90,7 +90,6 @@
                             <option value="orderID">Order ID</option>
                             <option value="customerName">Customer Name</option>
                             <option value="eyewearName">Product Name</option>
-                            <option value="date">Date</option>
                           </select>
                         </div>
                         <div class="relative">
@@ -132,13 +131,8 @@
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-[#2B2B2B] md:py-3 md:px-8 rounded-lg"
-                          >
-                            Search
-                          </button>
-                          <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                          >
+                            @click="reset">
                             Reset
                           </button>
                         </div>
@@ -308,6 +302,7 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
+                          <option value="orderID">OrderID</option>
                             <option value="name">Name</option>
                             <option value="phoneNumber">Phone Number</option>
                           </select>
@@ -330,28 +325,21 @@
                           </div>
                         </div>
                         <input
+                          v-if="selectedSearch === 'orderID'"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                        />
+                        <input
                           v-if="selectedSearch === 'name'"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'phoneNumber'"
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
-                        />
-                        <input
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          type="date"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-[#2B2B2B] md:py-3 md:px-8 rounded-lg"
-                          >
-                            Search
-                          </button>
-                          <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                          >
+                            @click="reset">
                             Reset
                           </button>
                         </div>
@@ -475,6 +463,7 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
+                            <option value="orderID">OrderID</option>
                             <option value="name">Name</option>
                             <option value="phoneNumber">Phone Number</option>
                           </select>
@@ -497,6 +486,10 @@
                           </div>
                         </div>
                         <input
+                          v-if="selectedSearch === 'orderID'"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                        />
+                        <input
                           v-if="selectedSearch === 'name'"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
@@ -504,19 +497,10 @@
                           v-if="selectedSearch === 'phoneNumber'"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
-                        <input
-                          type="date"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
-                        />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-[#2B2B2B] md:py-3 md:px-8 rounded-lg"
-                          >
-                            Search
-                          </button>
-                          <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                          >
+                          @click="reset">
                             Reset
                           </button>
                         </div>
@@ -640,6 +624,7 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
+                          <option value="orderID">OrderID</option>
                             <option value="name">Name</option>
                             <option value="phoneNumber">Phone Number</option>
                           </select>
@@ -662,28 +647,21 @@
                           </div>
                         </div>
                         <input
+                          v-if="selectedSearch === 'orderID'"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                        />
+                        <input
                           v-if="selectedSearch === 'name'"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'phoneNumber'"
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
-                        />
-                        <input
-                          placeholder="ไม่ต้องใส่เลข 0 ตัวแรก"
-                          type="date"
                           class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-[#2B2B2B] md:py-3 md:px-8 rounded-lg"
-                          >
-                            Search
-                          </button>
-                          <button
                             class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
-                          >
+                            @click="reset">
                             Reset
                           </button>
                         </div>
@@ -799,42 +777,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <nav aria-label="Page navigation" class="flex items-center justify-center mt-4">
-    <ul class="flex items-center h-10 -space-x-px text-base">
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 ms-0 border-e-0 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Previous</span>
-          <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-      </li>
-      <li>
-        <a href="#" aria-current="page" class="z-10 flex items-center justify-center h-10 px-4 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center justify-center h-10 px-4 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Next</span>
-          <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </nav>  -->
         </div>
       </div>
     </div>
@@ -990,6 +932,13 @@ export default {
     }
   },
   methods: {
+    reset(){
+      console.log('reset')
+      this.selectedSearch = 'orderID',
+      this.searchOrderID = '',
+      this.searchCustomerName = '',
+      this.searchEyewearName = ''
+    },
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber
     },

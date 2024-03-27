@@ -68,7 +68,7 @@
 
       <div class="flex justify-center items-center h-full bg-orange-100">
         <div
-          class="bg-almost-white md:w-[600px] md:h-[800px] opacity-100 rounded-3xl shadow-2xl"
+          class="bg-almost-white md:w-[700px] md:h-[1000px] opacity-100 rounded-3xl shadow-2xl"
         >
           <div class="flex px-10 py-12">
             <div class="grid grid-cols-1 w-full">
@@ -158,6 +158,7 @@ export default {
           console.log("isPopupVisible : ", this.isPopupVisible);
           // Login successful, redirect or perform other actions
           console.log("Login successful");
+
         } else {
           // Login failed
           console.error("Login failed:", response.data.error);
@@ -196,6 +197,10 @@ export default {
         // If OTP verification is successful, show the popup
         if (response.status === 200) {
           this.isPopupVisible = false;
+          const token = response.data.token; // Access token directly from response.data
+          localStorage.setItem("token", token);
+          console.log(token); // Log the token for debugging
+          this.$router.push('/');
           console.log("OTP verification successful.");
         } else {
           // OTP verification failed

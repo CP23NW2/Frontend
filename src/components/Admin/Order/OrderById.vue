@@ -207,7 +207,7 @@
                                   >
                                     <div
                                       :class="{
-                                        ' bg-green-500':
+                                        ' bg-green-400':
                                           eyewear.orderStatus === status,
                                         'bg-gray-300':
                                           eyewear.orderStatus !== status,
@@ -423,7 +423,7 @@
                 <div class="mx-2">
                   <button
                     @click="updateEyewear"
-                    class="bg-green-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-600"
+                    class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
                   >
                     Confirm
                   </button>
@@ -583,4 +583,3 @@ export default {
   }
 }
 </script>
-

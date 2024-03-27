@@ -134,7 +134,8 @@
 
                   <li
                     class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
+                    @click="logout"
+                    >
                     Logout
                   </li>
                 </ul>
@@ -221,16 +222,15 @@
             <ul
               class="flex flex-col items-center mt-4 border border-gray-100 rounded-lg peer bg-gray-50 md:flex-row md:space-x-4 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-700"
             >
-              <router-link to="/admin/login"
-                ><div
+                <div
                   class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1 items-center inline-flex gap-1 rounded-xl"
                 >
                   <Icon
                     icon="ph:user-circle-light"
                     class="inline-block h-8 md:mr-1 md:w-6"
-                  />Login
-                </div></router-link
-              >
+                    @click="logout"
+                  />Logout
+                </div>
               <router-link to="/forcustomer">
                 <div
                   class="cursor-pointer hover:bg-[#F5821F4D] hover:text-black md:px-4 md:py-1.5 rounded-xl inline-flex items-center gap-1 text-white bg-primary-color"
@@ -262,7 +262,9 @@
 </template>
 
 <script>
-import { Icon } from '@iconify/vue'
+import { Icon } from '@iconify/vue';
+import axios from "axios";
+
 export default {
   components: {
     Icon
@@ -275,7 +277,20 @@ export default {
   methods: {
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible
-    }
+    },
+  async logout() {
+  try {
+    // Clear token from local storage
+    localStorage.removeItem("token");
+    location.reload() 
+    // Redirect to login page or any other desired route
+    this.$router.push('/admin/login');
+  } catch (error) {
+    console.error("Error during logout:", error);
+  }
+}
+
+  
   }
 }
 </script>

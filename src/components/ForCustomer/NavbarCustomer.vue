@@ -123,19 +123,6 @@
                       About
                     </a>
                   </li>
-
-                  <router-link
-                    to="/customer"
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    For customer
-                  </router-link>
-
-                  <li
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    Logout
-                  </li>
                 </ul>
               </div>
             </div>

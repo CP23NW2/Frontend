@@ -10,10 +10,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{ getPrepareOrdersCount() }}
+            {{ eyewearList.length }}
           </div>
           <div class="font-medium text-[8px] md:text-base text-zinc-500">
-            Unpaid
+            All Eyewear
           </div>
         </div>
         <div
@@ -22,10 +22,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{ getDeliveryCount() }}
+            {{ getPrepareOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            To Ship
+            Preparing
           </div>
         </div>
         <div
@@ -34,10 +34,10 @@
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
           >
-            {{ getPickupCount() }}
+            {{ getProcessingOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            To Pickup
+            Processing
           </div>
         </div>
         <div
@@ -141,16 +141,15 @@ export default {
         (eyewear) => eyewear.orderStatus === 'Complete'
       )
     },
+    ProcessingEyewearList: function () {
+      return this.eyewearList.filter(
+        (eyewear) => eyewear.orderStatus === 'Processing'
+      )
+    },
     PrepareEyewearList: function () {
       return this.eyewearList.filter(
         (eyewear) => eyewear.orderStatus === 'Preparing'
       )
-    },
-    pickupEyewearList: function () {
-      return this.orderList.filter((eyewear) => eyewear.delivery === 'Pickup')
-    },
-    deliveryEyewearList: function () {
-      return this.orderList.filter((eyewear) => eyewear.delivery === 'Delivery')
     }
   },
   methods: {
@@ -160,23 +159,17 @@ export default {
       ]
       return uniqueCompleteOrderIDs.length
     },
+    getProcessingOrdersCount() {
+      const uniqueProcessingOrderIDs = [
+        ...new Set(this.ProcessingEyewearList.map((eyewear) => eyewear.orderID))
+      ]
+      return uniqueProcessingOrderIDs.length
+    },
     getPrepareOrdersCount() {
       const uniquePrepareOrderIDs = [
         ...new Set(this.PrepareEyewearList.map((eyewear) => eyewear.orderID))
       ]
       return uniquePrepareOrderIDs.length
-    },
-    getPickupCount() {
-      const pickupOrder = [
-        ...new Set(this.pickupEyewearList.map((eyewear) => eyewear.orderID))
-      ]
-      return pickupOrder.length
-    },
-    getDeliveryCount() {
-      const deliveryOrder = [
-        ...new Set(this.deliveryEyewearList.map((eyewear) => eyewear.orderID))
-      ]
-      return deliveryOrder.length
     }
   },
   components: {

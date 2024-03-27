@@ -128,9 +128,9 @@
         </div>
         <div class="self-center w-full text-[#808080]">
           <p class="w-full">
-            {{ customer.customerName }} {{ customer.customerLastName }}
+            {{ hiddenCustomerName }} 
           </p>
-          <p class="w-full">{{ customer.customerTel }}</p>
+          <p class="w-full">{{ hiddenCustomerTel }}</p>
         </div>
 
         <div>
@@ -228,34 +228,60 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="flex flex-col justify-between py-4">
-                <div class="flex gap-8">
-                  <div class="bg-[#F59F54] w-10 h-10 rounded-full"></div>
-                  <div class="whitespace-nowrap">
-                    <p>{{ eyewear.orderStatus }}</p>
-                    <p class="text-[#808080]">
-                      {{ formatDate(eyewear.datePreparing) }}
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-8">
-                  <div class="bg-[#F59F54] w-10 h-10 rounded-full"></div>
-                  <div>
-                    <p>{{ eyewear.orderStatus }}</p>
-                    <p class="text-[#808080]">
-                      {{ formatDate(eyewear.dateProcessing) }}
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-8">
-                  <div class="bg-[#F59F54] w-10 h-10 rounded-full"></div>
-                  <div>
-                    <p>{{ eyewear.orderStatus }}</p>
-                    <p class="text-[#808080]">
-                      {{ formatDate(eyewear.dateComplete) }}
-                    </p>
-                  </div>
-                </div>
+              <div class="flex flex-row justify-between py-4">
+                <ol class="justify-center">
+                  <li class="w-full pb-4">
+                    <div class="flex flex-col">
+                      <div
+                        v-for="(status, index) in [
+                          'Preparing',
+                          'Processing',
+                          'Complete'
+                        ]"
+                        :key="index"
+                        class="flex items-center h-full py-4"
+                      >
+                        <div
+                          :class="{
+                            ' bg-green-400': eyewear.orderStatus === status,
+                            'bg-gray-300': eyewear.orderStatus !== status,
+                            'w-12': true,
+                            'h-12': true,
+                            'rounded-full': true,
+                            'ring-white': true,
+                            'dark:bg-blue-900': true,
+                            'sm:ring-8': true,
+                            'dark:ring-gray-900': true,
+                            'shrink-0': true
+                          }"
+                        ></div>
+                        <div class="flex flex-col items-start ml-8">
+                          <!-- Add this line -->
+                          <h3
+                            class="font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                          >
+                            {{ status }}
+                          </h3>
+                          <p
+                            v-if="status === 'Preparing'"
+                            class="text-gray-500 whitespace-nowrap"
+                          >
+                            {{ formatDateandTime(eyewear.datePreparing) }}
+                          </p>
+                          <p
+                            v-else-if="status === 'Processing'"
+                            class="text-gray-500 whitespace-nowrap"
+                          >
+                            {{ formatDateandTime(eyewear.dateProcessing) }}
+                          </p>
+                          <p v-else class="text-gray-500 whitespace-nowrap">
+                            {{ formatDateandTime(eyewear.dateComplete) }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
               </div>
             </div>
           </div>
@@ -286,6 +312,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 
@@ -302,6 +329,20 @@ export default {
       isPopupVisible: false,
       customer: null
     }
+  },
+  computed: {
+    hiddenCustomerName() {
+      if (this.customer.customerName + this.customer.customerLastName) {
+        return this.hideText(this.customer.customerName + this.customer.customerLastName)
+      }
+      return ''
+    },
+    hiddenCustomerTel() {
+      if (this.customer.customerTel) {
+        return this.hideText(this.customer.customerTel)
+      }
+      return ''
+    },
   },
   methods: {
     async fetchCustomer(customerID) {
@@ -334,7 +375,6 @@ export default {
           this.orderStatus = searchStatus.data
           this.showResults = true
 
-          // Fetch customer data if order status data is successfully fetched
           await this.fetchCustomer(searchStatus.data.customerID)
         }
       } catch (error) {
@@ -344,6 +384,17 @@ export default {
     async showPopup() {
       this.isPopupVisible = true
     },
+    hideText(text) {
+  if (text.length <= 3) {
+    return text;
+  }
+  const visibleChars = 3;
+  const hiddenChars = text.length - visibleChars;
+  const visiblePart = text.slice(0, visibleChars);
+  const hiddenPart = '*'.repeat(hiddenChars);
+  const visibleEnd = text.slice(-visibleChars);
+  return visiblePart + hiddenPart + visibleEnd;
+},
     handleInput(index) {
       const nextIndex = index + 1
       const nextInputRef = `inputNumber${nextIndex}`
@@ -396,6 +447,17 @@ export default {
       const year = String(inputDate.getFullYear()).slice(0)
 
       return `${day}/${month}/${year}`
+    },
+    formatDateandTime(dateString) {
+      const inputDate = new Date(dateString)
+
+      const day = String(inputDate.getDate()).padStart(2, '0')
+      const month = String(inputDate.getMonth() + 1).padStart(2, '0')
+      const year = String(inputDate.getFullYear())
+      const hours = String(inputDate.getHours()).padStart(2, '0')
+      const minutes = String(inputDate.getMinutes()).padStart(2, '0')
+
+      return `${day}/${month}/${year} ${hours}:${minutes}`
     }
   }
 }

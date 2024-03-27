@@ -15,42 +15,49 @@ import OrderById from '../views/Admin/OrderById.vue'
 import Login from '../views/Admin/Login.vue'
 import ErrorPage from '../views/error.vue'
 
-const history=createWebHistory("/nw2"); 
+const history = createWebHistory("/nw2")
 const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: Home,
+        meta: { requiresAuth: true }
     },
     {
         path: '/customer',
         name: 'customer',
-        component: Customer
+        component: Customer,
+        meta: { requiresAuth: true }
     },
     {
         path: '/addcustomer',
         name: 'addcustomer',
-        component: AddCustomer
+        component: AddCustomer,
+        meta: { requiresAuth: true }
     },
     {
         path: '/addorder',
         name: 'addorder',
-        component: AddOrder
+        component: AddOrder,
+        meta: { requiresAuth: true }
     },
     {
         path: '/order',
         name: 'order',
-        component: Order
+        component: Order,
+        meta: { requiresAuth: true }
     },
     {
         path: '/contact',
         name: 'contact',
-        component: Contact
+        component: Contact,
+        meta: { requiresAuth: true }
     },
     {
         path: '/about',
         name: 'about',
-        component: About
+        component: About,
+        meta: { requiresAuth: true }
     },
     {
         path: '/forcustomer',
@@ -95,5 +102,18 @@ const routes = [
     
 ]
   
-const router = createRouter({ history, routes })
+const router = createRouter({ history, routes });
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        next();
+      } else {
+        next({ name: 'Login' }); // Redirect to the login page
+      }
+    } else {
+      next();
+    }
+});
 export default router

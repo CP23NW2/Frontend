@@ -1,7 +1,4 @@
 <template>
-  <div class="pt-10">
-    <Navbar />
-  </div>
   <div>
     <Login />
   </div>
@@ -13,7 +10,6 @@ import Navbar from "../../components/Admin/Navbar.vue";
 
 export default {
   components: {
-    Navbar,
     Login,
   },
 };
