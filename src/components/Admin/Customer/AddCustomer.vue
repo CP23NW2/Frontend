@@ -10,33 +10,33 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">New Customer</p>
+            <p class="text-xl md:px-10 md:text-3xl">{{$t("customerList.newCus")}}</p>
           </div>
         
           <form @submit.prevent="addCustomer" class="flex p-4 py-5 md:px-12">
             <div class="w-full pb-4">
               <label class="text-primary-color md:text-2xl">
-                User Information
+                {{$t("customerList.user")}}
               </label>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">Name</label>
+                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</label>
                   <input
                     v-model="newCustomer.customerName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">Last Name</label>
+                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</label>
                   <input
                     v-model="newCustomer.customerLastName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">Phone Number</label>
+                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.phone")}}</label>
                   <input
                     type="tel"
                     maxlength="10"
@@ -52,7 +52,7 @@
                   </p>
                 </div>
                 <div class="w-full">
-                  <label class="pb-2 text-sm md:text-lg">Address</label>
+                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.address")}}</label>
                   <input
                     v-model="newCustomer.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
@@ -65,7 +65,7 @@
                     type="submit"
                     class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                   >
-                    Confirm
+                  {{$t("customerList.confirm")}}
                   </button>
                 </div>
                 <div class="mx-2">
@@ -73,7 +73,7 @@
                     @click="cancel"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
-                    Cancel
+                  {{$t("customerList.cancel")}}
                   </button>
                 </div>
               </div>

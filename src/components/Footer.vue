@@ -21,8 +21,7 @@
         <div class="relative origin-top-left rotate-180"></div>
         <Icon icon="iconoir:map-pin" class="md:h-4 md:w-4"/>
         <div class="inline-flex text-xs font-medium md:w-64 w-28 md:text-base text-zinc-80">
-          Soi Wanglang, Khwaeng Siriraj, Khet Bangkok Noi, Krung Thep Maha
-          Nakhon, Thailand 10700
+          {{$t("footer.address")}}
         </div>
       </div>
       <div class="inline-flex items-center justify-start gap-2">
@@ -46,7 +45,7 @@
       </div>
       <div class="inline-flex items-start justify-between md:gap-10">
         <div class="w-10 text-xs font-medium leading-6 text-black md:text-base">
-          Mon<br />Tues<br />Wed<br />Thur<br />Fri<br />Sat<br />Sun
+          {{$t("footer.mon")}}<br />{{$t("footer.tues")}}<br />{{$t("footer.wed")}}<br />{{$t("footer.thur")}}<br />{{$t("footer.fri")}}<br />{{$t("footer.sat")}}<br />{{$t("footer.sun")}}
         </div>
         <div class="md:w-full">
           <span class="text-xs font-medium md:text-base text-zinc-800"
@@ -60,7 +59,7 @@
       </div>
     </div>
     <div class="inline-flex flex-col items-start justify-start gap-3 md:gap-5">
-  <div class="font-bold md:text-xl text-zinc-800">Follow Us On</div>
+  <div class="font-bold md:text-xl text-zinc-800">{{$t("footer.follow")}}</div>
   <div class="justify-start items-center gap-2.5 inline-flex">
     <div class="relative md:h-6 md:w-6">
         <Icon icon="jam:facebook-square" class="md:w-6 md:h-6 text-[#F5821F]" />

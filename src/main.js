@@ -60,7 +60,76 @@ const i18n = createI18n({
         nofound: 'No found this search, Try to search order status again!',
         tryagain: 'could put order number in search input :)'
       },
-
+      about: {
+        title: 'Eyewear store that has been open for more than 10 years, offering high-quality eyeglasses',
+        subtitle: 'The story of this eyewear store began in Wang Lang Soi 5, where there was only one store in the entire Wang Lang Soi 5 area. With a unique approach to eye measurements focused on accuracy, we have earned the trust of customers from all walks of life for over 10 years. In order to strengthen our relationships with customers, we expanded our store to offer high-quality eyeglass cutting services at prices that were unprecedented. This is what has kept our customers loyal to us for a long time, as there is no one else who can compare to us. We are Wang Lang Soi 5 Eyewear, and we are delighted to serve you.'
+      },
+      contact: {
+        location: 'Buddy Glasses Location',
+        detailLocation: 'Soi Wanglang, Khwaeng Siriraj, Khet Bangkok Noi, Krung Thep Maha Nakhon, Thailand 10700'
+      },
+      footer: {
+        address: 'Soi Wanglang, Khwaeng Siriraj, Khet Bangkok Noi, Krung Thep Maha Nakhon, Thailand 10700',
+        mon: 'Mon',
+        tues: 'Tues',
+        wed: 'Wed',
+        thur: 'Thur',
+        fri: 'Fri',
+        sat: 'Sat',
+        sun: 'Sun',
+        follow: 'Follow Us On'
+      },
+      customerList: {
+        customerlist: 'Customer List',
+        addCus: 'Create New Customer',
+        id: 'ID',
+        fullname: 'Name - Last Name',
+        phone: 'Phone Number',
+        address: 'Address',
+        manage: 'Management',
+        customer: 'Customers',
+        newCus: 'New Customer',
+        user: 'User Information',
+        name: 'Name',
+        last: 'Last Name',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        edit: 'Edit Customer ID'
+      },
+      orderList: {
+        orderList: 'Order List',
+        addOrder: 'Create New Order',
+        all: 'All',
+        preparing: 'Preparing',
+        processing: 'Processing',
+        completed: 'Completed',
+        orderid: 'Order ID',
+        cusName: 'Customer Name',
+        productName: 'Product Name',
+        name: 'Name',
+        product: 'Product',
+        totalPrice: 'Total Price',
+        status: 'Status',
+        shipping: 'Shipping',
+        manage: 'Management',
+        bath: 'Bath',
+        phone: 'Phone Number',
+        orders: 'Orders'
+      },
+      eyewearList : {
+        date: 'Date',
+        orderDetails: 'Order Details',
+        delivery: 'Delivery',
+        shippingName: 'Shipping Name',
+        trackingNumber: 'Tracking Number',
+        orderDetail : 'Order detail',
+        lens: 'Lens',
+        price: 'Price',
+        detail:'Detail',
+        status: 'Status',
+        selectStatus: 'Select Status',
+        print: 'Print',
+      },
     },
     th: {
       navbar: {
@@ -75,9 +144,9 @@ const i18n = createI18n({
       },
       home: {
         allEyewear: 'จำนวนแว่นตัดทั้งหมด',
-        preparing: 'กำลังจัดเตรียม',
-        processing: 'กำลังตัดแว่น',
-        completed: 'สำเร็จ',
+        preparing: 'รายการที่กำลังจัดเตรียม',
+        processing: 'รายการที่กำลังทำ',
+        completed: 'รายการที่สำเร็จ',
         createOrder: 'เพิ่มรายการสั่งซื้อ'
       },
       searchStatus: {
@@ -92,10 +161,78 @@ const i18n = createI18n({
         right: 'ขวา',
         nofound: 'ไม่พบหมายเลขรายการสินค้าของคุณ ลองตรวจสอบหมายเลขคำสั่งซื้อใหม่อีกครั้ง!',
         tryagain: 'ใส่หมายเลขคำสั่งซื้อที่ช่องค้นหาได้เลย :)'
-      }
-    }
+      },
+      about: {
+        title: 'ร้านแว่นตาที่เปิดให้บริการมาเกิน 10 ปีด้วยแว่นตาที่มีมาตรฐานสูง ราคามิตรภาพพร้อมบริการด้วยใจ',
+        subtitle: 'ร้านแว่นตา Buddy Glasses ที่เปิดมานานกว่า 10 ปี เราเริ่มจากการเปิดธุรกิจขนาดเล็กที่ขายแว่นตาสำเร็จรูปร้านแรกในวังหลังซอย 5 เราบริการลูกค้าอย่างจริงใจ ใส่ใจลูกค้าทุกท่าน ทำให้ร้านแว่นตาเป็นที่ประทับใจและไว้วางใจของลูกค้าหลายท่าน หลังจากได้รับความเชื่อมั่นจากลูกค้าร้าน Buddy Glasses จึงขยายสาขาสำหรับการบริการตัดแว่นตาคุณภาพสูงเพื่อให้ตอบโจทย์กับสายตาของลูกค้าอย่างละเอียดมากยิ่งขึ้นในราคาที่ย่อมเยาว์ ร้านแว่นตา Buddy Glasses ยินดีที่จะให้บริการลูกค้าทุกท่าน'
+      },
+      contact: {
+        location: 'แผนที่ร้าน Buddy Glasses',
+        detailLocation: 'ซอย วังหลัง, แขวง ศิริราข, เขต บางกอกน้อย, กรุงเทพมหานคร ประเทศไทย 10700'
+      },
+      footer: {
+        address: 'ซอย วังหลัง, แขวง ศิริราข, เขต บางกอกน้อย, กรุงเทพมหานคร ประเทศไทย 10700',
+        mon: 'จ.',
+        tues: 'อ.',
+        wed: 'พ.',
+        thur: 'พฤ.',
+        fri: 'ศ.',
+        sat: 'ส.',
+        sun: 'อท.',
+        follow: 'ติดตามเราได้ที่'
+      },
+      customerList: {
+        customerlist: 'รายชื่อลูกค้า',
+        addCus: 'เพิ่มลูกค้าใหม่',
+        id: 'รหัสลูกค้า',
+        fullname: 'ชื่อ - นามสกุล',
+        phone: 'เบอร์โทรศัพท์',
+        address: 'ที่อยู่',
+        manage: 'การจัดการ',
+        customer: 'คน',
+        newCus: 'ลูกค้าใหม่',
+        user: 'ข้อมูลลูกค้า',
+        name: 'ชื่อ',
+        last: 'นามสกุล',
+        confirm: 'ยืนยัน',
+        cancel: 'ยกเลิก'
+      },
+      orderList: {
+        orderList: 'รายการสั่งซื้อ',
+        addOrder: 'เพิ่มรายการ',
+        all: 'รายการทั้งหมด',
+        preparing: 'รายการที่กำลังจัดเตรียม',
+        processing: 'รายการที่กำลังทำ',
+        completed: 'รายการที่สำเร็จ',
+        orderid: 'หมายเลขรายสั่งซื้อ',
+        cusName: 'ชื่อลูกค้า',
+        productName: 'ชื่อสินค้า',
+        name: 'ชื่อรายการสินค้า',
+        product: 'สินค้า',
+        totalPrice: 'ราคารวม',
+        status: 'สถานะ',
+        shipping: 'จัดส่ง',
+        manage: 'การจัดการ',
+        bath: 'บาท',
+        phone: 'เบอร์โทรศัพท์',
+        orders: 'รายการ'
+      },
+      eyewearList : {
+        date: 'วันที่',
+        orderDetails: 'ข้อมูลการสั่งซื้อ',
+        delivery: 'จัดส่ง',
+        shippingName: 'ชื่อขนส่ง',
+        trackingNumber: 'เลขพัสดุ',
+        orderDetail : 'ข้อมูลการสั่งซื้อ',
+        lens: 'เลนส์',
+        price: 'ราคา',
+        detail:'รายละเอียด',
+        status: 'สถานะ',
+        selectStatus: 'เลือกสถานะ',
+        print: 'ถ่ายเอกสาร',
+    },
   }
-
+  }
 })
   
   const app = createApp(App)

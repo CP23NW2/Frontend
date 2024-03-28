@@ -182,7 +182,7 @@
                             v-model="eyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
-                            <option value="">-- เลือกสถานะ --</option>
+                            <option value="">-- Select Status --</option>
                             <option value="Processing">Processing</option>
                             <option value="Complete">Complete</option>
                           </select>

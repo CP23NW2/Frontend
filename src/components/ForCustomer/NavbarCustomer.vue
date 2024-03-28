@@ -8,7 +8,7 @@
           <Icon icon="iconoir:map-pin" />
         </div>
         <div class="text-[8px] md:text-sm font-normal leading-snug text-white">
-          Soi Wanglang, Khwaeng Siriraj, Bangkok
+          {{$t("navbar.address")}}
         </div>
       </div>
       <div class="flex items-center justify-start gap-5">
@@ -143,7 +143,7 @@
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Home
+                  {{$t("navbar.home")}}
                   </div></router-link
                 >
                 <router-link
@@ -156,7 +156,7 @@
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    About
+                  {{$t("navbar.about")}}
                   </div></router-link
                 >
                 <router-link
@@ -169,7 +169,7 @@
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Contact
+                  {{$t("navbar.contact")}}
                   </div></router-link
                 >
               </ul>
@@ -181,16 +181,18 @@
             <ul
               class="flex flex-col items-center mt-4 border border-gray-100 rounded-lg peer bg-gray-50 md:flex-row md:space-x-4 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-700"
             >
-              <router-link to="/"
-                ><div
-                  class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
-                >
-                  <Icon
-                    icon="ion:earth-sharp"
-                    class="inline-flex items-center h-6 md:mr-1 md:w-5"
-                  />TH
-                </div></router-link
+            <div
+                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
               >
+                <Icon
+                  icon="ion:earth-sharp"
+                  class="inline-flex items-center h-6 md:mr-1 md:w-5"
+                />
+                  <select @change="changeLanguage($event.target.value)" class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none">
+                    <option value="en">EN</option>
+                    <option value="th">TH</option>
+                  </select>
+              </div>
             </ul>
           </div>
         </div>
@@ -215,6 +217,9 @@ export default {
   methods: {
     toggleDropdown() {
       this.isDropdownVisible = !this.isDropdownVisible
+    },
+    changeLanguage(locale) {
+      this.$i18n.locale = locale;
     }
   }
 }

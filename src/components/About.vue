@@ -45,23 +45,13 @@
       
       <div class="z-20 inline-flex flex-col items-center justify-center gap-4 mt-4 md:gap-10">
         <div class="self-stretch text-base font-semibold leading-tight text-white md:text-5xl">
-          Eyewear store that has been open for more than 10 years, offering
-          high-quality eyeglasses
+          {{$t("about.title")}}
         </div>
         <div
           class=" md:p-5 bg-white rounded-lg border-l-8 md:border-l-[16px]  border-black justify-start items-center inline-flex"
         >
           <div class="w-full md:text-[18px] font-medium text-justify text-[8px] p-5 md:leading-6">
-            The story of this eyewear store began in Wang Lang Soi 5, where
-            there was only one store in the entire Wang Lang Soi 5 area. With a
-            unique approach to eye measurements focused on accuracy, we have
-            earned the trust of customers from all walks of life for over 10
-            years. In order to strengthen our relationships with customers, we
-            expanded our store to offer high-quality eyeglass cutting services
-            at prices that were unprecedented. This is what has kept our
-            customers loyal to us for a long time, as there is no one else who
-            can compare to us. We are Wang Lang Soi 5 Eyewear, and we are
-            delighted to serve you.
+            {{$t("about.subtitle")}}
           </div>
         </div>
       </div>

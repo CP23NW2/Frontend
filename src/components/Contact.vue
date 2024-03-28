@@ -3,12 +3,11 @@
     <!-- Text Content -->
     <div class="flex flex-col items-center w-full gap-2 md:gap-10">
       <div class="text-base font-semibold text-black md:leading-10 md:text-5xl">
-        Buddy Glasses Location
+        {{$t("contact.location")}}
       </div>
       <div class="font-medium md:text-[24px] text-zinc-800 text-center text-xs">
         <Icon icon="iconoir:map-pin" class="inline-flex w-5 h-5 md:w-10 md:h-10"/>
-        Soi Wanglang, Khwaeng Siriraj, Khet Bangkok Noi, Krung Thep Maha Nakhon,
-        Thailand 10700
+        {{$t("contact.detailLocation")}}
       </div>
     </div>
 

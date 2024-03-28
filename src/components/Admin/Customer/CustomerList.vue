@@ -8,14 +8,14 @@
             <div
               class="mb-4 text-2xl font-medium md:text-3xl text-zinc-800 md:mb-0"
             >
-              Customer List
+              {{ $t("customerList.customerlist") }}
             </div>
             <RouterLink to="/addcustomer">
               <div class="flex-shrink-0 mb-4 md:mb-0">
                 <button
                   class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-blue-800 border md:py-3 md:px-8 rounded-2xl border-neutral-300"
                 >
-                  Create New Customer
+                  {{ $t("customerList.addCus") }}
                 </button>
               </div></RouterLink
             >
@@ -28,9 +28,11 @@
                 v-model="selectedSearch"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
               >
-                <option value="ID">ID</option>
-                <option value="name">Name</option>
-                <option value="phoneNumber">Phone Number</option>
+                <option value="ID">{{ $t("customerList.id") }}</option>
+                <option value="name">{{ $t("customerList.fullname") }}</option>
+                <option value="phoneNumber">
+                  {{ $t("customerList.phone") }}
+                </option>
               </select>
             </div>
             <div class="relative">
@@ -67,10 +69,18 @@
               v-model="searchPhoneNumber"
               class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
             />
+            <div class="flex gap-2 align-items-center">
+              <button
+                class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
+                @click="reset"
+              >
+                Reset
+              </button>
+            </div>
           </div>
 
           <div class="mt-4 text-xl font-mediumtext-black">
-            {{ customerList.length }} Customers
+            {{ customerList.length }} {{ $t("customerList.customer") }}
           </div>
           <div class="mt-4 overflow-x-auto">
             <table
@@ -81,16 +91,20 @@
                 class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
               >
                 <tr>
-                  <th scope="col" class="px-6 py-3 whitespace-nowrap">ID</th>
-                  <th scope="col" class="px-6 py-3 whitespace-nowrap">Name</th>
                   <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                    Phone Number
+                    {{ $t("customerList.id") }}
                   </th>
                   <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                    Address
+                    {{ $t("customerList.fullname") }}
                   </th>
                   <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                    Actions
+                    {{ $t("customerList.phone") }}
+                  </th>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                    {{ $t("customerList.address") }}
+                  </th>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                    {{ $t("customerList.manage") }}
                   </th>
                 </tr>
               </thead>
@@ -114,7 +128,7 @@
                     {{
                       customer.customerTel.replace(
                         /(\d{3})(\d{3})(\d{4})/,
-                        '$1-$2-$3'
+                        "$1-$2-$3"
                       )
                     }}
                   </td>
@@ -240,119 +254,127 @@
   </div>
 </template>
 <script>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import { Icon } from '@iconify/vue'
-import Swal from 'sweetalert2'
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { Icon } from "@iconify/vue";
+import Swal from "sweetalert2";
 
-const customerList = ref([])
+const customerList = ref([]);
 
 const fetchData = async () => {
   try {
-    const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
+    const result = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/customers`
+    );
     if (result.data) {
       const sortedData = result.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-      )
-      customerList.value = sortedData
+      );
+      customerList.value = sortedData;
     }
   } catch (error) {
-    console.error('Error fetching data:', error)
+    console.error("Error fetching data:", error);
   }
-}
+};
 
 export default {
   data() {
     return {
       customerList: [],
-      selectedSearch: 'ID',
-      searchName: '',
-      searchPhoneNumber: '',
-      searchCustomerID: ''
-    }
+      selectedSearch: "ID",
+      searchName: "",
+      searchPhoneNumber: "",
+      searchCustomerID: "",
+    };
   },
 
   computed: {
     filteredResult: function () {
-      if (this.selectedSearch === 'ID') {
+      if (this.selectedSearch === "ID") {
         return this.customerList.filter((customer) => {
-          return customer.customerID.toString().includes(this.searchCustomerID)
-        })
-      } else if (this.selectedSearch === 'name') {
+          return customer.customerID.toString().includes(this.searchCustomerID);
+        });
+      } else if (this.selectedSearch === "name") {
         return this.customerList.filter((customer) => {
-          const fullName = `${customer.customerName} ${customer.customerLastName}`
-          return fullName.toLowerCase().includes(this.searchName.toLowerCase())
-        })
-      } else if (this.selectedSearch === 'phoneNumber') {
+          const fullName = `${customer.customerName} ${customer.customerLastName}`;
+          return fullName.toLowerCase().includes(this.searchName.toLowerCase());
+        });
+      } else if (this.selectedSearch === "phoneNumber") {
         return this.customerList.filter((customer) => {
           return customer.customerTel
             .toString()
-            .includes(this.searchPhoneNumber)
-        })
+            .includes(this.searchPhoneNumber);
+        });
       }
-      return []
-    }
+      return [];
+    },
   },
   methods: {
+    reset() {
+      (this.selectedSearch = 'ID'),
+        (this.searchName = ''),
+        (this.searchPhoneNumber = ''),
+        (this.searchCustomerID = '')
+    },
     EditCustomerPage(customerID) {
-      this.$router.push(`/editcustomer/${customerID}`)
+      this.$router.push(`/editcustomer/${customerID}`);
     },
     fetchData() {
       // Use this.customerTel to fetch data for a specific customer
       const url = `${import.meta.env.VITE_BASE_URL}/customers/${
         this.customerID
-      }`
+      }`;
       axios
         .get(url)
         .then((response) => {
-          this.customerData = response.data
+          this.customerData = response.data;
         })
         .catch((error) => {
-          console.error('Error fetching customer data:', error)
-        })
+          console.error("Error fetching customer data:", error);
+        });
     },
     AddOrder(customerID) {
-      this.$router.push(`/addordercustomer/${customerID}`)
-    }
+      this.$router.push(`/addordercustomer/${customerID}`);
+    },
   },
   setup() {
     const DeleteCustomer = async (customerID) => {
       const isConfirmed = await Swal.fire({
-        title: 'Are you sure to delete Customer ID : ' + customerID + ' ?',
-        text: 'You cannot recover this customer!',
-        icon: 'warning',
+        title: "Are you sure to delete Customer ID : " + customerID + " ?",
+        text: "You cannot recover this customer!",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
 
       // ถ้าผู้ใช้กด OK (ยืนยัน)
       if (isConfirmed.isConfirmed) {
-        const url = `${import.meta.env.VITE_BASE_URL}/customers/${customerID}`
+        const url = `${import.meta.env.VITE_BASE_URL}/customers/${customerID}`;
         try {
-          await axios.delete(url)
+          await axios.delete(url);
           // Update the data without refreshing the page
-          fetchData()
+          fetchData();
           // ใช้ SweetAlert2 แทน alert
-          Swal.fire('Deleted!', 'Customer has been deleted.', 'success')
+          Swal.fire("Deleted!", "Customer has been deleted.", "success");
         } catch (error) {
-          console.error('Error deleting customer:', error)
+          console.error("Error deleting customer:", error);
           // ใช้ SweetAlert2 แทน alert
-          Swal.fire('Error', 'Failed to delete customer', 'error')
+          Swal.fire("Error", "Failed to delete customer", "error");
         }
       }
-    }
+    };
 
     onMounted(() => {
-      fetchData()
-    })
+      fetchData();
+    });
 
     return {
       Icon,
       customerList,
-      DeleteCustomer
-    }
-  }
-}
+      DeleteCustomer,
+    };
+  },
+};
 </script>
