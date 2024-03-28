@@ -13,7 +13,7 @@
             {{ eyewearList.length }}
           </div>
           <div class="font-medium text-[8px] md:text-base text-zinc-500">
-            All Eyewear
+            {{$t("home.allEyewear")}}
           </div>
         </div>
         <div
@@ -25,7 +25,7 @@
             {{ getPrepareOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Preparing
+            {{$t("home.preparing")}}
           </div>
         </div>
         <div
@@ -37,7 +37,7 @@
             {{ getProcessingOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Processing
+            {{$t("home.processing")}}
           </div>
         </div>
         <div
@@ -49,7 +49,7 @@
             {{ getCompleteOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            Completed
+            {{$t("home.completed")}}
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <div
                 class="text-sm font-medium text-center text-white md:text-2xl"
               >
-                Create New Order
+              {{$t("home.createOrder")}}
               </div></RouterLink
             >
           </div>

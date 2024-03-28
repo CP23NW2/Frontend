@@ -7,6 +7,8 @@ import VueHtmlToPaper from 'vue-html-to-paper';
 import router from './Router/index.js';
 import { createApp } from 'vue';
 import { Icon } from '@iconify/vue';
+import { createI18n } from 'vue-i18n'
+// import messages from './locales'; 
 
 const options = {
   name: '_blank',
@@ -24,70 +26,80 @@ const options = {
   windowTitle: window.document.title, // override the window title
 }
 
+const i18n = createI18n({
+  locale: 'en',
+  messages: {
+    en: {
+      navbar: {
+        address: 'Soi Wanglang, Khwaeng Siriraj, Bangkok',
+        home: 'Home',
+        customer: 'Customer',
+        order: 'Order',
+        about: 'About',
+        contact: 'Contact',
+        forCustomer: 'For Customer',
+        logout: 'Log out'
+      },
+      home: {
+        allEyewear: 'All Eyewear',
+        preparing: 'Preparing',
+        processing: 'Processing',
+        completed: 'Completed',
+        createOrder: 'Create New Order'
+      },
+      searchStatus: {
+        searchProduct: 'Search product status',
+        search: 'Search',
+        inputPhone: 'Input your last 4 Phone Number',
+        ok: 'OK',
+        cancel: 'Cancel',
+        result: 'Result of Order number',
+        eyesight: 'Eyesight',
+        left: 'Left',
+        right: 'Right',
+        nofound: 'No found this search, Try to search order status again!',
+        tryagain: 'could put order number in search input :)'
+      },
 
+    },
+    th: {
+      navbar: {
+        address: 'ซอย วังหลัง, แขวง ศิริราช, กรุงเทพมหานคร',
+        home: 'หน้าหลัก',
+        customer: 'ลูกค้า',
+        order: 'รายการสั่งซื้อ',
+        about: 'เกี่ยวกับ',
+        contact: 'ติดต่อ',
+        forCustomer: 'สำหรับลูกค้า',
+        logout: 'ออกจากระบบ'
+      },
+      home: {
+        allEyewear: 'จำนวนแว่นตัดทั้งหมด',
+        preparing: 'กำลังจัดเตรียม',
+        processing: 'กำลังตัดแว่น',
+        completed: 'สำเร็จ',
+        createOrder: 'เพิ่มรายการสั่งซื้อ'
+      },
+      searchStatus: {
+        searchProduct: 'ตรวจสอบสถานะแว่นตา',
+        search: 'ค้นหา',
+        inputPhone: 'ใส่หมายเลขโทรศัพท์​ 4 ตัวท้าย',
+        ok: 'ตกลง',
+        cancel: 'ยกเลิก',
+        result: 'สถานะของรายการสั่งซื้อหมายเลข',
+        eyesight: 'ค่าสายตา',
+        left: 'ซ้าย',
+        right: 'ขวา',
+        nofound: 'ไม่พบหมายเลขรายการสินค้าของคุณ ลองตรวจสอบหมายเลขคำสั่งซื้อใหม่อีกครั้ง!',
+        tryagain: 'ใส่หมายเลขคำสั่งซื้อที่ช่องค้นหาได้เลย :)'
+      }
+    }
+  }
 
-// const i18n = createI18n({
-//     locale: 'en',
-//     messages: {
-//       en: {
-//         home: {
-//           register: 'REGISTER',
-//           login: 'LOGIN',
-//           fulfill: 'Fulfill your cybersecurity journey from learning as a complete novice, practice with intensive courses, compete in challenges and land on a real job in a real cybersecurity career.'
-//         },
-//         user: {
-//           language: '100% Thai Languages',
-//           theoretica: 'Theoretical and Practical Learning',
-//           uptodate: 'Up-to-date Content',
-//           flexible: 'Flexible Schedule',
-//           related: 'Related to Cybersecurity Blueprint',
-//           develope: 'Developed by industry expertise'
-//         },
-//         enterprise: {
-//           comprehensive: 'Comprehensive Content for develope',
-//           customizable: 'Customizable course',
-//           user: 'User Management',
-//           performance: 'Performance Tracking',
-//           summary: 'Summary Report',
-//           job: 'Job Posting',
-//           customize: 'Customize exam for candidate',
-//           realtime: 'Realtime test result',
-//           feature: 'Feature from feedback'
-//         }
-//       },
-//       th: {
-//         home: {
-//           register: 'ลงทะเบียน',
-//           login: 'เข้าสู่ระบบ',
-//           fulfill: 'เติมเต็มเส้นทางด้าน Cybersecurity ของคุณ โดยจะฝึกฝนตั้งแต่พื้นฐานไปสู่หลักสูตรเร่งรัด ซึ่งจะมีการแข่งขันท้าทายความสามารถ นอกจากนี้ยังสามารถนำไปใช้งานได้จริงในสายอาชีพ Cybersecurity'
-//         },
-//         user: {
-//           language: '100% ภาษาไทย',
-//           theoretica: 'การเรียนรู้ในเชิงทฤษฎีและปฏิบัติ',
-//           uptodate: 'เนื้อหาที่ทันสมัย',
-//           flexible: 'ตารางเวลาที่ยืดหยุ่น',
-//           related: 'เกี่ยวข้องกับ Cybersecurity Blueprint',
-//           develope: 'พัฒนาโดยผู้เชี่ยวชาญในอุตสาหกรรม'
-//         },
-//         enterprise: {
-//           comprehensive: 'เนื้อหาที่ครอบคลุมการพัฒนา',
-//           customizable: 'หลักสูตรที่ปรับแต่งได้',
-//           user: 'การจัดการผู้ใช้',
-//           performance: 'การติดตามประสิทธิภาพ',
-//           summary: 'สรุปรายงาน',
-//           job: 'ประกาศรับสมัครงาน',
-//           customize: 'ปรับแต่งข้อสอบสำหรับผู้สมัคร',
-//           realtime: 'ผลการทดสอบตามเวลาจริง',
-//           feature: 'เสนอแนะคุณสมบัติ'
-//         }
-//       }
-//     }
-//   })
+})
   
   const app = createApp(App)
-  // กำหนดตัวแปร global ใน app.config.globalProperties
-// app.config.globalProperties.$isLoggedIn = false;
-  // app.use(i18n)
+  app.use(i18n)
   app.use(VueHtmlToPaper, options)
   app.component('Icon', Icon)
   app.use(router)

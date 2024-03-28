@@ -8,7 +8,7 @@
           <Icon icon="iconoir:map-pin" />
         </div>
         <div class="text-[8px] md:text-sm font-normal leading-snug text-white">
-          Soi Wanglang, Khwaeng Siriraj, Bangkok
+          {{$t("navbar.address")}}
         </div>
       </div>
       <div class="flex items-center justify-start gap-5">
@@ -29,7 +29,7 @@
           <div
             class="text-[8px] md:text-sm font-normal leading-snug text-right text-white"
           >
-          BuddyGlassesOfficial@gmail.com
+            BuddyGlassesOfficial@gmail.com
           </div>
         </div>
       </div>
@@ -129,14 +129,16 @@
                     to="/customer"
                     class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
                   >
-                    For customer
+                    {{$t("navbar.logout")}}
                   </router-link>
 
-                  <li
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                    @click="logout"
+                  <li>
+                    <button
+                      @click="logout"
+                      class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
                     >
-                    Logout
+                      Logout
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -153,12 +155,12 @@
                   :class="{
                     'bg-[#F5821F4D]  items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/',
-                    'bg-white': $route.path !== '/'
+                    'bg-white': $route.path !== '/',
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Home
+                  {{$t("navbar.home")}}
                   </div></router-link
                 >
                 <router-link
@@ -166,12 +168,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/customer',
-                    'bg-white': $route.path !== '/customer'
+                    'bg-white': $route.path !== '/customer',
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Customer
+                  {{$t("navbar.customer")}}
                   </div></router-link
                 >
                 <router-link
@@ -179,12 +181,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/order',
-                    'bg-white': $route.path !== '/order'
+                    'bg-white': $route.path !== '/order',
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Order
+                  {{$t("navbar.order")}}
                   </div></router-link
                 >
                 <router-link
@@ -192,12 +194,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/about',
-                    'bg-white': $route.path !== '/about'
+                    'bg-white': $route.path !== '/about',
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    About
+                  {{$t("navbar.about")}}
                   </div></router-link
                 >
                 <router-link
@@ -205,12 +207,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/contact',
-                    'bg-white': $route.path !== '/contact'
+                    'bg-white': $route.path !== '/contact',
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                    Contact
+                  {{$t("navbar.contact")}}
                   </div></router-link
                 >
               </ul>
@@ -222,15 +224,6 @@
             <ul
               class="flex flex-col items-center mt-4 border border-gray-100 rounded-lg peer bg-gray-50 md:flex-row md:space-x-4 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-700"
             >
-                <div
-                  class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1 items-center inline-flex gap-1 rounded-xl"
-                >
-                  <Icon
-                    icon="ph:user-circle-light"
-                    class="inline-block h-8 md:mr-1 md:w-6"
-                    @click="logout"
-                  />Logout
-                </div>
               <router-link to="/forcustomer">
                 <div
                   class="cursor-pointer hover:bg-[#F5821F4D] hover:text-black md:px-4 md:py-1.5 rounded-xl inline-flex items-center gap-1 text-white bg-primary-color"
@@ -238,19 +231,31 @@
                   <Icon
                     icon="solar:home-2-outline"
                     class="h-6 md:mr-1 md:w-5"
-                  />For Customer
+                  />{{$t("navbar.forCustomer")}}
                 </div>
               </router-link>
-              <router-link to="/"
-                ><div
-                  class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
-                >
-                  <Icon
-                    icon="ion:earth-sharp"
-                    class="inline-flex items-center h-6 md:mr-1 md:w-5"
-                  />TH
-                </div></router-link
+
+              <button
+                class="hover:bg-[#F5821F4D] md:px-4 md:py-1 items-center inline-flex gap-1 rounded-xl"
+                @click="logout"
               >
+                <Icon
+                  icon="material-symbols:logout"
+                  class="inline-block h-8 md:mr-1 md:w-6"
+                />{{$t("navbar.logout")}}
+              </button>
+              <div
+                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
+              >
+                <Icon
+                  icon="ion:earth-sharp"
+                  class="inline-flex items-center h-6 md:mr-1 md:w-5"
+                />
+                  <select @change="changeLanguage($event.target.value)" class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none">
+                    <option value="en">EN</option>
+                    <option value="th">TH</option>
+                  </select>
+              </div>
             </ul>
           </div>
         </div>
@@ -262,35 +267,38 @@
 </template>
 
 <script>
-import { Icon } from '@iconify/vue';
-import axios from "axios";
+import { Icon } from "@iconify/vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: {
-    Icon
+    Icon,
   },
   data() {
     return {
-      isDropdownVisible: false
-    }
+      isDropdownVisible: false,
+    };
   },
   methods: {
     toggleDropdown() {
-      this.isDropdownVisible = !this.isDropdownVisible
+      this.isDropdownVisible = !this.isDropdownVisible;
     },
-  async logout() {
-  try {
-    // Clear token from local storage
-    localStorage.removeItem("token");
-    location.reload() 
-    // Redirect to login page or any other desired route
-    this.$router.push('/admin/login');
-  } catch (error) {
-    console.error("Error during logout:", error);
-  }
-}
-
-  
-  }
-}
+    async logout() {
+      try {
+        // Clear token from local storage
+        localStorage.removeItem("token");
+        location.reload();
+        // Redirect to login page or any other desired route
+        this.$router.push("/admin/login");
+      } catch (error) {
+        console.error("Error during logout:", error);
+      }
+    },
+    changeLanguage(locale) {
+      this.$i18n.locale = locale;
+    },
+  },
+};
 </script>
+<style scoped>
+</style>

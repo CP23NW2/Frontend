@@ -4,7 +4,7 @@
       <label
         for="product_status"
         class="block text-sm font-medium text-gray-900 md:mb-2 md:text-3xl dark:text-white"
-        >Search product status</label
+        >{{$t("searchStatus.searchProduct")}}</label
       >
       <div
         class="flex items-center justify-between gap-1 pt-2 md:pt-2 md:gap-2"
@@ -34,7 +34,7 @@
           type="submit"
           class="inline-flex items-center py-2 px-4 md:p-5 md:px-10 text-xs md:text-base font-medium text-white bg-[#2B2B2B] rounded-lg md:rounded-2xl border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Search
+        {{$t("searchStatus.search")}}
         </button>
         <div
           class="popup"
@@ -52,7 +52,7 @@
                     <Icon icon="la:vr-cardboard" color="white" width="60" />
                   </div>
                 </div>
-                <p class="text-xl font-bold">Input your last 4 Phone Number</p>
+                <p class="text-xl font-bold">{{$t("searchStatus.inputPhone")}}</p>
                 <div class="mt-5">
                   <input
                     type="text"
@@ -96,7 +96,7 @@
                     @click="submitForm"
                     class="bg-blue-800 md:text-base font-medium rounded-full md:w-[177px] md:h-[51px] text-white"
                   >
-                    OK
+                  {{$t("searchStatus.ok")}}
                   </button>
                 </div>
                 <div class="flex justify-center mt-2">
@@ -104,7 +104,7 @@
                     @click="closePopup"
                     class="bg-red-600 md:text-base font-medium rounded-full md:w-[177px] md:h-[51px] text-white"
                   >
-                    Cancel
+                  {{$t("searchStatus.cancel")}}
                   </button>
                 </div>
               </div>
@@ -119,7 +119,7 @@
     >
       <div class="flex items-stretch w-full gap-4 pb-4">
         <div class="self-center text-xl whitespace-nowrap">
-          Result of Order number
+          {{$t("searchStatus.result")}}
         </div>
         <div
           class="text-center self-center rounded-3xl py-[12px] bg-white px-[60px] border-2 border-[#F5821F] text-[#F5821F]"
@@ -158,7 +158,7 @@
               <table class="w-full bg-white border border-black">
                 <thead>
                   <tr class="bg-[#F59F54] text-white w-full">
-                    <th class="px-4 py-6 border border-black">Eyesight</th>
+                    <th class="px-4 py-6 border border-black">{{$t("searchStatus.eyesight")}}</th>
                     <th class="px-4 py-6 border border-black">SPH</th>
                     <th class="px-4 py-6 border border-black">CYL</th>
                     <th class="px-4 py-6 border border-black">AXIS</th>
@@ -173,7 +173,7 @@
                     <td
                       class="px-4 py-6 border border-black bg-[#FFCA9C] text-center"
                     >
-                      Left
+                    {{$t("searchStatus.left")}}
                     </td>
                     <td class="px-4 py-6 text-center border border-black">
                       {{ eyewear.leftSPH }}
@@ -202,7 +202,7 @@
                     <td
                       class="px-4 py-6 border border-black bg-[#FFCA9C] text-center"
                     >
-                      Right
+                    {{$t("searchStatus.right")}}
                     </td>
                     <td class="px-4 py-6 text-center border border-black">
                       {{ eyewear.rightSPH }}
@@ -304,9 +304,9 @@
           Oops!
         </div>
         <div class="md:text-base font-medium text-xs text-[#808080]">
-          No found this search, Try to search again for status orders and you
+          {{$t("searchStatus.nofound")}}
           <br />
-          could put order number in search input :)
+          {{$t("searchStatus.tryagain")}}
         </div>
       </div>
     </div>

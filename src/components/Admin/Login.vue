@@ -16,6 +16,7 @@
           <div class="mt-5">
             <input
               v-model="otp"
+              :class="{ 'border-red-500 border-2': otpError, 'shake': otpError }"
               class="h-10 text-lg w-36"
               maxlength="6"
               type="number"
@@ -141,6 +142,7 @@ export default {
       showPassword: false,
       emailError: false,
       passwordError: false,
+      otpError: false
     };
   },
   methods: {
@@ -202,9 +204,13 @@ export default {
           console.log(token); // Log the token for debugging
           this.$router.push('/');
           console.log("OTP verification successful.");
+          this.otpError = false;
         } else {
           // OTP verification failed
+          
           console.error("OTP verification failed:", response.data.error);
+          this.otpError = true;
+          this.clearotp()
           Swal.fire({
             icon: "error",
             title: "OTP verification failed",
@@ -215,9 +221,16 @@ export default {
       } catch (error) {
         // Handle network errors or other exceptions
         console.error("Error during OTP verification:", error);
+        this.otpError = true;
+        this.clearotp()
       }
     },
+    clearotp(){
+      this.otp = ''
+    },
     closePopup() {
+      this.otpError = false;
+      this.clearotp()
       this.isPopupVisible = false;
     },
   },
@@ -237,5 +250,16 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.2s ease-in-out;
 }
 </style>
