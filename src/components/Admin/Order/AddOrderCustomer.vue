@@ -11,19 +11,19 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">Add Order</p>
+            <p class="text-xl md:px-10 md:text-3xl">{{$t("addOrder.addOrder")}}</p>
           </div>
 
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
               <p class="text-primary-color md:text-2xl">
-                Customer ID : {{ customerData.customerID }}
+                {{$t("addOrder.customerID")}} : {{ customerData.customerID }}
               </p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Name</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("orderList.name")}}</p>
                   <input
                     required
                     v-model="customerData.customerName"
@@ -32,11 +32,11 @@
                   <p
                     class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    Please enter your name
+                    {{$t("customerList.name")}}
                   </p>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Last Name</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</p>
                   <input
                     required
                     v-model="customerData.customerLastName"
@@ -45,11 +45,11 @@
                   <p
                     class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    Please enter your last name
+                  {{$t("orderList.enterLastName")}}
                   </p>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Date</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.date")}}</p>
                   <input
                     required
                     v-model="newOrder.dateOrder"
@@ -59,7 +59,7 @@
                   <p
                     class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    Please enter date
+                  {{$t("orderList.enterDate")}}
                   </p>
                 </div>
               </div>
@@ -67,14 +67,14 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Address</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.address")}}</p>
                   <input
                     v-model="customerData.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Phone number</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.phone")}}</p>
                   <input
                     required
                     v-model="customerData.customerTel"
@@ -83,18 +83,18 @@
                   <p
                     class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    Please enter phone number
+                  {{$t("orderList.enterPhone")}}
                   </p>
                 </div>
               </div>
               <!-- Order -->
               <div class="w-full h-px border border-neutral-300"></div>
-              <p class="py-4 text-primary-color md:text-2xl">Order Details</p>
+              <p class="py-4 text-primary-color md:text-2xl">{{$t("eyewearList.orderDetails")}}</p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4 md:col-span-3">
-                  <p class="pb-2 text-sm md:text-lg">Delivery</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.delivery")}}</p>
                   <select
                     required
                     v-model="newOrder.delivery"
@@ -112,7 +112,7 @@
                     v-if="deliveryError"
                     class="invisible text-sm text-red-500 peer-invalid:visible"
                   >
-                    Please select one!
+                  {{$t("addOrder.pleaseSelOne")}}
                   </p>
                 </div>
 
@@ -122,7 +122,7 @@
                 >
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
+                      <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.shippingName")}}</p>
                       <select
                         v-model="newOrder.shippingName"
                         class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 w-full inline-flex items-center justify-between peer border border-slate-400"
@@ -134,7 +134,7 @@
                       </select>
                     </div>
                     <div>
-                      <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
+                      <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.trackingNumber")}}</p>
                       <input
                         v-model="newOrder.tracking"
                         maxlength="15"
@@ -151,13 +151,13 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        Eyewear details {{ item.id }}
+                        {{$t("eyewearList.orderDetails")}} {{ item.id }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Brand</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("addOrder.brand")}}</p>
                           <input
                             required
                             v-model="item.eyewearName"
@@ -172,11 +172,11 @@
                             v-if="eyewearError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
-                            Please enter brand!
+                          {{$t("orderList.enterBrand")}}
                           </p>
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Lens</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.lens")}}</p>
                           <input
                             required
                             v-model="item.lens"
@@ -190,11 +190,11 @@
                             v-if="lensError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
-                            Please enter lens!
+                          {{$t("orderList.enterLens")}}
                           </p>
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Price</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.price")}}</p>
                           <input
                             required
                             v-model="item.price"
@@ -209,13 +209,13 @@
                             v-if="priceError"
                             class="invisible text-sm text-red-500 peer-invalid:visible"
                           >
-                            Please enter price!
+                          {{$t("orderList.enterPrice")}}
                           </p>
                         </div>
                       </div>
                       <div class="justify-between gap-4 mt-4 md:flex-row">
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Detail</p>
+                          <p class="pb-2 text-sm md:text-lg">{{ $t("eyewearList.detail") }}</p>
                           <input
                             v-model="item.detail"
                             placeholder="ถ้ามี"
@@ -233,7 +233,7 @@
                             <thead>
                               <tr class="bg-[#F59F54] text-white">
                                 <th class="px-6 py-8 border border-black">
-                                  Eyesight
+                                  {{ $t("searchStatus.eyesight") }}
                                 </th>
                                 <th class="px-6 py-8 border border-black">
                                   SPH
@@ -263,7 +263,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  Left
+                                {{ $t("searchStatus.left") }}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -313,7 +313,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  Right
+                                {{ $t("searchStatus.right") }}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -371,7 +371,7 @@
                     @click="addEyewearTable"
                     class="h-10 w-full rounded-2xl border border-[#F59F54] text-[#F59F54] md:h-[60px] md:text-xl cursor-pointer hover:bg-[#F59F54] hover:text-white"
                   >
-                    Add New Eyewear +
+                  {{ $t("orderList.addEyewear") }}
                   </button>
                 </div>
 
@@ -380,7 +380,7 @@
                     <p
                       class="text-sm md:text-lg text-primary-color whitespace-nowrap"
                     >
-                      Total Price:
+                    {{ $t("orderList.totalPrice") }}
                     </p>
                     <p
                       class="text-sm text-center rounded-md md:text-lg text-primary-color"
@@ -393,7 +393,7 @@
                       @click="addOrderAndEyewear()"
                       class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                     >
-                      Confirm
+                    {{ $t("customerList.confirm") }}
                     </button>
                   </div>
                   <div class="mx-2">
@@ -401,7 +401,7 @@
                       @click="cancel"
                       class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                     >
-                      Cancel
+                    {{ $t("customerList.cancel") }}
                     </button>
                   </div>
                 </div>

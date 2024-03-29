@@ -7,14 +7,14 @@
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
               <p class="text-primary-color md:text-2xl">
-                Order ID :
+                {{$t("orderList.orderid")}}
                 {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
               </p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Name</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</p>
                   <input
                     id="inputConfirm"
                     disabled
@@ -27,7 +27,7 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">LastName</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</p>
                   <input
                     disabled
                     :value="
@@ -39,7 +39,7 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Date</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.date")}}</p>
                   <input
                     :value="
                       formatDate(
@@ -55,7 +55,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Address</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.address")}}</p>
                   <input
                     disabled
                     :value="
@@ -67,7 +67,7 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">Phone number</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.phone")}}</p>
                   <input
                     :value="
                       groupedData.customer
@@ -80,12 +80,12 @@
                 </div>
               </div>
               <div class="w-full h-px border border-neutral-300"></div>
-              <p class="py-4 text-primary-color md:text-2xl">Order Details</p>
+              <p class="py-4 text-primary-color md:text-2xl">{{$t("eyewearList.orderDetails")}}</p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4 md:col-span-3">
-                  <p class="pb-2 text-sm md:text-lg">Delivery</p>
+                  <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.delivery")}}</p>
                   <input
                     disabled
                     :value="
@@ -103,7 +103,7 @@
                 >
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <p class="pb-2 text-sm md:text-lg">Shipping Name</p>
+                      <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.shippingName")}}</p>
                       <input
                         disabled
                         :value="
@@ -115,7 +115,7 @@
                       />
                     </div>
                     <div class="w-full pb-4">
-                      <p class="pb-2 text-sm md:text-lg">Tracking Number</p>
+                      <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.trackingNumber")}}</p>
                       <input
                         v-model="groupedData.order.tracking"
                         maxlength="15"
@@ -135,13 +135,13 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        Order detail : {{ eyewear.eyewearID }}
+                        {{$t("eyewearList.orderDetail")}} : {{ eyewear.eyewearID }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Product</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("addOrder.brand")}}</p>
                           <input
                             disabled
                             :value="eyewear.eyewearName"
@@ -150,7 +150,7 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Lens</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.lens")}}</p>
                           <input
                             :value="eyewear.lens"
                             disabled
@@ -158,7 +158,7 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Price</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.price")}}</p>
                           <input
                             disabled
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
@@ -168,7 +168,7 @@
                       </div>
                       <div class="justify-between gap-4 mt-4 md:flex-row">
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">Detail</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.detail")}}</p>
                           <input
                             disabled
                             :value="eyewear.detail"
@@ -177,12 +177,12 @@
                         </div>
                         <!--Status dropdraw-->
                         <div>
-                          <p class="pb-2 text-sm md:text-lg">Status</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.status")}}</p>
                           <select
                             v-model="eyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
-                            <option value="">-- Select Status --</option>
+                            <option value="">-- {{$t("eyewearList.selectStatus")}} --</option>
                             <option value="Processing">Processing</option>
                             <option value="Complete">Complete</option>
                           </select>
@@ -257,7 +257,7 @@
                             <thead>
                               <tr class="bg-[#F59F54] text-white">
                                 <th class="px-6 py-8 border border-black">
-                                  Eyesight
+                                  {{$t("searchStatus.eyesight")}}
                                 </th>
                                 <th class="px-6 py-8 border border-black">
                                   SPH
@@ -287,7 +287,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  Left
+                                {{$t("searchStatus.left")}}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -344,7 +344,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  Right
+                                {{$t("searchStatus.right")}}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -411,7 +411,7 @@
                   <p
                     class="text-sm md:text-lg text-primary-color whitespace-nowrap"
                   >
-                    Total Price: {{ totalPrice() }}
+                  {{$t("orderList.totalPrice")}} : {{ totalPrice() }}
                   </p>
                   <p
                     class="text-sm text-center rounded-md md:text-lg text-primary-color"
@@ -428,7 +428,7 @@
                     "
                     class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
                   >
-                    Confirm
+                  {{$t("customerList.confirm")}}
                   </button>
                 </div>
                 <div class="mx-2">
@@ -436,14 +436,14 @@
                     @click="cancel()"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
-                    Cancel
+                  {{$t("customerList.cancel")}}
                   </button>
                 </div>
                 <div class="mx-2">
                   <button
                     class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600"
                   >
-                    Print
+                  {{$t("eyewearList.print")}}
                   </button>
                 </div>
               </div>

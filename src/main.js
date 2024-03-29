@@ -114,22 +114,41 @@ const i18n = createI18n({
         manage: 'Management',
         bath: 'Bath',
         phone: 'Phone Number',
-        orders: 'Orders'
+        orders: 'Orders',
+        addCusOr: 'Add Customer and Order',
+        selectCusBook: 'Select from address book',
+        selectCus: 'Select the customers address',
+        enterName: 'Please enter your name',
+        enterLastName: 'Please enter your last name',
+        enterDate: 'Please enter date',
+        enterPhone: 'Please enter phone number',
+        enterBrand: 'Please enter brand!',
+        enterPrice: 'Please enter price!',
+        enterLens: 'Please enter lens!',
+        addEyewear: 'Add New Eyewear +', 
       },
       eyewearList : {
         date: 'Date',
         orderDetails: 'Order Details',
         delivery: 'Delivery',
+        pickup: 'Pickup',
         shippingName: 'Shipping Name',
         trackingNumber: 'Tracking Number',
         orderDetail : 'Order detail',
-        lens: 'Lens',
+        lens: 'Lens', 
         price: 'Price',
         detail:'Detail',
         status: 'Status',
         selectStatus: 'Select Status',
         print: 'Print',
+        eyewearDetail: 'Eyewear details'
       },
+      addOrder:{ 
+        addOrder:'Add Order',
+        customerID:'Customer ID',
+        pleaseSelOne: 'Please select one',
+        brand: 'Brand'
+      }
     },
     th: {
       navbar: {
@@ -215,7 +234,17 @@ const i18n = createI18n({
         manage: 'การจัดการ',
         bath: 'บาท',
         phone: 'เบอร์โทรศัพท์',
-        orders: 'รายการ'
+        orders: 'รายการ',
+        addCusOr: 'สร้างชื่อลูกค้าและคำสั่งซื้อ',
+        selectCusBook: 'เลือกที่อยู่ผู้รับจากรายชื่อ',
+        selectCus: 'เลือกที่อยู่ผู้รับ',
+        enterName: 'กรุณากรอกชื่อของคุณ',
+        enterLastName: 'กรุณากรอกนามสกุลของคุณ',
+        enterDate: 'กรุณาใส่วันที่',
+        enterPhone: 'กรุณากรอกเบอร์โทรศัพท์ของคุณ',
+        enterBrand: 'กรุณากรอกชื่อแบรนด์',
+        enterPrice: 'กรุณกรอกราคา',
+        addEyewear: 'เพิ่มแว่นตา +',
       },
       eyewearList : {
         date: 'วันที่',
