@@ -10,7 +10,7 @@
                 {{$t("orderList.orderid")}}
                 {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
               </p>
-              <div
+              <div 
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
@@ -104,15 +104,15 @@
                   <div class="grid grid-cols-2 gap-4">
                     <div>
                       <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.shippingName")}}</p>
-                      <input
-                        disabled
-                        :value="
-                          groupedData.order
-                            ? groupedData.order.shippingName
-                            : 'N/A'
-                        "
-                        class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 px-5 w-full inline-flex items-center justify-between"
-                      />
+                      <select
+                       v-model="groupedData.order.shippingName"
+                        class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 w-full inline-flex items-center justify-between peer border border-slate-400"
+                      >
+                        <option>Please select one</option>
+                        <option value="Flash">Flash</option>
+                        <option value="EMS">EMS</option>
+                        <option value="J&T">J&T</option>
+                      </select>
                     </div>
                     <div class="w-full pb-4">
                       <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.trackingNumber")}}</p>
@@ -182,7 +182,8 @@
                             v-model="eyewear.orderStatus"
                             class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                           >
-                            <option value="">-- {{$t("eyewearList.selectStatus")}} --</option>
+                            <option value="">-- Please select one --</option>
+                            <option value="Preparing">Preparing</option>
                             <option value="Processing">Processing</option>
                             <option value="Complete">Complete</option>
                           </select>
@@ -419,13 +420,7 @@
                 </div>
                 <div class="mx-2">
                   <button
-                    @click="
-                      updateEyewear(
-                        groupedData.order.orderID,
-                        groupedData.order.tracking,
-                        groupedData.eyewears
-                      )
-                    "
+                  @click="confirmUpdate()"
                     class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
                   >
                   {{$t("customerList.confirm")}}
@@ -458,6 +453,8 @@
 <script>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2'
 
 export default {
   setup() {
@@ -491,12 +488,9 @@ export default {
         if (eyewearResponse.data) {
           eyewear.value = eyewearResponse.data
           groupData() // Call the groupData() function to group the eyewear data
-          console.log('eyewear', eyewear.value) // Check the eyewear value
+  
         }
-
-        console.log('eyewear', eyewear.value) // Check the eyewear value
       } catch (error) {
-        console.error('Error fetching data:', error)
       }
     }
 
@@ -514,8 +508,6 @@ export default {
         customer: matchedCustomer,
         eyewears: matchedEyewears
       }
-      console.log('test', matchedEyewears)
-      console.log('groupedData', groupedData.value)
     }
 
     onMounted(() => {
@@ -560,23 +552,68 @@ export default {
       }, 0)
     }
 
-    const updateEyewear = async (orderID, tracking, eyewear) => {
+    const updateStatus = async () => {
       try {
-        const updateOrder = await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`,
-          {
-            tracking: tracking
-          }
-        )
-        const updatedEyewear = await axios.put(
-          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}/eyewears`,
-          eyewear
-        )
-        console.log('Updated eyewear:', updatedEyewear.data)
+        const updatedEyewears = groupedData.value.eyewears.map(eyewear => ({
+          eyewearID: eyewear.eyewearID,
+          orderStatus: eyewear.orderStatus
+        }));
+        // Call the backend API to update the order status for all eyewears
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/eyewears/manyStatus/${groupedData.value.order.orderID}`, updatedEyewears);
       } catch (error) {
-        console.error('Error updating eyewear:', error)
+        // Optionally, you can show an error message to the user
       }
-    }
+    };
+
+  
+    onMounted(() => {
+      fetchData()
+    })
+
+    const updateEyewear = async (orderID, shippingName, tracking, eyewear) => {
+  try {
+    // อัพเดทข้อมูลการจัดส่งของคำสั่งซื้อ
+    const updateOrder = await axios.put(
+      `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`,
+      {
+        shippingName: shippingName,
+        tracking: tracking
+      }
+    );
+
+    // ส่งข้อมูลรายการ eyewear แต่ละรายการในอาร์เรย์เพื่ออัพเดท
+    await Promise.all(eyewear.map(async (item) => {
+      const updatedEyewearResponse = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/eyewears/${item.eyewearID}`,
+        {
+          orderID: orderID,
+          // อาจต้องการอัพเดทข้อมูลอื่นๆ ใน eyewear ด้วย
+        }
+      );
+    }));
+  } catch (error) {
+  }
+};
+
+    // ต่อไปนี้เป็นการเพิ่ม methods ใหม่ updateStatus และ updateEyewear
+    const router = useRouter();
+    
+    const confirmUpdate = async () => {
+  await updateStatus();
+  await updateEyewear(
+    groupedData.value.order.orderID,
+    groupedData.value.order.shippingName,
+    groupedData.value.order.tracking
+  );
+  Swal.fire({
+        icon: 'success',
+        title: 'Edit order Success!',
+        timer: 1500
+      }).then(() => {
+        router.push('/order');
+      })
+  
+};
 
     return {
       order,
@@ -587,13 +624,13 @@ export default {
       formatDate,
       formatDateandTime,
       totalPrice,
-      updateEyewear
+      confirmUpdate
     }
   },
   methods: {
     cancel() {
       this.$router.push(`/order`)
-    }
+    },
+  } 
   }
-}
 </script>

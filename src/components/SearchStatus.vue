@@ -332,23 +332,29 @@ export default {
   },
   computed: {
     hiddenCustomerName() {
-      if (this.customer.customerName + this.customer.customerLastName) {
-        return this.hideText(this.customer.customerName + this.customer.customerLastName)
+      if (
+        this.customer &&
+        this.customer.customerName &&
+        this.customer.customerLastName
+      ) {
+        return this.hideText(
+          this.customer.customerName + this.customer.customerLastName
+        )
       }
       return ''
     },
     hiddenCustomerTel() {
-      if (this.customer.customerTel) {
+      if (this.customer && this.customer.customerTel) {
         return this.hideText(this.customer.customerTel)
       }
       return ''
-    },
+  },
   },
   methods: {
     async fetchCustomer(customerID) {
       try {
         const response = await axios.get(
-          `http://localhost:3000/customers/${customerID}`
+          `${import.meta.env.VITE_BASE_URL}/customers/${customerID}`
         )
         this.customer = response.data
         console.log('customer data', this.customer)

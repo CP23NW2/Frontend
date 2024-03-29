@@ -853,7 +853,6 @@ export default {
           )
           orderList.value = sortedData
         }
-        console.log('Fetched data:', orderList.value) // Log the data to the console
       } catch (error) {
         console.error('Error fetching customer data:', error)
       }

@@ -383,7 +383,7 @@
                       </div>
                       <div class="justify-between gap-4 mt-4 md:flex-row">
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">{{$t("searchStatus.eyesight")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.detail")}}</p>
                           <input
                             v-model="item.detail"
                             placeholder="ถ้ามี"
