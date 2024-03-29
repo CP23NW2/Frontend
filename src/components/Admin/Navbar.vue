@@ -8,7 +8,7 @@
           <Icon icon="iconoir:map-pin" />
         </div>
         <div class="text-[8px] md:text-sm font-normal leading-snug text-white">
-          {{$t("navbar.address")}}
+          {{ $t('navbar.address') }}
         </div>
       </div>
       <div class="flex items-center justify-start gap-5">
@@ -34,9 +34,9 @@
         </div>
       </div>
     </div>
-    <div class="fixed z-50 w-full -mt-8 overflow-auto md:w-full md:-mt-2">
+    <div class="fixed z-50 -mt-8 overflow-auto w-fit md:w-full md:-mt-2">
       <nav class="h-16 py-2.5 bg-white border-b-2 md:-ml-20 md:py-0">
-        <div class="container flex flex-wrap justify-between mx-auto">
+        <div class="container flex justify-between w-full mx-auto">
           <a class="flex items-center">
             <!-- Desktop  -->
             <div class="hidden md:block">
@@ -129,7 +129,7 @@
                     to="/customer"
                     class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
                   >
-                    {{$t("navbar.logout")}}
+                    {{ $t('navbar.logout') }}
                   </router-link>
 
                   <li>
@@ -155,12 +155,12 @@
                   :class="{
                     'bg-[#F5821F4D]  items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/',
-                    'bg-white': $route.path !== '/',
+                    'bg-white': $route.path !== '/'
                   }"
                   ><div
-                    class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
+                    class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl whitespace-nowrap"
                   >
-                  {{$t("navbar.home")}}
+                    {{ $t('navbar.home') }}
                   </div></router-link
                 >
                 <router-link
@@ -168,12 +168,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/customer',
-                    'bg-white': $route.path !== '/customer',
+                    'bg-white': $route.path !== '/customer'
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.customer")}}
+                    {{ $t('navbar.customer') }}
                   </div></router-link
                 >
                 <router-link
@@ -181,12 +181,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/order',
-                    'bg-white': $route.path !== '/order',
+                    'bg-white': $route.path !== '/order'
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.order")}}
+                    {{ $t('navbar.order') }}
                   </div></router-link
                 >
                 <router-link
@@ -194,12 +194,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/about',
-                    'bg-white': $route.path !== '/about',
+                    'bg-white': $route.path !== '/about'
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.about")}}
+                    {{ $t('navbar.about') }}
                   </div></router-link
                 >
                 <router-link
@@ -207,12 +207,12 @@
                   :class="{
                     'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/contact',
-                    'bg-white': $route.path !== '/contact',
+                    'bg-white': $route.path !== '/contact'
                   }"
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.contact")}}
+                    {{ $t('navbar.contact') }}
                   </div></router-link
                 >
               </ul>
@@ -226,35 +226,38 @@
             >
               <router-link to="/forcustomer">
                 <div
-                  class="cursor-pointer hover:bg-[#F5821F4D] hover:text-black md:px-4 md:py-1.5 rounded-xl inline-flex items-center gap-1 text-white bg-primary-color"
+                  class="whitespace-nowrap cursor-pointer hover:bg-[#F5821F4D] hover:text-black md:px-4 md:py-1.5 rounded-xl inline-flex items-center gap-1 text-white bg-primary-color w-full"
                 >
                   <Icon
                     icon="solar:home-2-outline"
                     class="h-6 md:mr-1 md:w-5"
-                  />{{$t("navbar.forCustomer")}}
+                  />{{ $t('navbar.forCustomer') }}
                 </div>
               </router-link>
 
               <button
-                class="hover:bg-[#F5821F4D] md:px-4 md:py-1 items-center inline-flex gap-1 rounded-xl"
+                class="hover:bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl w-full"
                 @click="logout"
               >
                 <Icon
                   icon="material-symbols:logout"
                   class="inline-block h-8 md:mr-1 md:w-6"
-                />{{$t("navbar.logout")}}
+                />{{ $t('navbar.logout') }}
               </button>
               <div
-                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
+                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl w-full"
               >
                 <Icon
                   icon="ion:earth-sharp"
                   class="inline-flex items-center h-6 md:mr-1 md:w-5"
                 />
-                  <select @change="changeLanguage($event.target.value)" class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none">
-                    <option value="en">EN</option>
-                    <option value="th">TH</option>
-                  </select>
+                <select
+                  @change="changeLanguage($event.target.value)"
+                  class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none"
+                >
+                  <option value="en">EN</option>
+                  <option value="th">TH</option>
+                </select>
               </div>
             </ul>
           </div>
@@ -267,38 +270,37 @@
 </template>
 
 <script>
-import { Icon } from "@iconify/vue";
-import { useI18n } from "vue-i18n";
+import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
   components: {
-    Icon,
+    Icon
   },
   data() {
     return {
-      isDropdownVisible: false,
-    };
+      isDropdownVisible: false
+    }
   },
   methods: {
     toggleDropdown() {
-      this.isDropdownVisible = !this.isDropdownVisible;
+      this.isDropdownVisible = !this.isDropdownVisible
     },
     async logout() {
       try {
         // Clear token from local storage
-        localStorage.removeItem("token");
-        location.reload();
+        localStorage.removeItem('token')
+        location.reload()
         // Redirect to login page or any other desired route
-        this.$router.push("/admin/login");
+        this.$router.push('/admin/login')
       } catch (error) {
-        console.error("Error during logout:", error);
+        console.error('Error during logout:', error)
       }
     },
     changeLanguage(locale) {
-      this.$i18n.locale = locale;
-    },
-  },
-};
+      this.$i18n.locale = locale
+    }
+  }
+}
 </script>
-<style scoped>
-</style>
+<style scoped></style>

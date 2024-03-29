@@ -4,8 +4,9 @@
       <div
         class="grid items-center justify-between grid-cols-4 gap-1 pt-10 md:gap-4"
       >
-        <div
-          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow md:gap-3 md:py-10 md:rounded-3xl"
+        <router-link
+          to="/order"
+          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow hover:bg-gray-100 md:gap-3 md:py-10 md:rounded-3xl"
         >
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
@@ -13,11 +14,12 @@
             {{ eyewearList.length }}
           </div>
           <div class="font-medium text-[8px] md:text-base text-zinc-500">
-            {{$t("home.allEyewear")}}
+            {{ $t('home.allEyewear') }}
           </div>
-        </div>
-        <div
-          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow md:gap-3 md:py-10 md:rounded-3xl"
+        </router-link>
+        <router-link
+          to="/order"
+          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow hover:bg-gray-100 md:gap-3 md:py-10 md:rounded-3xl"
         >
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
@@ -25,11 +27,12 @@
             {{ getPrepareOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            {{$t("home.preparing")}}
+            {{ $t('home.preparing') }}
           </div>
-        </div>
-        <div
-          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow md:gap-3 md:py-10 md:rounded-3xl"
+        </router-link>
+        <router-link
+          to="/order"
+          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow md:gap-3 hover:bg-gray-100 md:py-10 md:rounded-3xl"
         >
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
@@ -37,11 +40,12 @@
             {{ getProcessingOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            {{$t("home.processing")}}
+            {{ $t('home.processing') }}
           </div>
-        </div>
-        <div
-          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow md:gap-3 md:py-10 md:rounded-3xl"
+        </router-link>
+        <router-link
+          to="/order"
+          class="inline-flex flex-col items-center justify-center w-full gap-1 px-3 py-4 bg-white rounded-lg shadow hover:bg-gray-100 md:gap-3 md:py-10 md:rounded-3xl"
         >
           <div
             class="text-xl font-semibold text-orange-400 md:leading-10 md:text-4xl"
@@ -49,9 +53,9 @@
             {{ getCompleteOrdersCount() }}
           </div>
           <div class="text-[8px] font-medium md:text-base text-zinc-500">
-            {{$t("home.completed")}}
+            {{ $t('home.completed') }}
           </div>
-        </div>
+        </router-link>
       </div>
       <div class="flex justify-center py-6 md:py-8">
         <div
@@ -64,7 +68,7 @@
               <div
                 class="text-sm font-medium text-center text-white md:text-2xl"
               >
-              {{$t("home.createOrder")}}
+                {{ $t('home.createOrder') }}
               </div></RouterLink
             >
           </div>
