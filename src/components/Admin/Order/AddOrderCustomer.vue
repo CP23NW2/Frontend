@@ -146,12 +146,12 @@
               </div>
               <!-- Eyewear -->
               <div id="EyewearTable">
-                <div v-for="item in newOrder.eyewearItems" :key="item.id">
+                <div v-for="item in newOrder.eyewearItems" :key="item.id + index">
                   <div class="w-full h-px mt-4 border border-neutral-300"></div>
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        {{$t("eyewearList.orderDetails")}} {{ item.id }}
+                        {{$t("eyewearList.orderDetails")}} 
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"

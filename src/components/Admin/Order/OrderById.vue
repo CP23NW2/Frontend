@@ -6,29 +6,32 @@
           <!-- Header  -->
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
+              <div id="orderID">
               <p class="text-primary-color md:text-2xl">
                 {{$t("orderList.orderid")}}
                 {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
               </p>
+            </div>
               <div 
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
+                  <div  id="customerName">
                   <p class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</p>
-                  <input
+                  </div>
+                  <div id="showName">
+                    <p
                     id="inputConfirm"
+                    :value="groupedData.customer ? groupedData.customer.customerName : 'N/A'"
                     disabled
-                    :value="
-                      groupedData.customer
-                        ? groupedData.customer.customerName
-                        : 'N/A'
-                    "
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                  />
+                    >{{groupedData.customer ? groupedData.customer.customerName : 'N/A'}}</p>
+                  </div>
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</p>
-                  <input
+                  <p
+                  id="showLastName"
                     disabled
                     :value="
                       groupedData.customer
@@ -36,7 +39,7 @@
                         : 'N/A'
                     "
                     class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                  />
+                  >{{groupedData.customer ? groupedData.customer.customerLastName : 'N/A'}}</p>
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.date")}}</p>
@@ -135,19 +138,18 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        {{$t("eyewearList.orderDetail")}} : {{ eyewear.eyewearID }}
+                        {{$t("eyewearList.eyewearDetail")}} : {{ eyewear.eyewearID }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">{{$t("addOrder.brand")}}</p>
-                          <input
+                          <p
                             disabled
                             :value="eyewear.eyewearName"
-                            id="inputConfirm"
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                          />
+                            id="eyewearDetail">{{ eyewear.eyewearName }}</p>
                         </div>
                         <div class="w-full pb-4">
                           <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.lens")}}</p>
@@ -435,10 +437,8 @@
                   </button>
                 </div>
                 <div class="mx-2">
-                  <button
-                    class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600"
-                  >
-                  {{$t("eyewearList.print")}}
+                  <button @click="printToDiv" class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600">
+                    {{$t("eyewearList.print")}}
                   </button>
                 </div>
               </div>
@@ -457,6 +457,11 @@ import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2'
 
 export default {
+  // data(){
+  //   return{
+  //     someCondition: true
+  //   }
+  // },
   setup() {
     const order = ref({})
     const eyewear = ref({})
@@ -631,6 +636,71 @@ export default {
     cancel() {
       this.$router.push(`/order`)
     },
-  } 
-  }
+    printToDiv() {
+    // Select each div by their IDs
+    var orderIDDiv = document.getElementById('orderID');
+    var customerNameDiv = document.getElementById('customerName');
+    var inputConfirmDiv = document.getElementById('inputConfirm');
+    var showLastNameDiv = document.getElementById('showLastName');
+    var eyewearDetailDiv = document.getElementById('eyewearDetail');
+
+    // Create a string to hold the concatenated HTML content for each data item
+    var orderIDHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + orderIDDiv.innerHTML + '</div>';
+    var customerNameHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + customerNameDiv.innerHTML + '</div>';
+    var inputConfirmHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + inputConfirmDiv.innerHTML + '</div>';
+    var showLastNameHTML = '<div style="padding: 10px; margin-bottom: 10px">' + showLastNameDiv.innerHTML + '</div>'; // Added display: inline-block; style
+    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + eyewearDetailDiv.innerHTML + '</div>';
+
+    // Open a new window for printing
+    var newWin = window.open('', 'Print-Window');
+
+    // Write the HTML content for each data item to the new window
+    newWin.document.open();
+    newWin.document.write(`
+        <html>
+            <head>
+                <title>BuddyGlasses_Receipt</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                    }
+                    .receipt {
+                        margin: 20px;
+                        padding: 20px;
+                        border: 2px solid #000;
+                    }
+                    h1 {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                    h2 {
+                      font-size: 16px;
+                        font-weight: bold;
+                    }
+                    p {
+                        font-size: 16px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="receipt">
+                    <h1>Buddy Glasses</h1>
+                    <p>${orderIDHTML}</p>
+                    <h2>Customer Name : </h2>
+                    <p>${customerNameHTML}</p>
+                    <h2>Product Name : </h2>
+                    <p>${eyewearDetailHTML}</p>
+                    <p>Check Status and Tracking Number in website: <a href="http://localhost:5173/nw2/forcustomer">http://localhost:5173/nw2/forcustomer</a></p>
+                </div>
+            </body>
+        </html>
+    `);
+    newWin.document.close();
+
+    // Print the new window
+    newWin.print();
+}
+  }}
+
 </script>

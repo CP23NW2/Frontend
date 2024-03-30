@@ -257,7 +257,7 @@
               </div>
               <!-- Order -->
               <div class="w-full h-px border border-neutral-300"></div>
-              <p class="py-4 text-primary-color md:text-2xl">{{$t("eyewearList.orderDetailห")}}</p>
+              <p class="py-4 text-primary-color md:text-2xl">{{$t("eyewearList.orderDetail")}}</p>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
@@ -319,7 +319,7 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        {{$t("eyewearList.eyewearDetail")}} {{ item.id }}
+                        {{$t("eyewearList.eyewearDetail")}}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"

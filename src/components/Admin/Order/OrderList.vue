@@ -203,14 +203,14 @@
                               )"
                               :key="index"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
-                              @click="fetchOrderDetails(order.orderID)"
                             >
-                              {{ customer.customerName }}
-                              {{ customer.customerLastName }}
+                            <p id="customerName">
+                              {{ customer.customerName }}    
+                            </p>
+                            <p class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
                             <div
-                              class="self-center text-[#808080]"
-                              @click="fetchOrderDetails(order.orderID)"
+                              class="self-center text-[#808080]" id="orderID"
                             >
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
                             </div>
@@ -226,7 +226,6 @@
                               >
                                 <div
                                   class="flex items-center"
-                                  @click="fetchOrderDetails(order.orderID)"
                                 >
                                   <Icon
                                     icon="ion:cart"
@@ -234,35 +233,25 @@
                                     class="w-8 h-8 mr-2 text-primary-color"
                                   />
                                 </div>
-                                <div
-                                  class="flex flex-col gap-2"
-                                  @click="fetchOrderDetails(order.orderID)"
-                                >
-                                  {{ eyewear.eyewearName }}
-                                  <div
-                                    class="text-[#808080]"
-                                    @click="fetchOrderDetails(order.orderID)"
-                                  >
+                                <div class="flex flex-col gap-2" >
+                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                                  <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
                                 </div>
                                 <div
                                   class="self-center"
-                                  @click="fetchOrderDetails(order.orderID)"
                                 >
                                   {{ eyewear.price }} {{$t("orderList.bath")}}
                                 </div>
-
                                 <div
                                   class="self-center"
-                                  @click="fetchOrderDetails(order.orderID)"
                                 >
                                   {{ eyewear.orderStatus }}
                                 </div>
 
                                 <div
                                   class="self-center"
-                                  @click="fetchOrderDetails(order.orderID)"
                                 >
                                   {{ order.delivery }}
                                 </div>
@@ -288,7 +277,7 @@
                                 </button>
                               </div>
                               <div class="self-center">
-                                <button @click="DeleteOrder(order.orderID)">
+                                <button @click="printToDiv(order.orderID)">
                                   <Icon
                                     icon="f7:doc-circle-fill"
                                     class="w-10 h-10 text-[#808080]"
@@ -313,7 +302,6 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
                           <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="customerName">{{$t("orderList.cusName")}}</option>
                             <option value="eyewearName">{{$t("orderList.productName")}}</option>
                           </select>
                         </div>
@@ -398,10 +386,12 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                              {{ customer.customerName }}
-                              {{ customer.customerLastName }}
+                            <p id="customerName">
+                              {{ customer.customerName }}    
+                            </p>
+                            <p class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
-                            <div class="self-center text-[#808080]">
+                            <div class="self-center text-[#808080]"  id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
                             </div>
                           </div>
@@ -423,8 +413,8 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2">
-                                  {{ eyewear.eyewearName }}
+                                <div class="flex flex-col gap-2" >
+                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
@@ -454,7 +444,7 @@
                                         class="w-10 h-10 text-[#EB4F54]"
                                       />
                                     </button>
-                                    <button @click="DeleteOrder(order.orderID)">
+                                    <button @click="printToDiv(order.orderID)">
                                       <Icon
                                         icon="f7:doc-circle-fill"
                                         class="w-10 h-10 text-[#808080]"
@@ -481,7 +471,6 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
                           <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="customerName">{{$t("orderList.cusName")}}</option>
                             <option value="eyewearName">{{$t("orderList.productName")}}</option>
                           </select>
                         </div>
@@ -566,10 +555,12 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                              {{ customer.customerName }}
-                              {{ customer.customerLastName }}
+                            <p id="customerName">
+                              {{ customer.customerName }}    
+                            </p>
+                            <p class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
-                            <div class="self-center text-[#808080]">
+                            <div class="self-center text-[#808080]" id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
                             </div>
                           </div>
@@ -591,8 +582,8 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2">
-                                  {{ eyewear.eyewearName }}
+                                <div class="flex flex-col gap-2" >
+                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
@@ -622,7 +613,7 @@
                                         class="w-10 h-10 text-[#EB4F54]"
                                       />
                                     </button>
-                                    <button @click="DeleteOrder(order.orderID)">
+                                    <button @click="printToDiv(order.orderID)">
                                       <Icon
                                         icon="f7:doc-circle-fill"
                                         class="w-10 h-10 text-[#808080]"
@@ -649,7 +640,6 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
                           <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="customerName">{{$t("orderList.cusName")}}</option>
                             <option value="eyewearName">{{$t("orderList.productName")}}</option>
                           </select>
                         </div>
@@ -734,10 +724,12 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                              {{ customer.customerName }}
-                              {{ customer.customerLastName }}
+                            <p id="customerName">
+                              {{ customer.customerName }}    
+                            </p>
+                            <p class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
-                            <div class="self-center text-[#808080]">
+                            <div class="self-center text-[#808080]" id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
                             </div>
                           </div>
@@ -759,8 +751,8 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2">
-                                  {{ eyewear.eyewearName }}
+                                <div class="flex flex-col gap-2" >
+                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
@@ -792,7 +784,7 @@
                                         class="w-10 h-10 text-[#EB4F54]"
                                       />
                                     </button>
-                                    <button @click="DeleteOrder(order.orderID)">
+                                    <button @click="printToDiv(order.orderID)">
                                       <Icon
                                         icon="f7:doc-circle-fill"
                                         class="w-10 h-10 text-[#808080]"
@@ -1016,7 +1008,68 @@ export default {
       } catch (error) {
         console.error('Error fetching order details:', error)
       }
-    }
+    },
+    printToDiv() {
+    // Select each div by their IDs
+    var orderIDDiv = document.getElementById('orderID');
+    var customerNameDiv = document.getElementById('customerName');
+    var eyewearDetailDiv = document.getElementById('eyewearDetail');
+
+    // Create a string to hold the concatenated HTML content for each data item
+    var orderIDHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + orderIDDiv.innerHTML + '</div>';
+    var customerNameHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + customerNameDiv.innerHTML + '</div>';
+    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + eyewearDetailDiv.innerHTML + '</div>';
+
+    // Open a new window for printing
+    var newWin = window.open('', 'Print-Window');
+
+    // Write the HTML content for each data item to the new window
+    newWin.document.open();
+    newWin.document.write(`
+        <html>
+            <head>
+                <title>BuddyGlasses_Receipt</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                    }
+                    .receipt {
+                        margin: 20px;
+                        padding: 20px;
+                        border: 2px solid #000;
+                    }
+                    h1 {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                    h2 {
+                      font-size: 16px;
+                        font-weight: bold;
+                    }
+                    p {
+                        font-size: 16px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="receipt">
+                    <h1>Buddy Glasses</h1>
+                    <p>${orderIDHTML}</p>
+                    <h2>Customer Name : </h2>
+                    <p>${customerNameHTML}</p>
+                    <h2>Product Name : </h2>
+                    <p>${eyewearDetailHTML}</p>
+                    <p>Check Status and Tracking Number in website: <a href="https://capstone23.sit.kmutt.ac.th/nw2/forcustomer">https://capstone23.sit.kmutt.ac.th/nw2/forcustomer</a></p>
+                </div>
+            </body>
+        </html>
+    `);
+    newWin.document.close();
+
+    // Print the new window
+    newWin.print();
+}
   },
 
   components: {

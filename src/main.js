@@ -248,7 +248,7 @@ const i18n = createI18n({
         orderDetails: 'ข้อมูลการสั่งซื้อ',
         delivery: 'จัดส่ง',
         shippingName: 'ชื่อขนส่ง',
-        trackingNumber: 'เลขพัสดุ',
+        trackingNumber: 'หมายเลขพัสดุ',
         orderDetail : 'ข้อมูลการสั่งซื้อ',
         lens: 'เลนส์',
         price: 'ราคา',
@@ -256,6 +256,7 @@ const i18n = createI18n({
         status: 'สถานะ',
         selectStatus: 'เลือกสถานะ',
         print: 'ถ่ายเอกสาร',
+        eyewearDetail: 'รายละเอียดแว่นที่'
     },
   }
   }
