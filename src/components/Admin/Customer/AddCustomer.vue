@@ -10,33 +10,41 @@
           <div
             class="bg-[#f59f546e] w-full h-12 md:h-16 flex items-center px-2.5 rounded-t-md"
           >
-            <p class="text-xl md:px-10 md:text-3xl">{{$t("customerList.newCus")}}</p>
+            <p class="text-xl md:px-10 md:text-3xl">
+              {{ $t('customerList.newCus') }}
+            </p>
           </div>
-        
+
           <form @submit.prevent="addCustomer" class="flex p-4 py-5 md:px-12">
             <div class="w-full pb-4">
               <label class="text-primary-color md:text-2xl">
-                {{$t("customerList.user")}}
+                {{ $t('customerList.user') }}
               </label>
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</label>
+                  <label class="pb-2 text-sm md:text-lg">{{
+                    $t('customerList.name')
+                  }}</label>
                   <input
                     v-model="newCustomer.customerName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</label>
+                  <label class="pb-2 text-sm md:text-lg">{{
+                    $t('customerList.last')
+                  }}</label>
                   <input
                     v-model="newCustomer.customerLastName"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.phone")}}</label>
+                  <label class="pb-2 text-sm md:text-lg">{{
+                    $t('customerList.phone')
+                  }}</label>
                   <input
                     type="tel"
                     maxlength="10"
@@ -44,15 +52,14 @@
                     @input="validatePhoneNumber()"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
-                  <p
-                    v-show="isValidPhone"
-                    style="color: red"
-                  >
+                  <p v-if="isValidPhone" style="color: red">
                     {{ this.telNumberErrorMessage }}
                   </p>
                 </div>
                 <div class="w-full">
-                  <label class="pb-2 text-sm md:text-lg">{{$t("customerList.address")}}</label>
+                  <label class="pb-2 text-sm md:text-lg">{{
+                    $t('customerList.address')
+                  }}</label>
                   <input
                     v-model="newCustomer.address"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
@@ -65,7 +72,7 @@
                     type="submit"
                     class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                   >
-                  {{$t("customerList.confirm")}}
+                    {{ $t('customerList.confirm') }}
                   </button>
                 </div>
                 <div class="mx-2">
@@ -73,7 +80,7 @@
                     @click="cancel"
                     class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
                   >
-                  {{$t("customerList.cancel")}}
+                    {{ $t('customerList.cancel') }}
                   </button>
                 </div>
               </div>
@@ -111,7 +118,7 @@ const CustomerForm = {
         this.isLoading = true
 
         const response = await axios.post(
-          (`${import.meta.env.VITE_BASE_URL}/customers`),
+          `${import.meta.env.VITE_BASE_URL}/customers`,
           this.newCustomer
         )
 
@@ -125,55 +132,63 @@ const CustomerForm = {
       } catch (error) {
         console.error('Error adding customer:', error)
         Swal.fire({
-          icon: "error", 
-          title: "Error",
+          icon: 'error',
+          title: 'Error',
           text: error.response.data.error
-        });
+        })
         // Handle specific error scenarios
       } finally {
         this.isLoading = false
       }
     },
+    async validateBackend(phone) {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/customers/validateTel`,
+          {
+            customerTel: phone
+          }
+        )
+        if (response.status === 200) {
+          this.isValidPhone = false
+          this.telNumberErrorMessage = ''
+        }
+      } catch (error) {
+        if (error.response.status === 400) {
+          this.isValidPhone = true
+          this.telNumberErrorMessage = error.response.data.error
+        }
+      }
+    },
     validatePhoneNumber() {
       let phone = this.newCustomer.customerTel
-    
-      if(!(phone.startsWith('08') || phone.startsWith('09') || phone.startsWith('06'))){
-        // return 'ไม่ใช่เบอร์คนไทย'
+      if (
+        !(
+          phone.startsWith('08') ||
+          phone.startsWith('09') ||
+          phone.startsWith('06')
+        )
+      ) {
         this.isValidPhone = true
-        this.telNumberErrorMessage = "Phone Number should start with '06', '08', or '09'"
-      }else if(isNaN(phone)){
+        this.telNumberErrorMessage =
+          "Phone Number should start with '06', '08', or '09'"
+      } else if (isNaN(phone)) {
         this.isValidPhone = true
-        this.telNumberErrorMessage = "Phone Number contain only numbers"
+        this.telNumberErrorMessage = 'Phone Number contain only numbers'
+      } else {
+        this.isValidPhone = false
+        this.telNumberErrorMessage = ''
       }
-      else{
-         this.validateBackend(phone)
-      }  
-    }, 
-    async validateBackend(phone)  {
-
-        try {
-          // console.log(phone)
-          const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/customers/validateTel`, {
-            customerTel: phone,
-        });
-          if(response.status === 200){
-            this.isValidPhone = false
-            this.telNumberErrorMessage = ''
-          }
-        } 
-        catch (error) {
-          if(error.response.status === 400){
-            this.isValidPhone = true
-            this.telNumberErrorMessage = error.response.data.error;
-          }
-}},      
+    },
     cancel() {
       this.$router.push('/customer')
     },
 
     async fetchData() {
       try {
-        const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/customers`)
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/customers`
+        )
         if (result.status == 200) {
           console.log('Data updated successfully')
         } else {
@@ -195,7 +210,7 @@ const CustomerForm = {
         this.$router.push('/customer')
       })
     }
-  },
   }
+}
 export default CustomerForm
 </script>
