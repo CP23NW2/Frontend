@@ -354,7 +354,53 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getPreparingOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                      <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.name")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.product")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.totalPrice")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.status")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.shipping")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.manage")}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -458,6 +504,7 @@
                         </template>
                       </div>
                     </div>
+                    </div>
                     <div
                       v-bind:class="{
                         hidden: openTab !== 3,
@@ -523,7 +570,53 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getProcessingOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                      <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.name")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.product")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.totalPrice")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.status")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.shipping")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.manage")}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -625,6 +718,7 @@
                             </div>
                           </div>
                         </template>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -692,7 +786,53 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getCompleteOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                      <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.name")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.product")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.totalPrice")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.status")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.shipping")}}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                              {{$t("orderList.manage")}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -796,6 +936,7 @@
                             </div>
                           </div>
                         </template>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -867,33 +1008,48 @@ export default {
     })
 
     const DeleteOrder = async (orderID) => {
-      const isConfirmed = await Swal.fire({
-        title: 'Are you sure to delete {{$t("orderList.orderid")}} : ' + orderID + ' ?',
-        text: 'You cannot recover this order!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
+  const isConfirmed = await Swal.fire({
+    title: 'Are you sure to delete order ID: ' + orderID + ' ?',
+    text: 'You cannot recover this order!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  });
 
-      // If the user clicks OK (confirmed)
-      if (isConfirmed.isConfirmed) {
-        const url = `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
-        try {
-          await axios.delete(url)
-          console.log('delete order')
-          // Update the data without refreshing the page
-          fetchData()
-          // Use SweetAlert2 instead of alert
-          Swal.fire('Deleted!', 'Order has been deleted.', 'success')
-        } catch (error) {
-          console.error('Error deleting order:', error)
-          // Use SweetAlert2 instead of alert
-          Swal.fire('Error', 'Failed to delete order', 'error')
-        }
+  if (isConfirmed.isConfirmed) {
+    const orderUrl = `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`;
+
+    try {
+      // Delete order
+      await axios.delete(orderUrl);
+
+      // Get eyewear IDs associated with this order
+      const eyewearUrl = `${import.meta.env.VITE_BASE_URL}/eyewears?orderID=${orderID}`;
+      const response = await axios.get(eyewearUrl);
+      const eyewearIDs = response.data.map(eyewear => eyewear.eyewearID);
+
+      // Delete eyewear associated with this order
+      for (const eyewearID of eyewearIDs) {
+        await axios.delete(`${import.meta.env.VITE_BASE_URL}/eyewears/${eyewearID}`);
       }
+
+      console.log('Deleted order and associated eyewear');
+      
+      // Update the data without refreshing the page
+      fetchData();
+      
+      // Use SweetAlert2 instead of alert
+      Swal.fire('Deleted!', 'Order and associated eyewear have been deleted.', 'success');
+    } catch (error) {
+      console.error('Error deleting order and associated eyewear:', error);
+      // Use SweetAlert2 instead of alert
+      Swal.fire('Error', 'Failed to delete order and associated eyewear', 'error');
     }
+  }
+};
+
 
     const getOrdersForCustomer = (customerID) => {
       return orderList.value.filter((order) => order.customerID === customerID)
