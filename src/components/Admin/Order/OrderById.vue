@@ -16,7 +16,7 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <div  id="customerName">
+                  <div id="customerName">
                   <p class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</p>
                   </div>
                   <div id="showName">
@@ -639,17 +639,22 @@ export default {
     printToDiv() {
     // Select each div by their IDs
     var orderIDDiv = document.getElementById('orderID');
-    var customerNameDiv = document.getElementById('customerName');
-    var inputConfirmDiv = document.getElementById('inputConfirm');
-    var showLastNameDiv = document.getElementById('showLastName');
     var eyewearDetailDiv = document.getElementById('eyewearDetail');
+    var customerNameDiv = document.getElementById('showName');
+    var customerNameHTML = customerNameDiv.innerHTML;
+    var customerLastNameDiv = document.getElementById('showLastName');
+    var customerLastNameHTML = customerLastNameDiv.innerHTML;
 
     // Create a string to hold the concatenated HTML content for each data item
-    var orderIDHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + orderIDDiv.innerHTML + '</div>';
-    var customerNameHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + customerNameDiv.innerHTML + '</div>';
-    var inputConfirmHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + inputConfirmDiv.innerHTML + '</div>';
-    var showLastNameHTML = '<div style="padding: 10px; margin-bottom: 10px">' + showLastNameDiv.innerHTML + '</div>'; // Added display: inline-block; style
-    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + eyewearDetailDiv.innerHTML + '</div>';
+    var orderIDHTML = orderIDDiv.innerHTML
+    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">';
+    
+    // Loop through each eyewear and add its name to the HTML content
+    for (var i = 0; i < this.groupedData.eyewears.length; i++) {
+        eyewearDetailHTML += '<p>' + this.groupedData.eyewears[i].eyewearName + '</p>';
+    }
+    
+    eyewearDetailHTML += '</div>';
 
     // Open a new window for printing
     var newWin = window.open('', 'Print-Window');
@@ -687,9 +692,8 @@ export default {
                 <div class="receipt">
                     <h1>Buddy Glasses</h1>
                     <p>${orderIDHTML}</p>
-                    <h2>Customer Name : </h2>
-                    <p>${customerNameHTML}</p>
-                    <h2>Product Name : </h2>
+                    <p><strong>Customer Name:</strong> ${customerNameHTML} ${customerLastNameHTML}</p>
+                    <h2>Product Names : </h2>
                     <p>${eyewearDetailHTML}</p>
                     <p>Check Status and Tracking Number in website: <a href="http://localhost:5173/nw2/forcustomer">http://localhost:5173/nw2/forcustomer</a></p>
                 </div>
@@ -701,6 +705,7 @@ export default {
     // Print the new window
     newWin.print();
 }
+
   }}
 
 </script>

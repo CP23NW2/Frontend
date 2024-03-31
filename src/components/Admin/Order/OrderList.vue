@@ -204,10 +204,10 @@
                               :key="index"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="customerName">
+                            <p id="showName">
                               {{ customer.customerName }}    
                             </p>
-                            <p class="mx-2">{{ customer.customerLastName }}</p>
+                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
                             <div
                               class="self-center text-[#808080]" id="orderID"
@@ -354,53 +354,7 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getPreparingOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-                      <div class="mt-4 overflow-x-auto">
-                      <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
-                        >
-                          <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
-                          >
-                            <div class="flex flex-row justify-between">
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.name")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.product")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.totalPrice")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.status")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.shipping")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.manage")}}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -432,10 +386,10 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="customerName">
+                            <p id="showName">
                               {{ customer.customerName }}    
                             </p>
-                            <p class="mx-2">{{ customer.customerLastName }}</p>
+                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
                             <div class="self-center text-[#808080]"  id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
@@ -504,7 +458,6 @@
                         </template>
                       </div>
                     </div>
-                    </div>
                     <div
                       v-bind:class="{
                         hidden: openTab !== 3,
@@ -570,53 +523,7 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getProcessingOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-                      <div class="mt-4 overflow-x-auto">
-                      <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
-                        >
-                          <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
-                          >
-                            <div class="flex flex-row justify-between">
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.name")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.product")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.totalPrice")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.status")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.shipping")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.manage")}}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -648,10 +555,10 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="customerName">
+                            <p id="showName">
                               {{ customer.customerName }}    
                             </p>
-                            <p class="mx-2">{{ customer.customerLastName }}</p>
+                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
                             <div class="self-center text-[#808080]" id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
@@ -718,7 +625,6 @@
                             </div>
                           </div>
                         </template>
-                        </div>
                       </div>
                     </div>
                     <div
@@ -786,53 +692,7 @@
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getCompleteOrdersCount() }} {{$t("orderList.orders")}}
                       </div>
-                      <div class="mt-4 overflow-x-auto">
-                      <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
-                        >
-                          <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
-                          >
-                            <div class="flex flex-row justify-between">
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.name")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="gap-3 px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.product")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.totalPrice")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.status")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.shipping")}}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
-                              {{$t("orderList.manage")}}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -864,10 +724,10 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="customerName">
+                            <p id="showName">
                               {{ customer.customerName }}    
                             </p>
-                            <p class="mx-2">{{ customer.customerLastName }}</p>
+                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
                             </div>
                             <div class="self-center text-[#808080]" id="orderID">
                               {{$t("orderList.orderid")}}: {{ order.orderID }}
@@ -936,7 +796,6 @@
                             </div>
                           </div>
                         </template>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -1008,48 +867,33 @@ export default {
     })
 
     const DeleteOrder = async (orderID) => {
-  const isConfirmed = await Swal.fire({
-    title: 'Are you sure to delete order ID: ' + orderID + ' ?',
-    text: 'You cannot recover this order!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  });
+      const isConfirmed = await Swal.fire({
+        title: 'Are you sure to delete OrderID : ' + orderID + ' ?',
+        text: 'You cannot recover this order!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
 
-  if (isConfirmed.isConfirmed) {
-    const orderUrl = `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`;
-
-    try {
-      // Delete order
-      await axios.delete(orderUrl);
-
-      // Get eyewear IDs associated with this order
-      const eyewearUrl = `${import.meta.env.VITE_BASE_URL}/eyewears?orderID=${orderID}`;
-      const response = await axios.get(eyewearUrl);
-      const eyewearIDs = response.data.map(eyewear => eyewear.eyewearID);
-
-      // Delete eyewear associated with this order
-      for (const eyewearID of eyewearIDs) {
-        await axios.delete(`${import.meta.env.VITE_BASE_URL}/eyewears/${eyewearID}`);
+      // If the user clicks OK (confirmed)
+      if (isConfirmed.isConfirmed) {
+        const url = `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`
+        try {
+          await axios.delete(url)
+          console.log('delete order')
+          // Update the data without refreshing the page
+          fetchData()
+          // Use SweetAlert2 instead of alert
+          Swal.fire('Deleted!', 'Order has been deleted.', 'success')
+        } catch (error) {
+          console.error('Error deleting order:', error)
+          // Use SweetAlert2 instead of alert
+          Swal.fire('Error', 'Failed to delete order', 'error')
+        }
       }
-
-      console.log('Deleted order and associated eyewear');
-      
-      // Update the data without refreshing the page
-      fetchData();
-      
-      // Use SweetAlert2 instead of alert
-      Swal.fire('Deleted!', 'Order and associated eyewear have been deleted.', 'success');
-    } catch (error) {
-      console.error('Error deleting order and associated eyewear:', error);
-      // Use SweetAlert2 instead of alert
-      Swal.fire('Error', 'Failed to delete order and associated eyewear', 'error');
     }
-  }
-};
-
 
     const getOrdersForCustomer = (customerID) => {
       return orderList.value.filter((order) => order.customerID === customerID)
@@ -1165,16 +1009,17 @@ export default {
         console.error('Error fetching order details:', error)
       }
     },
-    printToDiv() {
-    // Select each div by their IDs
-    var orderIDDiv = document.getElementById('orderID');
-    var customerNameDiv = document.getElementById('customerName');
-    var eyewearDetailDiv = document.getElementById('eyewearDetail');
-
-    // Create a string to hold the concatenated HTML content for each data item
-    var orderIDHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + orderIDDiv.innerHTML + '</div>';
-    var customerNameHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + customerNameDiv.innerHTML + '</div>';
-    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">' + eyewearDetailDiv.innerHTML + '</div>';
+    printToDiv(orderID, customerName) {
+    // Filter eyewear list based on orderID
+    const eyewearsForOrder = this.eyewearList.filter(eyewear => eyewear.orderID === orderID);
+    var customerNameDiv = document.getElementById('showName');
+    var customerNameHTML = customerNameDiv.innerHTML;
+    var customerLastNameDiv = document.getElementById('showLastName');
+    var customerLastNameHTML = customerLastNameDiv.innerHTML;
+    // Generate HTML for eyewear names
+    const eyewearDetailHTML = eyewearsForOrder.map(eyewear => {
+        return `<p>${eyewear.eyewearName}</p>`;
+    }).join('');
 
     // Open a new window for printing
     var newWin = window.open('', 'Print-Window');
@@ -1211,10 +1056,9 @@ export default {
             <body>
                 <div class="receipt">
                     <h1>Buddy Glasses</h1>
-                    <p>${orderIDHTML}</p>
-                    <h2>Customer Name : </h2>
-                    <p>${customerNameHTML}</p>
-                    <h2>Product Name : </h2>
+                    <p><strong>Order ID:</strong> ${orderID}</p>
+                    <p><strong>Customer Name:</strong> ${customerNameHTML} ${customerLastNameHTML}</p>
+                    <h2>Product Name:</h2>
                     <p>${eyewearDetailHTML}</p>
                     <p>Check Status and Tracking Number in website: <a href="https://capstone23.sit.kmutt.ac.th/nw2/forcustomer">https://capstone23.sit.kmutt.ac.th/nw2/forcustomer</a></p>
                 </div>
@@ -1226,6 +1070,7 @@ export default {
     // Print the new window
     newWin.print();
 }
+
   },
 
   components: {
@@ -1233,3 +1078,4 @@ export default {
   }
 }
 </script>
+
