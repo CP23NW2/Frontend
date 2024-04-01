@@ -241,7 +241,7 @@
                                         )
                                       }}
                                     </p>
-                                    <p v-else-if="status === 'Complete' &&eyewear.dateComplete !== null">
+                                    <p v-else-if="status === 'Complete' && eyewear.dateComplete !== null">
                                       {{
                                         formatDateandTime(eyewear.dateComplete)
                                       }}

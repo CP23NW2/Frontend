@@ -305,18 +305,18 @@
                             {{ status }}
                           </h3>
                           <p
-                            v-if="status === 'Preparing'"
+                            v-if="status === 'Preparing' && eyewear.datePreparing !== null"
                             class="text-gray-500 whitespace-nowrap"
                           >
                             {{ formatDateandTime(eyewear.datePreparing) }}
                           </p>
                           <p
-                            v-else-if="status === 'Processing'"
+                            v-else-if="status === 'Processing' && eyewear.dateProcessing !== null"
                             class="text-gray-500 whitespace-nowrap"
                           >
                             {{ formatDateandTime(eyewear.dateProcessing) }}
                           </p>
-                          <p v-else class="text-gray-500 whitespace-nowrap">
+                          <p v-else-if="status === 'Complete' && eyewear.dateComplete !== null" class="text-gray-500 whitespace-nowrap">
                             {{ formatDateandTime(eyewear.dateComplete) }}
                           </p>
                         </div>
