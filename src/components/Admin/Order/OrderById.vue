@@ -229,19 +229,19 @@
                                     >
                                       {{ status }}
                                     </h3>
-                                    <p v-if="status === 'Preparing'">
+                                    <p v-if="status === 'Preparing' && eyewear.datePreparing !== null">
                                       {{
                                         formatDateandTime(eyewear.datePreparing)
                                       }}
                                     </p>
-                                    <p v-else-if="status === 'Processing'">
+                                    <p v-else-if="status === 'Processing' && eyewear.dateProcessing !== null">
                                       {{
                                         formatDateandTime(
                                           eyewear.dateProcessing
                                         )
                                       }}
                                     </p>
-                                    <p v-else>
+                                    <p v-else-if="status === 'Complete' &&eyewear.dateComplete !== null">
                                       {{
                                         formatDateandTime(eyewear.dateComplete)
                                       }}
@@ -460,11 +460,6 @@ import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2'
 
 export default {
-  // data(){
-  //   return{
-  //     someCondition: true
-  //   }
-  // },
   setup() {
     const order = ref({})
     const eyewear = ref({})
@@ -561,17 +556,25 @@ export default {
     }
 
     const updateStatus = async () => {
-      try {
-        const updatedEyewears = groupedData.value.eyewears.map(eyewear => ({
-          eyewearID: eyewear.eyewearID,
-          orderStatus: eyewear.orderStatus
-        }));
-        // Call the backend API to update the order status for all eyewears
-        await axios.put(`${import.meta.env.VITE_BASE_URL}/eyewears/manyStatus/${groupedData.value.order.orderID}`, updatedEyewears);
-      } catch (error) {
-        // Optionally, you can show an error message to the user
-      }
-    };
+  try {
+    const currentDate = new Date(); // Get the current date
+
+    // Map over the eyewears and create an array of objects containing eyewearID, orderStatus, and date fields
+    const updatedEyewears = groupedData.value.eyewears.map(eyewear => ({
+      eyewearID: eyewear.eyewearID,
+      orderStatus: eyewear.orderStatus,
+      // Add date fields based on the logic you described
+      dateProcessing: eyewear.orderStatus === 'Processing' ? currentDate : null,
+      dateComplete: eyewear.orderStatus === 'Complete' ? currentDate : null
+    }));
+
+    // Call the backend API to update the order status and dates for all eyewears
+    await axios.put(`${import.meta.env.VITE_BASE_URL}/eyewears/manyStatus/${groupedData.value.order.orderID}`, updatedEyewears);
+  } catch (error) {
+    // Optionally, you can show an error message to the user
+    console.error('Error updating eyewear status:', error);
+  }
+};
 
   
     onMounted(() => {
@@ -620,9 +623,7 @@ export default {
       }).then(() => {
         router.push('/order');
       })
-  
 };
-
     return {
       order,
       eyewear,

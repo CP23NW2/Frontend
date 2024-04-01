@@ -146,7 +146,7 @@
                       </div>
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ orderList.length }} {{ $t('orderList.orders') }}
+                        {{ orderList.length }} {{ $t('orderList.eyewears') }}
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div

@@ -123,6 +123,7 @@ const i18n = createI18n({
         enterPrice: 'Please enter price!',
         enterLens: 'Please enter lens!',
         addEyewear: 'Add New Eyewear +', 
+        eyewears: 'Eyewears'
       },
       eyewearList : {
         date: 'Date',
@@ -242,6 +243,7 @@ const i18n = createI18n({
         enterBrand: 'กรุณากรอกชื่อแบรนด์',
         enterPrice: 'กรุณกรอกราคา',
         addEyewear: 'เพิ่มแว่นตา +',
+        eyewears: 'รายการ'
       },
       eyewearList : {
         date: 'วันที่',

@@ -179,7 +179,6 @@
           >
             <div class="whitespace-pre">
               <span>Pick Up</span>
-              <span>{{ orderStatus.tracking }}</span>
             </div>
           </a>
         </div>
