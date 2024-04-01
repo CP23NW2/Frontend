@@ -108,6 +108,9 @@
                     <div>
                       <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.shippingName")}}</p>
                       <select
+                      :value="
+                      groupedData.order ? groupedData.order.shippingName : 'N/A'
+                    "
                        v-model="groupedData.order.shippingName"
                         class="bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 w-full inline-flex items-center justify-between peer border border-slate-400"
                       >
