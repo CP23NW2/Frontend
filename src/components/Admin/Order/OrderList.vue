@@ -8,14 +8,14 @@
             <div
               class="mb-4 text-2xl font-medium md:text-3xl text-zinc-800 md:mb-0"
             >
-            {{$t("orderList.orderList")}}
+              {{ $t('orderList.orderList') }}
             </div>
             <RouterLink to="/addorder">
               <div class="flex-shrink-0 mb-4 md:mb-0">
                 <button
                   class="flex items-center px-4 py-2 text-base font-medium text-center text-white bg-blue-800 border md:py-3 md:px-8 rounded-2xl border-neutral-300"
                 >
-                {{$t("orderList.addOrder")}}
+                  {{ $t('orderList.addOrder') }}
                 </button>
               </div></RouterLink
             >
@@ -33,7 +33,7 @@
                       'border-b-[#F5821F] border-b-4 ': openTab === 1
                     }"
                   >
-                  {{$t("orderList.all")}}
+                    {{ $t('orderList.all') }}
                   </a>
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
@@ -44,7 +44,7 @@
                       'border-b-[#F5821F] border-b-4 ': openTab === 2
                     }"
                   >
-                  {{$t("orderList.preparing")}}
+                    {{ $t('orderList.preparing') }}
                   </a>
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
@@ -55,7 +55,7 @@
                       'border-b-[#F5821F] border-b-4 ': openTab === 3
                     }"
                   >
-                  {{$t("orderList.processing")}}
+                    {{ $t('orderList.processing') }}
                   </a>
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
@@ -66,7 +66,7 @@
                       'border-b-[#F5821F] border-b-4 ': openTab === 4
                     }"
                   >
-                  {{$t("orderList.completed")}}
+                    {{ $t('orderList.completed') }}
                   </a>
                 </li>
               </ul>
@@ -87,9 +87,15 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                            <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="customerName">{{$t("orderList.cusName")}}</option>
-                            <option value="eyewearName">{{$t("orderList.productName")}}</option>
+                            <option value="orderID">
+                              {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="customerName">
+                              {{ $t('orderList.cusName') }}
+                            </option>
+                            <option value="eyewearName">
+                              {{ $t('orderList.productName') }}
+                            </option>
                           </select>
                         </div>
                         <div class="relative">
@@ -140,7 +146,7 @@
                       </div>
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ orderList.length }} {{$t("orderList.orders")}}
+                        {{ orderList.length }} {{ $t('orderList.orders') }}
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div
@@ -154,37 +160,37 @@
                                 scope="col"
                                 class="gap-3 px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.name")}}
+                                {{ $t('orderList.name') }}
                               </div>
                               <div
                                 scope="col"
                                 class="gap-3 px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.product")}}
+                                {{ $t('orderList.product') }}
                               </div>
                               <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.totalPrice")}}
+                                {{ $t('orderList.totalPrice') }}
                               </div>
                               <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.status")}}
+                                {{ $t('orderList.status') }}
                               </div>
                               <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.shipping")}}
+                                {{ $t('orderList.shipping') }}
                               </div>
                               <div
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                              {{$t("orderList.manage")}}
+                                {{ $t('orderList.manage') }}
                               </div>
                             </div>
                           </div>
@@ -204,15 +210,18 @@
                               :key="index"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="showName">
-                              {{ customer.customerName }}    
-                            </p>
-                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
+                              <p id="showName">
+                                {{ customer.customerName }}
+                              </p>
+                              <p id="showLastName" class="mx-2">
+                                {{ customer.customerLastName }}
+                              </p>
                             </div>
                             <div
-                              class="self-center text-[#808080]" id="orderID"
+                              class="self-center text-[#808080]"
+                              id="orderID"
                             >
-                              {{$t("orderList.orderid")}}: {{ order.orderID }}
+                              {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
                           <div class="flex justify-between px-10 py-3">
@@ -224,35 +233,29 @@
                                 )"
                                 :key="eyewear.eyewearID"
                               >
-                                <div
-                                  class="flex items-center"
-                                >
+                                <div class="flex items-center">
                                   <Icon
                                     icon="ion:cart"
                                     style="color: rgb(2, 2, 2)"
                                     class="w-8 h-8 mr-2 text-primary-color"
                                   />
                                 </div>
-                                <div class="flex flex-col gap-2" >
-                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                                <div class="flex flex-col gap-2">
+                                  <p id="eyewearDetail">
+                                    {{ eyewear.eyewearName }}
+                                  </p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
                                 </div>
-                                <div
-                                  class="self-center"
-                                >
-                                  {{ eyewear.price }} {{$t("orderList.bath")}}
+                                <div class="self-center">
+                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
                                 </div>
-                                <div
-                                  class="self-center"
-                                >
+                                <div class="self-center">
                                   {{ eyewear.orderStatus }}
                                 </div>
 
-                                <div
-                                  class="self-center"
-                                >
+                                <div class="self-center">
                                   {{ order.delivery }}
                                 </div>
                               </div>
@@ -301,8 +304,12 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                          <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="eyewearName">{{$t("orderList.productName")}}</option>
+                            <option value="orderID">
+                              {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="eyewearName">
+                              {{ $t('orderList.productName') }}
+                            </option>
                           </select>
                         </div>
                         <div class="relative">
@@ -352,7 +359,8 @@
 
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ getPreparingOrdersCount() }} {{$t("orderList.orders")}}
+                        {{ getPreparingOrdersCount() }}
+                        {{ $t('orderList.eyewears') }}
                       </div>
 
                       <div
@@ -386,13 +394,18 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="showName">
-                              {{ customer.customerName }}    
-                            </p>
-                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
+                              <p id="showName">
+                                {{ customer.customerName }}
+                              </p>
+                              <p id="showLastName" class="mx-2">
+                                {{ customer.customerLastName }}
+                              </p>
                             </div>
-                            <div class="self-center text-[#808080]"  id="orderID">
-                              {{$t("orderList.orderid")}}: {{ order.orderID }}
+                            <div
+                              class="self-center text-[#808080]"
+                              id="orderID"
+                            >
+                              {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
                           <div>
@@ -413,14 +426,16 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2" >
-                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                                <div class="flex flex-col gap-2">
+                                  <p id="eyewearDetail">
+                                    {{ eyewear.eyewearName }}
+                                  </p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
                                 </div>
                                 <div class="self-center">
-                                  {{ eyewear.price }} {{$t("orderList.bath")}}
+                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
                                 </div>
                                 <div class="self-center">
                                   {{ eyewear.orderStatus }}
@@ -431,7 +446,7 @@
                                 <div class="flex items-stretch">
                                   <div class="self-center">
                                     <button
-                                      @click="EditCustomerPage(customerTel)"
+                                      @click="fetchOrderDetails(order.orderID)"
                                     >
                                       <Icon
                                         icon="mdi:edit-circle"
@@ -470,8 +485,12 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                          <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="eyewearName">{{$t("orderList.productName")}}</option>
+                            <option value="orderID">
+                              {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="eyewearName">
+                              {{ $t('orderList.productName') }}
+                            </option>
                           </select>
                         </div>
                         <div class="relative">
@@ -521,7 +540,8 @@
 
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ getProcessingOrdersCount() }} {{$t("orderList.orders")}}
+                        {{ getProcessingOrdersCount() }}
+                        {{ $t('orderList.eyewears') }}
                       </div>
 
                       <div
@@ -555,13 +575,18 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="showName">
-                              {{ customer.customerName }}    
-                            </p>
-                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
+                              <p id="showName">
+                                {{ customer.customerName }}
+                              </p>
+                              <p id="showLastName" class="mx-2">
+                                {{ customer.customerLastName }}
+                              </p>
                             </div>
-                            <div class="self-center text-[#808080]" id="orderID">
-                              {{$t("orderList.orderid")}}: {{ order.orderID }}
+                            <div
+                              class="self-center text-[#808080]"
+                              id="orderID"
+                            >
+                              {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
                           <div>
@@ -582,14 +607,16 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2" >
-                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                                <div class="flex flex-col gap-2">
+                                  <p id="eyewearDetail">
+                                    {{ eyewear.eyewearName }}
+                                  </p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
                                 </div>
                                 <div class="self-center">
-                                  {{ eyewear.price }} {{$t("orderList.bath")}}
+                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
                                 </div>
                                 <div class="self-center">
                                   {{ eyewear.orderStatus }}
@@ -600,7 +627,7 @@
                                 <div class="flex items-stretch">
                                   <div class="self-center">
                                     <button
-                                      @click="EditCustomerPage(customerTel)"
+                                      @click="fetchOrderDetails(order.orderID)"
                                     >
                                       <Icon
                                         icon="mdi:edit-circle"
@@ -639,8 +666,12 @@
                             v-model="selectedSearch"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
                           >
-                          <option value="orderID">{{$t("orderList.orderid")}}</option>
-                            <option value="eyewearName">{{$t("orderList.productName")}}</option>
+                            <option value="orderID">
+                              {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="eyewearName">
+                              {{ $t('orderList.productName') }}
+                            </option>
                           </select>
                         </div>
                         <div class="relative">
@@ -690,7 +721,8 @@
                       </div>
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ getCompleteOrdersCount() }} {{$t("orderList.orders")}}
+                        {{ getCompleteOrdersCount() }}
+                        {{ $t('orderList.eyewears') }}
                       </div>
 
                       <div
@@ -724,13 +756,18 @@
                               :key="cIndex"
                               class="flex items-stretch justify-between py-2 text-[#808080]"
                             >
-                            <p id="showName">
-                              {{ customer.customerName }}    
-                            </p>
-                            <p id="showLastName" class="mx-2">{{ customer.customerLastName }}</p>
+                              <p id="showName">
+                                {{ customer.customerName }}
+                              </p>
+                              <p id="showLastName" class="mx-2">
+                                {{ customer.customerLastName }}
+                              </p>
                             </div>
-                            <div class="self-center text-[#808080]" id="orderID">
-                              {{$t("orderList.orderid")}}: {{ order.orderID }}
+                            <div
+                              class="self-center text-[#808080]"
+                              id="orderID"
+                            >
+                              {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
                           <div>
@@ -751,14 +788,16 @@
                                   style="color: rgb(2, 2, 2)"
                                   class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
                                 />
-                                <div class="flex flex-col gap-2" >
-                                  <p id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                                <div class="flex flex-col gap-2">
+                                  <p id="eyewearDetail">
+                                    {{ eyewear.eyewearName }}
+                                  </p>
                                   <div class="text-[#808080]">
                                     {{ formatDate(eyewear.createdAt) }}
                                   </div>
                                 </div>
                                 <div class="self-center">
-                                  {{ eyewear.price }} {{$t("orderList.bath")}}
+                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
                                 </div>
                                 <div class="self-center">
                                   {{ eyewear.orderStatus }}
@@ -769,9 +808,7 @@
                                 <div class="flex items-stretch">
                                   <div class="self-center">
                                     <button
-                                      @click="
-                                        UpdateStatusOrderPage(order.orderID)
-                                      "
+                                      @click="fetchOrderDetails(order.orderID)"
                                     >
                                       <Icon
                                         icon="mdi:edit-circle"
