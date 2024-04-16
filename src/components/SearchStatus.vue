@@ -36,12 +36,7 @@
         >
           {{ $t('searchStatus.search') }}
         </button>
-        <div
-          class="popup"
-          @click.stop
-          v-if="isPopupVisible"
-          @close="closePopup"
-        >
+        <div class="popup" @click.stop v-if="isPopupVisible">
           <div class="bg-white rounded-lg md:w-[500px] md:h-[449px]">
             <div class="flex items-center justify-center mt-3">
               <div class="items-center justify-center text-center">
@@ -58,6 +53,7 @@
                 <div class="mt-5">
                   <input
                     type="text"
+                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg w-[70px] h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 mx-3"
                     v-model="inputNumber1"
                     @input="() => handleInput(1)"
@@ -67,6 +63,7 @@
 
                   <input
                     type="text"
+                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg w-[70px] h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 mx-3"
                     v-model="inputNumber2"
                     @input="() => handleInput(2)"
@@ -76,6 +73,7 @@
 
                   <input
                     type="text"
+                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg w-[70px] h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 mx-3"
                     v-model="inputNumber3"
                     @input="() => handleInput(3)"
@@ -85,6 +83,7 @@
 
                   <input
                     type="text"
+                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg w-[70px] h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 mx-3"
                     v-model="inputNumber4"
                     @input="() => handleInput(4)"
@@ -305,18 +304,30 @@
                             {{ status }}
                           </h3>
                           <p
-                            v-if="status === 'Preparing' && eyewear.datePreparing !== null"
+                            v-if="
+                              status === 'Preparing' &&
+                              eyewear.datePreparing !== null
+                            "
                             class="text-gray-500 whitespace-nowrap"
                           >
                             {{ formatDateandTime(eyewear.datePreparing) }}
                           </p>
                           <p
-                            v-else-if="status === 'Processing' && eyewear.dateProcessing !== null"
+                            v-else-if="
+                              status === 'Processing' &&
+                              eyewear.dateProcessing !== null
+                            "
                             class="text-gray-500 whitespace-nowrap"
                           >
                             {{ formatDateandTime(eyewear.dateProcessing) }}
                           </p>
-                          <p v-else-if="status === 'Complete' && eyewear.dateComplete !== null" class="text-gray-500 whitespace-nowrap">
+                          <p
+                            v-else-if="
+                              status === 'Complete' &&
+                              eyewear.dateComplete !== null
+                            "
+                            class="text-gray-500 whitespace-nowrap"
+                          >
                             {{ formatDateandTime(eyewear.dateComplete) }}
                           </p>
                         </div>
@@ -369,7 +380,8 @@ export default {
       inputNumber4: '',
       showResults: false,
       isPopupVisible: false,
-      customer: null
+      customer: null,
+      hasError: false
     }
   },
   computed: {
@@ -419,18 +431,31 @@ export default {
           `${import.meta.env.VITE_BASE_URL}/validate`,
           requestData
         )
-        if (searchStatus.data) {
-          this.orderStatus = searchStatus.data
-          this.showResults = true
-
-          await this.fetchCustomer(searchStatus.data.customerID)
+        if (searchStatus.status === 200) {
+          if (searchStatus.data) {
+            this.orderStatus = searchStatus.data
+            this.showResults = true
+            this.isPopupVisible = false
+            await this.fetchCustomer(searchStatus.data.customerID)
+          }
+        } else {
+          this.hasError = true
+          this.isPopupVisible = true
         }
       } catch (error) {
         console.error('Error fetching data:', error)
+        // แสดง Popup แจ้งเตือนเมื่อเกิดข้อผิดพลาดในการดึงข้อมูล
+        this.isPopupVisible = true
+        this.hasError = true
       }
     },
     async showPopup() {
+      if (this.hasError) return
       this.isPopupVisible = true
+    },
+    closePopup() {
+      this.isPopupVisible = false
+      this.hasError = false
     },
     hideText(text) {
       if (text.length <= 3) {
@@ -457,34 +482,37 @@ export default {
         }
       }
     },
-    closePopup() {
-      this.isPopupVisible = false
-    },
     clearSearch() {
       if (this.searchOrderID) {
         window.location.reload()
       } else {
         this.searchOrderID = ''
+        this.hasError = false
       }
     },
-    submitForm() {
+    async submitForm() {
       this.showResults = false
       this.isPopupVisible = false
+      this.hasError = false
+
       if (
         this.inputNumber1 &&
         this.inputNumber2 &&
         this.inputNumber3 &&
-        this.inputNumber4
+        this.inputNumber4 &&
+        this.searchOrderID
       ) {
-        // If all input fields are filled, fetch data
-        this.fetchData()
+        
+        await this.fetchData()
 
         this.inputNumber1 = ''
         this.inputNumber2 = ''
         this.inputNumber3 = ''
         this.inputNumber4 = ''
+        this.searchOrderID = ''
       } else {
-        console.error('Please fill in all input fields.')
+        this.isPopupVisible = true
+        this.hasError = true
       }
     },
     formatDate(dateString) {

@@ -7,42 +7,64 @@
           <div class="flex py-5 md:px-12">
             <div class="w-full p-4 md:p-0">
               <div id="orderID">
-              <p class="text-primary-color md:text-2xl">
-                {{$t("orderList.orderid")}}
-                {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
-              </p>
-            </div>
-              <div 
+                <p class="text-primary-color md:text-2xl">
+                  {{ $t('orderList.orderid') }}
+                  {{ groupedData.order ? groupedData.order.orderID : 'N/A' }}
+                </p>
+              </div>
+              <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <div id="customerName">
-                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.name")}}</p>
+                  <div>
+                    <p class="pb-2 text-sm md:text-lg">
+                      {{ $t('customerList.name') }}
+                    </p>
                   </div>
                   <div id="showName">
                     <p
-                    id="inputConfirm"
-                    :value="groupedData.customer ? groupedData.customer.customerName : 'N/A'"
-                    disabled
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                    >{{groupedData.customer ? groupedData.customer.customerName : 'N/A'}}</p>
+                      id="inputConfirm"
+                      :value="
+                        groupedData.customer
+                          ? groupedData.customer.customerName
+                          : 'N/A'
+                      "
+                      disabled
+                      class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 content-center"
+                    >
+                      {{
+                        groupedData.customer
+                          ? groupedData.customer.customerName
+                          : 'N/A'
+                      }}
+                    </p>
                   </div>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.last")}}</p>
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('customerList.last') }}
+                  </p>
                   <p
-                  id="showLastName"
+                    id="showLastName"
                     disabled
                     :value="
                       groupedData.customer
                         ? groupedData.customer.customerLastName
                         : 'N/A'
                     "
-                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                  >{{groupedData.customer ? groupedData.customer.customerLastName : 'N/A'}}</p>
+                    class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 content-center"
+                  >
+                    {{
+                      groupedData.customer
+                        ? groupedData.customer.customerLastName
+                        : 'N/A'
+                    }}
+                  </p>
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.date")}}</p>
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('eyewearList.date') }}
+                  </p>
                   <input
                     :value="
                       formatDate(
@@ -58,7 +80,9 @@
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.address")}}</p>
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('customerList.address') }}
+                  </p>
                   <input
                     disabled
                     :value="
@@ -70,7 +94,9 @@
                   />
                 </div>
                 <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">{{$t("customerList.phone")}}</p>
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('customerList.phone') }}
+                  </p>
                   <input
                     :value="
                       groupedData.customer
@@ -141,21 +167,29 @@
                   <div class="flex py-5">
                     <div class="w-full p-4 md:p-0">
                       <p class="text-primary-color md:text-2xl">
-                        {{$t("eyewearList.eyewearDetail")}} : {{ eyewear.eyewearID }}
+                        {{ $t('eyewearList.eyewearDetail') }} :
+                        {{ eyewear.eyewearID }}
                       </p>
                       <div
                         class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
                       >
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">{{$t("addOrder.brand")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">
+                            {{ $t('addOrder.brand') }}
+                          </p>
                           <p
                             disabled
                             :value="eyewear.eyewearName"
-                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
-                            id="eyewearDetail">{{ eyewear.eyewearName }}</p>
+                            class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10 content-center"
+                            id="eyewearDetail"
+                          >
+                            {{ eyewear.eyewearName }}
+                          </p>
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.lens")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">
+                            {{ $t('eyewearList.lens') }}
+                          </p>
                           <input
                             :value="eyewear.lens"
                             disabled
@@ -163,7 +197,9 @@
                           />
                         </div>
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.price")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">
+                            {{ $t('eyewearList.price') }}
+                          </p>
                           <input
                             disabled
                             class="w-full text-sm bg-[#D4D4D433] rounded-md md:text-lg md:px-5 h-10"
@@ -173,7 +209,9 @@
                       </div>
                       <div class="justify-between gap-4 mt-4 md:flex-row">
                         <div class="w-full pb-4">
-                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.detail")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">
+                            {{ $t('eyewearList.detail') }}
+                          </p>
                           <input
                             disabled
                             :value="eyewear.detail"
@@ -182,10 +220,12 @@
                         </div>
                         <!--Status dropdraw-->
                         <div>
-                          <p class="pb-2 text-sm md:text-lg">{{$t("eyewearList.status")}}</p>
+                          <p class="pb-2 text-sm md:text-lg">
+                            {{ $t('eyewearList.status') }}
+                          </p>
                           <select
                             v-model="eyewear.orderStatus"
-                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                            class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 content-center"
                           >
                             <option value="">-- Please select one --</option>
                             <option value="Preparing">Preparing</option>
@@ -229,19 +269,34 @@
                                     >
                                       {{ status }}
                                     </h3>
-                                    <p v-if="status === 'Preparing' && eyewear.datePreparing !== null">
+                                    <p
+                                      v-if="
+                                        status === 'Preparing' &&
+                                        eyewear.datePreparing !== null
+                                      "
+                                    >
                                       {{
                                         formatDateandTime(eyewear.datePreparing)
                                       }}
                                     </p>
-                                    <p v-else-if="status === 'Processing' && eyewear.dateProcessing !== null">
+                                    <p
+                                      v-else-if="
+                                        status === 'Processing' &&
+                                        eyewear.dateProcessing !== null
+                                      "
+                                    >
                                       {{
                                         formatDateandTime(
                                           eyewear.dateProcessing
                                         )
                                       }}
                                     </p>
-                                    <p v-else-if="status === 'Complete' && eyewear.dateComplete !== null">
+                                    <p
+                                      v-else-if="
+                                        status === 'Complete' &&
+                                        eyewear.dateComplete !== null
+                                      "
+                                    >
                                       {{
                                         formatDateandTime(eyewear.dateComplete)
                                       }}
@@ -263,7 +318,7 @@
                             <thead>
                               <tr class="bg-[#F59F54] text-white">
                                 <th class="px-6 py-8 border border-black">
-                                  {{$t("searchStatus.eyesight")}}
+                                  {{ $t('searchStatus.eyesight') }}
                                 </th>
                                 <th class="px-6 py-8 border border-black">
                                   SPH
@@ -293,7 +348,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                {{$t("searchStatus.left")}}
+                                  {{ $t('searchStatus.left') }}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -350,7 +405,7 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                {{$t("searchStatus.right")}}
+                                  {{ $t('searchStatus.right') }}
                                 </td>
                                 <td class="border border-black">
                                   <input
@@ -412,38 +467,60 @@
               </div>
               <!-- footer -->
 
-              <div class="flex justify-end mt-5">
-                <div class="flex items-center w-full gap-2">
-                  <p
-                    class="text-sm md:text-lg text-primary-color whitespace-nowrap"
-                  >
-                  {{$t("orderList.totalPrice")}} : {{ totalPrice() }}
-                  </p>
-                  <p
-                    class="text-sm text-center rounded-md md:text-lg text-primary-color"
-                  ></p>
-                </div>
-                <div class="mx-2">
-                  <button
+              <!--Total Price-->
+              <div
+                class="grid grid-cols-3 gap-4 pr-2 mt-12 text-end"
+                style="grid-template-columns: auto 6fr 1fr"
+              >
+                <p
+                  class="content-center col-start-2 text-sm text-gray-500 md:text-lg whitespace-nowrap"
+                >
+                  Merchandise Subtotal:
+                </p>
+                <p class="text-xl rounded-md md:text-lg">฿{{ subTotal() }}</p>
+                <p
+                  class="content-center col-start-2 text-sm text-gray-500 md:text-lg whitespace-nowrap"
+                  v-show="order.delivery === 'Delivery'"
+                >
+                  Shipping Total:
+                </p>
+                <p
+                  class="text-xl rounded-md md:text-lg"
+                  v-show="order.delivery === 'Delivery'"
+                >
+                  ฿{{ shippingTotal() }}
+                </p>
+                <p
+                  class="content-center col-start-2 text-sm text-gray-500 md:text-lg whitespace-nowrap"
+                >
+                  Total Payment:
+                </p>
+                <p
+                  v-if="groupedData.order"
+                  class="text-xl font-bold rounded-md md:text-4xl text-primary-color"
+                >
+                  ฿{{ groupedData.order.price }}
+                </p>
+              </div>
+              <div class="flex justify-end gap-4 mt-8">
+                <button
                   @click="confirmUpdate()"
-                    class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
-                  >
-                  {{$t("customerList.confirm")}}
-                  </button>
-                </div>
-                <div class="mx-2">
-                  <button
-                    @click="cancel()"
-                    class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
-                  >
-                  {{$t("customerList.cancel")}}
-                  </button>
-                </div>
-                <div class="mx-2">
-                  <button @click="printToDiv" class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600">
-                    {{$t("eyewearList.print")}}
-                  </button>
-                </div>
+                  class="bg-green-400 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-green-500"
+                >
+                  {{ $t('customerList.confirm') }}
+                </button>
+                <button
+                  @click="cancel()"
+                  class="bg-red-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-red-600"
+                >
+                  {{ $t('customerList.cancel') }}
+                </button>
+                <button
+                  @click="printToDiv"
+                  class="bg-gray-500 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-gray-600"
+                >
+                  {{ $t('eyewearList.print') }}
+                </button>
               </div>
             </div>
           </div>
@@ -456,7 +533,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 export default {
@@ -491,10 +568,8 @@ export default {
         if (eyewearResponse.data) {
           eyewear.value = eyewearResponse.data
           groupData() // Call the groupData() function to group the eyewear data
-  
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
 
     const groupData = () => {
@@ -539,91 +614,105 @@ export default {
       return `${day}/${month}/${year} ${hours}:${minutes}`
     }
 
-    const totalPrice = () => {
-      if (
-        !groupedData.value ||
-        !groupedData.value.order ||
-        !Array.isArray(groupedData.value.eyewears)
-      ) {
-        return 0
+    const updateStatus = async () => {
+      try {
+        const currentDate = new Date() // Get the current date
+
+        // Map over the eyewears and create an array of objects containing eyewearID, orderStatus, and date fields
+        const updatedEyewears = groupedData.value.eyewears.map((eyewear) => ({
+          eyewearID: eyewear.eyewearID,
+          orderStatus: eyewear.orderStatus,
+          // Add date fields based on the logic you described
+          dateProcessing:
+            eyewear.orderStatus === 'Processing' ? currentDate : null,
+          dateComplete: eyewear.orderStatus === 'Complete' ? currentDate : null
+        }))
+
+        // Call the backend API to update the order status and dates for all eyewears
+        await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/eyewears/manyStatus/${
+            groupedData.value.order.orderID
+          }`,
+          updatedEyewears
+        )
+      } catch (error) {
+        // Optionally, you can show an error message to the user
+        console.error('Error updating eyewear status:', error)
       }
-      return groupedData.value.eyewears.reduce((acc, item) => {
-        if (typeof item.price !== 'number') {
-          return acc
-        }
-        return acc + item.price
-      }, 0)
     }
 
-    const updateStatus = async () => {
-  try {
-    const currentDate = new Date(); // Get the current date
-
-    // Map over the eyewears and create an array of objects containing eyewearID, orderStatus, and date fields
-    const updatedEyewears = groupedData.value.eyewears.map(eyewear => ({
-      eyewearID: eyewear.eyewearID,
-      orderStatus: eyewear.orderStatus,
-      // Add date fields based on the logic you described
-      dateProcessing: eyewear.orderStatus === 'Processing' ? currentDate : null,
-      dateComplete: eyewear.orderStatus === 'Complete' ? currentDate : null
-    }));
-
-    // Call the backend API to update the order status and dates for all eyewears
-    await axios.put(`${import.meta.env.VITE_BASE_URL}/eyewears/manyStatus/${groupedData.value.order.orderID}`, updatedEyewears);
-  } catch (error) {
-    // Optionally, you can show an error message to the user
-    console.error('Error updating eyewear status:', error);
-  }
-};
-
-  
     onMounted(() => {
       fetchData()
     })
 
     const updateEyewear = async (orderID, shippingName, tracking, eyewear) => {
-  try {
-    // อัพเดทข้อมูลการจัดส่งของคำสั่งซื้อ
-    const updateOrder = await axios.put(
-      `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`,
-      {
-        shippingName: shippingName,
-        tracking: tracking
-      }
-    );
+      try {
+        // อัพเดทข้อมูลการจัดส่งของคำสั่งซื้อ
+        const updateOrder = await axios.put(
+          `${import.meta.env.VITE_BASE_URL}/orders/${orderID}`,
+          {
+            shippingName: shippingName,
+            tracking: tracking
+          }
+        )
 
-    // ส่งข้อมูลรายการ eyewear แต่ละรายการในอาร์เรย์เพื่ออัพเดท
-    await Promise.all(eyewear.map(async (item) => {
-      const updatedEyewearResponse = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/eyewears/${item.eyewearID}`,
-        {
-          orderID: orderID,
-          // อาจต้องการอัพเดทข้อมูลอื่นๆ ใน eyewear ด้วย
-        }
-      );
-    }));
-  } catch (error) {
-  }
-};
+        // ส่งข้อมูลรายการ eyewear แต่ละรายการในอาร์เรย์เพื่ออัพเดท
+        await Promise.all(
+          eyewear.map(async (item) => {
+            const updatedEyewearResponse = await axios.put(
+              `${import.meta.env.VITE_BASE_URL}/eyewears/${item.eyewearID}`,
+              {
+                orderID: orderID
+                // อาจต้องการอัพเดทข้อมูลอื่นๆ ใน eyewear ด้วย
+              }
+            )
+          })
+        )
+      } catch (error) {}
+    }
 
     // ต่อไปนี้เป็นการเพิ่ม methods ใหม่ updateStatus และ updateEyewear
-    const router = useRouter();
-    
+    const router = useRouter()
+
     const confirmUpdate = async () => {
-  await updateStatus();
-  await updateEyewear(
-    groupedData.value.order.orderID,
-    groupedData.value.order.shippingName,
-    groupedData.value.order.tracking
-  );
-  Swal.fire({
+      await updateStatus()
+      await updateEyewear(
+        groupedData.value.order.orderID,
+        groupedData.value.order.shippingName,
+        groupedData.value.order.tracking
+      )
+      Swal.fire({
         icon: 'success',
         title: 'Edit order Success!',
         timer: 1500
       }).then(() => {
-        router.push('/order');
+        router.push('/order')
       })
-};
+    }
+    const subTotal = () => {
+      if (groupedData.value && groupedData.value.eyewears) {
+        console.log(groupedData.value)
+        return groupedData.value.eyewears.reduce(
+          (total, eyewear) => total + eyewear.price,
+          0
+        )
+      } else {
+      }
+    }
+
+    const shippingTotal = () => {
+      if (groupedData.value && groupedData.value.order) {
+        const selectedDelivery = groupedData.value.order.delivery
+        let shippingPrice = 0
+        if (selectedDelivery === 'Delivery') {
+          shippingPrice = 50
+        }
+        return shippingPrice
+      } else {
+        return 0
+      }
+    }
+
     return {
       order,
       eyewear,
@@ -632,8 +721,9 @@ export default {
       eyewearData,
       formatDate,
       formatDateandTime,
-      totalPrice,
-      confirmUpdate
+      confirmUpdate,
+      subTotal,
+      shippingTotal
     }
   },
   methods: {
@@ -641,31 +731,33 @@ export default {
       this.$router.push(`/order`)
     },
     printToDiv() {
-    // Select each div by their IDs
-    var orderIDDiv = document.getElementById('orderID');
-    var eyewearDetailDiv = document.getElementById('eyewearDetail');
-    var customerNameDiv = document.getElementById('showName');
-    var customerNameHTML = customerNameDiv.innerHTML;
-    var customerLastNameDiv = document.getElementById('showLastName');
-    var customerLastNameHTML = customerLastNameDiv.innerHTML;
+      // Select each div by their IDs
+      var orderIDDiv = document.getElementById('orderID')
+      var eyewearDetailDiv = document.getElementById('eyewearDetail')
+      var customerNameDiv = document.getElementById('showName')
+      var customerNameHTML = customerNameDiv.innerHTML
+      var customerLastNameDiv = document.getElementById('showLastName')
+      var customerLastNameHTML = customerLastNameDiv.innerHTML
 
-    // Create a string to hold the concatenated HTML content for each data item
-    var orderIDHTML = orderIDDiv.innerHTML
-    var eyewearDetailHTML = '<div style="padding: 10px; margin-bottom: 10px;">';
-    
-    // Loop through each eyewear and add its name to the HTML content
-    for (var i = 0; i < this.groupedData.eyewears.length; i++) {
-        eyewearDetailHTML += '<p>' + this.groupedData.eyewears[i].eyewearName + '</p>';
-    }
-    
-    eyewearDetailHTML += '</div>';
+      // Create a string to hold the concatenated HTML content for each data item
+      var orderIDHTML = orderIDDiv.innerHTML
+      var eyewearDetailHTML =
+        '<div style="padding: 10px; margin-bottom: 10px;">'
 
-    // Open a new window for printing
-    var newWin = window.open('', 'Print-Window');
+      // Loop through each eyewear and add its name to the HTML content
+      for (var i = 0; i < this.groupedData.eyewears.length; i++) {
+        eyewearDetailHTML +=
+          '<p>' + this.groupedData.eyewears[i].eyewearName + '</p>'
+      }
 
-    // Write the HTML content for each data item to the new window
-    newWin.document.open();
-    newWin.document.write(`
+      eyewearDetailHTML += '</div>'
+
+      // Open a new window for printing
+      var newWin = window.open('', 'Print-Window')
+
+      // Write the HTML content for each data item to the new window
+      newWin.document.open()
+      newWin.document.write(`
         <html>
             <head>
                 <title>BuddyGlasses_Receipt</title>
@@ -703,13 +795,12 @@ export default {
                 </div>
             </body>
         </html>
-    `);
-    newWin.document.close();
+    `)
+      newWin.document.close()
 
-    // Print the new window
-    newWin.print();
+      // Print the new window
+      newWin.print()
+    }
+  }
 }
-
-  }}
-
 </script>

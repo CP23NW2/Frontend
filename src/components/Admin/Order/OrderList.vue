@@ -146,7 +146,7 @@
                       </div>
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
-                        {{ orderList.length }} {{ $t('orderList.eyewears') }}
+                        {{ orderList.length }} {{ $t('orderList.orders') }}
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div
@@ -172,12 +172,6 @@
                                 scope="col"
                                 class="px-6 py-3 whitespace-nowrap"
                               >
-                                {{ $t('orderList.totalPrice') }}
-                              </div>
-                              <div
-                                scope="col"
-                                class="px-6 py-3 whitespace-nowrap"
-                              >
                                 {{ $t('orderList.status') }}
                               </div>
                               <div
@@ -185,6 +179,12 @@
                                 class="px-6 py-3 whitespace-nowrap"
                               >
                                 {{ $t('orderList.shipping') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.totalPrice') }}
                               </div>
                               <div
                                 scope="col"
@@ -198,7 +198,7 @@
                         <div
                           v-for="(order, index) in filteredResult"
                           :key="index"
-                          class="mt-2 border cursor-pointer hover:bg-sky-700"
+                          class="mt-2 border"
                         >
                           <div
                             class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
@@ -249,9 +249,6 @@
                                   </div>
                                 </div>
                                 <div class="self-center">
-                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
-                                </div>
-                                <div class="self-center">
                                   {{ eyewear.orderStatus }}
                                 </div>
 
@@ -260,7 +257,11 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="flex items-stretch pl-16">
+
+                            <div class="self-center pl-40 whitespace-nowrap">
+                              {{ order.price }} {{ $t('orderList.bath') }}
+                            </div>
+                            <div class="flex items-stretch pl-40">
                               <div class="self-center">
                                 <button
                                   @click="fetchOrderDetails(order.orderID)"
@@ -362,7 +363,54 @@
                         {{ getPreparingOrdersCount() }}
                         {{ $t('orderList.eyewears') }}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                        <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.name') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.product') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.status') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.shipping') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.totalPrice') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.manage') }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -408,65 +456,74 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div>
-                            <div
-                              v-for="eyewear in preparingEyewearList"
-                              :key="eyewear.eyewearID"
-                            >
-                              <!-- Check if the eyewear item has status 'Preparing' for the current order -->
+                          <div class="flex justify-between px-10 py-3">
+                            <div class="w-full">
                               <div
-                                v-if="
-                                  eyewear.orderID === order.orderID &&
-                                  eyewear.orderStatus === 'Preparing'
-                                "
-                                class="flex flex-row justify-between px-10 py-3"
+                                v-for="eyewear in preparingEyewearList"
+                                :key="eyewear.eyewearID"
                               >
-                                <Icon
-                                  icon="ion:cart"
-                                  style="color: rgb(2, 2, 2)"
-                                  class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                                />
-                                <div class="flex flex-col gap-2">
-                                  <p id="eyewearDetail">
-                                    {{ eyewear.eyewearName }}
-                                  </p>
-                                  <div class="text-[#808080]">
-                                    {{ formatDate(eyewear.createdAt) }}
+                                <!-- Check if the eyewear item has status 'Preparing' for the current order -->
+                                <div
+                                  class="flex flex-row justify-between"
+                                  v-if="
+                                    eyewear.orderID === order.orderID &&
+                                    eyewear.orderStatus === 'Preparing'
+                                  "
+                                >
+                                  <div class="flex items-center">
+                                    <Icon
+                                      icon="ion:cart"
+                                      style="color: rgb(2, 2, 2)"
+                                      class="w-8 h-8 mr-2 text-primary-color"
+                                    />
                                   </div>
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.orderStatus }}
-                                </div>
-                                <div class="self-center">
-                                  {{ order.delivery }}
-                                </div>
-                                <div class="flex items-stretch">
+                                  <div class="flex flex-col gap-2">
+                                    <p id="eyewearDetail">
+                                      {{ eyewear.eyewearName }}
+                                    </p>
+                                    <div class="text-[#808080]">
+                                      {{ formatDate(eyewear.createdAt) }}
+                                    </div>
+                                  </div>
                                   <div class="self-center">
-                                    <button
-                                      @click="fetchOrderDetails(order.orderID)"
-                                    >
-                                      <Icon
-                                        icon="mdi:edit-circle"
-                                        class="w-10 h-10 text-[#55BA71]"
-                                      />
-                                    </button>
-                                    <button @click="DeleteOrder(order.orderID)">
-                                      <Icon
-                                        icon="mdi:trash-can-circle"
-                                        class="w-10 h-10 text-[#EB4F54]"
-                                      />
-                                    </button>
-                                    <button @click="printToDiv(order.orderID)">
-                                      <Icon
-                                        icon="f7:doc-circle-fill"
-                                        class="w-10 h-10 text-[#808080]"
-                                      />
-                                    </button>
+                                    {{ eyewear.orderStatus }}
+                                  </div>
+
+                                  <div class="self-center">
+                                    {{ order.delivery }}
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <div class="self-center pl-40 whitespace-nowrap">
+                              {{ order.price }} {{ $t('orderList.bath') }}
+                            </div>
+                            <div class="flex items-stretch pl-40">
+                              <div class="self-center">
+                                <button
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  <Icon
+                                    icon="mdi:edit-circle"
+                                    class="w-10 h-10 text-[#55BA71]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="mdi:trash-can-circle"
+                                    class="w-10 h-10 text-[#EB4F54]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="printToDiv(order.orderID)">
+                                  <Icon
+                                    icon="f7:doc-circle-fill"
+                                    class="w-10 h-10 text-[#808080]"
+                                  />
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -543,7 +600,54 @@
                         {{ getProcessingOrdersCount() }}
                         {{ $t('orderList.eyewears') }}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                        <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.name') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.product') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.status') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.shipping') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.totalPrice') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.manage') }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -555,7 +659,7 @@
                           )
                         }"
                       >
-                        <!-- Check if there are eyewear items with status 'Preparing' for the order -->
+                        <!-- Check if there are eyewear items with status 'Processing' for the order -->
                         <template
                           v-if="
                             processingEyewearList.some(
@@ -589,65 +693,74 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div>
-                            <div
-                              v-for="eyewear in processingEyewearList"
-                              :key="eyewear.eyewearID"
-                            >
-                              <!-- Check if the eyewear item has status 'Preparing' for the current order -->
+                          <div class="flex justify-between px-10 py-3">
+                            <div class="w-full">
                               <div
-                                v-if="
-                                  eyewear.orderID === order.orderID &&
-                                  eyewear.orderStatus === 'Processing'
-                                "
-                                class="flex flex-row justify-between px-10 py-3"
+                                v-for="eyewear in processingEyewearList"
+                                :key="eyewear.eyewearID"
                               >
-                                <Icon
-                                  icon="ion:cart"
-                                  style="color: rgb(2, 2, 2)"
-                                  class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                                />
-                                <div class="flex flex-col gap-2">
-                                  <p id="eyewearDetail">
-                                    {{ eyewear.eyewearName }}
-                                  </p>
-                                  <div class="text-[#808080]">
-                                    {{ formatDate(eyewear.createdAt) }}
+                                <!-- Check if the eyewear item has status 'Preparing' for the current order -->
+                                <div
+                                  class="flex flex-row justify-between"
+                                  v-if="
+                                    eyewear.orderID === order.orderID &&
+                                    eyewear.orderStatus === 'Processing'
+                                  "
+                                >
+                                  <div class="flex items-center">
+                                    <Icon
+                                      icon="ion:cart"
+                                      style="color: rgb(2, 2, 2)"
+                                      class="w-8 h-8 mr-2 text-primary-color"
+                                    />
                                   </div>
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.orderStatus }}
-                                </div>
-                                <div class="self-center">
-                                  {{ order.delivery }}
-                                </div>
-                                <div class="flex items-stretch">
+                                  <div class="flex flex-col gap-2">
+                                    <p id="eyewearDetail">
+                                      {{ eyewear.eyewearName }}
+                                    </p>
+                                    <div class="text-[#808080]">
+                                      {{ formatDate(eyewear.createdAt) }}
+                                    </div>
+                                  </div>
                                   <div class="self-center">
-                                    <button
-                                      @click="fetchOrderDetails(order.orderID)"
-                                    >
-                                      <Icon
-                                        icon="mdi:edit-circle"
-                                        class="w-10 h-10 text-[#55BA71]"
-                                      />
-                                    </button>
-                                    <button @click="DeleteOrder(order.orderID)">
-                                      <Icon
-                                        icon="mdi:trash-can-circle"
-                                        class="w-10 h-10 text-[#EB4F54]"
-                                      />
-                                    </button>
-                                    <button @click="printToDiv(order.orderID)">
-                                      <Icon
-                                        icon="f7:doc-circle-fill"
-                                        class="w-10 h-10 text-[#808080]"
-                                      />
-                                    </button>
+                                    {{ eyewear.orderStatus }}
+                                  </div>
+
+                                  <div class="self-center">
+                                    {{ order.delivery }}
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <div class="self-center pl-40 whitespace-nowrap">
+                              {{ order.price }} {{ $t('orderList.bath') }}
+                            </div>
+                            <div class="flex items-stretch pl-40">
+                              <div class="self-center">
+                                <button
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  <Icon
+                                    icon="mdi:edit-circle"
+                                    class="w-10 h-10 text-[#55BA71]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="mdi:trash-can-circle"
+                                    class="w-10 h-10 text-[#EB4F54]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="printToDiv(order.orderID)">
+                                  <Icon
+                                    icon="f7:doc-circle-fill"
+                                    class="w-10 h-10 text-[#808080]"
+                                  />
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -724,7 +837,54 @@
                         {{ getCompleteOrdersCount() }}
                         {{ $t('orderList.eyewears') }}
                       </div>
-
+                      <div class="mt-4 overflow-x-auto">
+                        <div
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                        >
+                          <div
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                          >
+                            <div class="flex flex-row justify-between">
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.name') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="gap-3 px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.product') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.status') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.shipping') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.totalPrice') }}
+                              </div>
+                              <div
+                                scope="col"
+                                class="px-6 py-3 whitespace-nowrap"
+                              >
+                                {{ $t('orderList.manage') }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
@@ -736,7 +896,7 @@
                           )
                         }"
                       >
-                        <!-- Check if there are eyewear items with status 'Preparing' for the order -->
+                        <!-- Check if there are eyewear items with status 'Complete' for the order -->
                         <template
                           v-if="
                             completeEyewearList.some(
@@ -770,65 +930,74 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div>
-                            <div
-                              v-for="eyewear in completeEyewearList"
-                              :key="eyewear.eyewearID"
-                            >
-                              <!-- Check if the eyewear item has status 'Preparing' for the current order -->
+                          <div class="flex justify-between px-10 py-3">
+                            <div class="w-full">
                               <div
-                                v-if="
-                                  eyewear.orderID === order.orderID &&
-                                  eyewear.orderStatus === 'Complete'
-                                "
-                                class="flex flex-row justify-between px-10 py-3"
+                                v-for="eyewear in completeEyewearList"
+                                :key="eyewear.eyewearID"
                               >
-                                <Icon
-                                  icon="ion:cart"
-                                  style="color: rgb(2, 2, 2)"
-                                  class="self-center inline-block w-8 h-8 mr-2 text-primary-color"
-                                />
-                                <div class="flex flex-col gap-2">
-                                  <p id="eyewearDetail">
-                                    {{ eyewear.eyewearName }}
-                                  </p>
-                                  <div class="text-[#808080]">
-                                    {{ formatDate(eyewear.createdAt) }}
+                                <!-- Check if the eyewear item has status 'Complete' for the current order -->
+                                <div
+                                  class="flex flex-row justify-between"
+                                  v-if="
+                                    eyewear.orderID === order.orderID &&
+                                    eyewear.orderStatus === 'Complete'
+                                  "
+                                >
+                                  <div class="flex items-center">
+                                    <Icon
+                                      icon="ion:cart"
+                                      style="color: rgb(2, 2, 2)"
+                                      class="w-8 h-8 mr-2 text-primary-color"
+                                    />
                                   </div>
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.price }} {{ $t('orderList.bath') }}
-                                </div>
-                                <div class="self-center">
-                                  {{ eyewear.orderStatus }}
-                                </div>
-                                <div class="self-center">
-                                  {{ order.delivery }}
-                                </div>
-                                <div class="flex items-stretch">
+                                  <div class="flex flex-col gap-2">
+                                    <p id="eyewearDetail">
+                                      {{ eyewear.eyewearName }}
+                                    </p>
+                                    <div class="text-[#808080]">
+                                      {{ formatDate(eyewear.createdAt) }}
+                                    </div>
+                                  </div>
                                   <div class="self-center">
-                                    <button
-                                      @click="fetchOrderDetails(order.orderID)"
-                                    >
-                                      <Icon
-                                        icon="mdi:edit-circle"
-                                        class="w-10 h-10 text-[#55BA71]"
-                                      />
-                                    </button>
-                                    <button @click="DeleteOrder(order.orderID)">
-                                      <Icon
-                                        icon="mdi:trash-can-circle"
-                                        class="w-10 h-10 text-[#EB4F54]"
-                                      />
-                                    </button>
-                                    <button @click="printToDiv(order.orderID)">
-                                      <Icon
-                                        icon="f7:doc-circle-fill"
-                                        class="w-10 h-10 text-[#808080]"
-                                      />
-                                    </button>
+                                    {{ eyewear.orderStatus }}
+                                  </div>
+
+                                  <div class="self-center">
+                                    {{ order.delivery }}
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <div class="self-center pl-40 whitespace-nowrap">
+                              {{ order.price }} {{ $t('orderList.bath') }}
+                            </div>
+                            <div class="flex items-stretch pl-40">
+                              <div class="self-center">
+                                <button
+                                  @click="fetchOrderDetails(order.orderID)"
+                                >
+                                  <Icon
+                                    icon="mdi:edit-circle"
+                                    class="w-10 h-10 text-[#55BA71]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="DeleteOrder(order.orderID)">
+                                  <Icon
+                                    icon="mdi:trash-can-circle"
+                                    class="w-10 h-10 text-[#EB4F54]"
+                                  />
+                                </button>
+                              </div>
+                              <div class="self-center">
+                                <button @click="printToDiv(order.orderID)">
+                                  <Icon
+                                    icon="f7:doc-circle-fill"
+                                    class="w-10 h-10 text-[#808080]"
+                                  />
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -996,7 +1165,7 @@ export default {
   },
   methods: {
     reset() {
-      (this.selectedSearch = 'orderID'),
+      ;(this.selectedSearch = 'orderID'),
         (this.searchOrderID = ''),
         (this.searchCustomerName = ''),
         (this.searchEyewearName = '')
@@ -1047,23 +1216,27 @@ export default {
       }
     },
     printToDiv(orderID, customerName) {
-    // Filter eyewear list based on orderID
-    const eyewearsForOrder = this.eyewearList.filter(eyewear => eyewear.orderID === orderID);
-    var customerNameDiv = document.getElementById('showName');
-    var customerNameHTML = customerNameDiv.innerHTML;
-    var customerLastNameDiv = document.getElementById('showLastName');
-    var customerLastNameHTML = customerLastNameDiv.innerHTML;
-    // Generate HTML for eyewear names
-    const eyewearDetailHTML = eyewearsForOrder.map(eyewear => {
-        return `<p>${eyewear.eyewearName}</p>`;
-    }).join('');
+      // Filter eyewear list based on orderID
+      const eyewearsForOrder = this.eyewearList.filter(
+        (eyewear) => eyewear.orderID === orderID
+      )
+      var customerNameDiv = document.getElementById('showName')
+      var customerNameHTML = customerNameDiv.innerHTML
+      var customerLastNameDiv = document.getElementById('showLastName')
+      var customerLastNameHTML = customerLastNameDiv.innerHTML
+      // Generate HTML for eyewear names
+      const eyewearDetailHTML = eyewearsForOrder
+        .map((eyewear) => {
+          return `<p>${eyewear.eyewearName}</p>`
+        })
+        .join('')
 
-    // Open a new window for printing
-    var newWin = window.open('', 'Print-Window');
+      // Open a new window for printing
+      var newWin = window.open('', 'Print-Window')
 
-    // Write the HTML content for each data item to the new window
-    newWin.document.open();
-    newWin.document.write(`
+      // Write the HTML content for each data item to the new window
+      newWin.document.open()
+      newWin.document.write(`
         <html>
             <head>
                 <title>BuddyGlasses_Receipt</title>
@@ -1101,13 +1274,12 @@ export default {
                 </div>
             </body>
         </html>
-    `);
-    newWin.document.close();
+    `)
+      newWin.document.close()
 
-    // Print the new window
-    newWin.print();
-}
-
+      // Print the new window
+      newWin.print()
+    }
   },
 
   components: {
@@ -1115,4 +1287,3 @@ export default {
   }
 }
 </script>
-
