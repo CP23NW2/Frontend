@@ -174,7 +174,7 @@
               </div>
 
               <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-3 md:flex-row"
+                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
@@ -219,6 +219,27 @@
                 </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('orderList.phone') }}
+                  </p>
+                  <input
+                    maxlength="10"
+                    required
+                    v-model="newCustomer.customerTel"
+                    :class="{
+                      'error-input': phoneErrorError,
+                      'border-red-500': phoneError && !newCustomer.customerTel
+                    }"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
+                  />
+                  <p
+                    v-if="phoneError"
+                    class="invisible text-sm text-red-500 peer-invalid:visible"
+                  >
+                    {{ $t('orderList.enterPhone') }}
+                  </p>
+                </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">
                     {{ $t('eyewearList.date') }}
                   </p>
                   <input
@@ -239,6 +260,7 @@
                   </p>
                 </div>
               </div>
+
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
@@ -247,31 +269,38 @@
                     {{ $t('customerList.address') }}
                   </p>
                   <input
-                    v-model="newCustomer.address"
+                    v-model="newCustomer.detailAddress"
+                    maxlength="50"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">
-                    {{ $t('orderList.phone') }}
-                  </p>
-                  <input
-                    maxlength="10"
-                    required
-                    v-model="newCustomer.customerTel"
-                    :class="{
-                      'error-input': phoneErrorError,
-                      'border-red-500': phoneError && !newCustomer.customerTel
-                    }"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10 peer border border-slate-400"
-                  />
-                  <p
-                    v-if="phoneError"
-                    class="invisible text-sm text-red-500 peer-invalid:visible"
-                  >
-                    {{ $t('orderList.enterPhone') }}
-                  </p>
+                <div class="grid grid-cols-4" v-if="!closeAddress">
+                    <div class="mt-9">
+                      <select v-model="selectedProvince" @change="onProvinceChange" class="md:px-5 h-10 rounded-md bg-[#D4D4D433] border-gray-200">
+                        <option value="">-- จังหวัด --</option>
+                        <option v-for="province in provinces" :value="province">{{ province }}</option>
+                      </select>
+                    </div>
+                    <div class="mt-9" v-if="selectedProvince">
+                      <select v-model="selectedDistrict" @change="onDistrictChange"  class="md:px-5 h-10 rounded-md bg-[#D4D4D433] border-gray-200">
+                        <option value="">-- อำเภอ --</option>
+                        <option v-for="district in filteredDistricts" :value="district">{{ district }}</option>
+                      </select>
+                    </div>
+                    <div class="mt-9" v-if="selectedDistrict">
+                      <select v-model="selectedTambon" @change="onTambonChange"  class="md:px-5 h-10 rounded-md bg-[#D4D4D433] border-gray-200">
+                        <option value="">-- ตำบล --</option>
+                        <option v-for="tambon in filteredTambons" :value="tambon">{{ tambon }}</option>
+                      </select>
+                    </div>
+                    <div class="mt-9" v-if="selectedTambon">
+                      <select v-model="selectedPostCode"  class="md:px-5 h-10 rounded-md bg-[#D4D4D433] border-gray-200">
+                        <option value="">-- รหัสไปรษณีย์ --</option>
+                        <option v-for="postCode in filteredPostCodes" :value="postCode">{{ postCode }}</option>
+                      </select>
+                    </div>
                 </div>
+
               </div>
               <!-- Order -->
               <div class="w-full h-px border border-neutral-300"></div>
@@ -279,7 +308,7 @@
                 {{ $t('eyewearList.orderDetails') }}
               </p>
               <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
+                class="justify-between gap-4 mt-4 md:flex-row"
               >
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
@@ -306,12 +335,13 @@
                   >
                     {{ $t('addOrder.pleaseSelOne') }}
                   </p>
-                  <p class="pb-2 text-sm md:text-lg">
+                  <p class="pb-2 text-sm md:text-lg" v-if="newOrder.delivery === 'Delivery'">
                     {{ $t('eyewearList.trackingNumber') }}
                   </p>
                   <input
                     v-model="newOrder.tracking"
                     maxlength="15"
+                    v-if="newOrder.delivery === 'Delivery'"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -439,56 +469,6 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  {{ $t('searchStatus.left') }}
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftSPH"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftCYL"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftAXIS"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftADD"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftPD"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftSH"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftUpKT"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td
-                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                                >
                                   {{ $t('searchStatus.right') }}
                                 </td>
                                 <td class="border border-black">
@@ -530,6 +510,55 @@
                                 <td class="border border-black">
                                   <input
                                     v-model="item.rightUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  {{ $t('searchStatus.left') }}
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftUpKT"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
@@ -583,7 +612,7 @@
                 </div>
                 <div class="flex justify-end gap-4 mt-8">
                   <button
-                    @click="addOrderAndEyewear()"
+                    @click="addCustomerAndOrderAndEyewear()"
                     class="bg-blue-700 h-10 w-24 rounded-xl text-white md:h-[60px] md:w-[130px] md:text-xl cursor-pointer hover:bg-blue-800"
                   >
                     {{ $t('customerList.confirm') }}
@@ -665,6 +694,7 @@ export default {
       priceError: false,
 
       isPopupVisible: false,
+      closeAddress: false,
 
       output: null,
       isDropdownVisible: false,
@@ -677,7 +707,15 @@ export default {
         customerLastName: '',
         customerTel: '',
         address: ''
-      }
+      },
+
+      addresses: [], // ข้อมูลทั้งหมด
+      provinces: [], // รายชื่อจังหวัดทั้งหมด
+      detailAddress: '',
+      selectedProvince: '', // จังหวัดที่เลือก
+      selectedDistrict: '', // อำเภอที่เลือก
+      selectedTambon: '', // ตำบลที่เลือก
+      selectedPostCode: '', // รหัสไปรษณีย์ที่เลือก,
     }
   },
   mounted() {
@@ -692,6 +730,8 @@ export default {
       },
       { deep: true }
     )
+
+    this.fetchDataAddress();
   },
 
   computed: {
@@ -712,9 +752,55 @@ export default {
         })
       }
       return []
+    },
+     // กรองอำเภอที่เป็นไปได้ขึ้นอยู่กับจังหวัดที่เลือก
+     filteredDistricts() {
+      const uniqueDistricts = new Set();
+      this.addresses.forEach(address => {
+        if (address.ProvinceThai === this.selectedProvince) {
+          uniqueDistricts.add(address.DistrictThaiShort);
+        }
+      });
+      return Array.from(uniqueDistricts);
+    },
+    // กรองตำบลที่เป็นไปได้ขึ้นอยู่กับอำเภอที่เลือก
+    filteredTambons() {
+      return this.addresses
+        .filter(address => address.DistrictThaiShort === this.selectedDistrict)
+        .map(address => address.TambonThaiShort);
+    },
+    // กรองรหัสไปรษณีย์ที่เป็นไปได้ขึ้นอยู่กับตำบลที่เลือก
+    filteredPostCodes() {
+      return this.addresses
+        .filter(address => address.TambonThaiShort === this.selectedTambon)
+        .map(address => address.PostCode);
     }
   },
   methods: {
+    closeAddressToggle() {
+    this.closeAddress = true
+  },
+    async fetchDataAddress() {
+      try {
+        const response = await axios.get("public/addressOfThailand.json");
+        this.addresses = response.data;
+        this.provinces = Array.from(new Set(this.addresses.map(address => address.ProvinceThai)));
+      } catch (error) {
+        console.error('Error fetching addresses:', error);
+      }
+    },
+    onProvinceChange() {
+      this.selectedDistrict = ''; // รีเซ็ตค่าอำเภอที่เลือกเมื่อเปลี่ยนจังหวัด
+      this.selectedTambon = ''; // รีเซ็ตค่าตำบลที่เลือกเมื่อเปลี่ยนจังหวัด
+      this.selectedPostCode = ''; // รีเซ็ตค่ารหัสไปรษณีย์เมื่อเปลี่ยนจังหวัด
+    },
+    onDistrictChange() {
+      this.selectedTambon = ''; // รีเซ็ตค่าตำบลที่เลือกเมื่อเปลี่ยนอำเภอ
+      this.selectedPostCode = ''; // รีเซ็ตค่ารหัสไปรษณีย์เมื่อเปลี่ยนอำเภอ
+    },
+    onTambonChange() {
+      this.selectedPostCode = ''; // รีเซ็ตค่ารหัสไปรษณีย์เมื่อเปลี่ยนตำบล
+    },
     addEyewearTable() {
       this.eyewearTablesCount++
       const newObject = {
@@ -755,8 +841,9 @@ export default {
     populateInputFields(customer) {
       this.newCustomer.customerName = customer.customerName
       this.newCustomer.customerLastName = customer.customerLastName
-      this.newCustomer.address = customer.address
+      this.newCustomer.detailAddress = customer.address
       this.newCustomer.customerTel = customer.customerTel
+      this.closeAddressToggle()
 
       if (
         this.customerList.some(
@@ -773,7 +860,6 @@ export default {
         const existingCustomer = this.customerList.find(
           (customer) => customer.customerID === this.newOrder.customerID
         )
-        console.log(existingCustomer)
         if (!existingCustomer) {
           await this.addCustomer()
         }
@@ -782,8 +868,7 @@ export default {
         }
 
         await this.addOrder()
-        console.log('Success')
-        this.$router.push('/order')
+        this.showSuccessMessage()
       } catch (error) {
         console.error('Error adding customer, order, or eyewear')
       }
@@ -794,7 +879,6 @@ export default {
           `${import.meta.env.VITE_BASE_URL}/orders`
         )
         if (result.status == 200) {
-          console.log('Data updated successfully')
         } else {
           console.error('Failed to update data')
         }
@@ -815,12 +899,17 @@ export default {
     },
     async addCustomer() {
       try {
+        // รวมข้อมูลที่เลือกจาก dropdown เข้าด้วยกัน
+        const fullAddress = `${this.newCustomer.detailAddress} ${this.selectedProvince} ${this.selectedDistrict} ${this.selectedTambon} ${this.selectedPostCode}`;
+
+        // เพิ่มข้อมูลที่เลือกจาก dropdown ลงใน newCustomer.address
+        this.newCustomer.address = fullAddress;
+
         const response = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/customers`,
           this.newCustomer
         )
         if (response.status === 200) {
-          console.log('Customer added successfully')
           this.newOrder.customerID = response.data.customerID
           this.fetchCustomer()
         } else {
@@ -848,7 +937,7 @@ export default {
           customerTel: this.newCustomer.customerTel,
           customerName: this.newCustomer.customerName,
           customerLastName: this.newCustomer.customerLastName,
-          address: this.newCustomer.address
+          address: this.newCustomer.detailAddress
         }
         const response = await axios.put(
           `${import.meta.env.VITE_BASE_URL}/customers/${customerId}`,
@@ -866,7 +955,6 @@ export default {
     },
     async addOrder() {
       try {
-        console.log('Adding order:', this.newOrder)
 
         // Extract eyewearItems from items array
         const eyewearItems = this.newOrder.eyewearItems.map((item) => {

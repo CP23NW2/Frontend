@@ -79,6 +79,20 @@
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
+              <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('customerList.phone') }}
+                  </p>
+                  <input
+                    :value="
+                      groupedData.customer
+                        ? groupedData.customer.customerTel
+                        : 'N/A'
+                    "
+                    disabled
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
+                </div>
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
                     {{ $t('customerList.address') }}
@@ -90,20 +104,6 @@
                         ? groupedData.customer.address
                         : 'N/A'
                     "
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">
-                    {{ $t('customerList.phone') }}
-                  </p>
-                  <input
-                    :value="
-                      groupedData.customer
-                        ? groupedData.customer.customerTel
-                        : 'N/A'
-                    "
-                    disabled
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
                 </div>
@@ -221,7 +221,7 @@
                         <!--Status dropdraw-->
                         <div>
                           <p class="pb-2 text-sm md:text-lg">
-                            {{ $t('eyewearList.status') }}
+                            *{{ $t('eyewearList.status') }}
                           </p>
                           <select
                             v-model="eyewear.orderStatus"

@@ -74,16 +74,7 @@
               <div
                 class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
               >
-                <div class="w-full pb-4">
-                  <p class="pb-2 text-sm md:text-lg">
-                    {{ $t('customerList.address') }}
-                  </p>
-                  <input
-                    v-model="customerData.address"
-                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
-                  />
-                </div>
-                <div class="w-full pb-4">
+              <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
                     {{ $t('customerList.phone') }}
                   </p>
@@ -98,6 +89,16 @@
                     {{ $t('orderList.enterPhone') }}
                   </p>
                 </div>
+                <div class="w-full pb-4">
+                  <p class="pb-2 text-sm md:text-lg">
+                    {{ $t('customerList.address') }}
+                  </p>
+                  <input
+                    v-model="customerData.address"
+                    class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
+                  />
+                </div>
+
               </div>
               <!-- Order -->
               <div class="w-full h-px border border-neutral-300"></div>
@@ -105,7 +106,7 @@
                 {{ $t('eyewearList.orderDetails') }}
               </p>
               <div
-                class="justify-between gap-4 mt-4 md:grid md:grid-cols-2 md:flex-row"
+                class="justify-between gap-4 mt-4 md:flex-row"
               >
                 <div class="w-full pb-4">
                   <p class="pb-2 text-sm md:text-lg">
@@ -132,11 +133,12 @@
                   >
                     {{ $t('addOrder.pleaseSelOne') }}
                   </p>
-                  <p class="pb-2 text-sm md:text-lg">
+                  <p class="pb-2 text-sm md:text-lg" v-if="newOrder.delivery === 'Delivery'">
                     {{ $t('eyewearList.trackingNumber') }}
                   </p>
                   <input
                     v-model="newOrder.tracking"
+                    v-if="newOrder.delivery === 'Delivery'"
                     maxlength="15"
                     class="w-full text-sm bg-[#D4D4D433] border-gray-200 rounded-md md:text-lg md:px-5 h-10"
                   />
@@ -272,56 +274,6 @@
                                 <td
                                   class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
                                 >
-                                  {{ $t('searchStatus.left') }}
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftSPH"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftCYL"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftAXIS"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftADD"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftPD"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftSH"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                                <td class="border border-black">
-                                  <input
-                                    v-model="item.leftUpKT"
-                                    class="w-full h-20 text-center"
-                                  />
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td
-                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
-                                >
                                   {{ $t('searchStatus.right') }}
                                 </td>
                                 <td class="border border-black">
@@ -363,6 +315,55 @@
                                 <td class="border border-black">
                                   <input
                                     v-model="item.rightUpKT"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  class="px-6 py-8 border border-black bg-[#FFCA9C] text-center"
+                                >
+                                  {{ $t('searchStatus.left') }}
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftSPH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftCYL"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftAXIS"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftADD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftPD"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftSH"
+                                    class="w-full h-20 text-center"
+                                  />
+                                </td>
+                                <td class="border border-black">
+                                  <input
+                                    v-model="item.leftUpKT"
                                     class="w-full h-20 text-center"
                                   />
                                 </td>
@@ -537,7 +538,6 @@ export default {
       console.log(this.isError)
     },
     async addOrderAndEyewear() {
-      console.log('data', this.newOrder.eyewearItems)
       await this.addOrder()
       this.showSuccessMessage()
     },

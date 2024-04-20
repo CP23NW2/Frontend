@@ -11,7 +11,7 @@
       >
         <div class="relative w-full">
           <input
-            v-model.lazy="searchOrderID"
+            v-model="searchOrderID"
             type="text"
             id="voice-search"
             class="block w-full md:p-5 p-2 text-xs md:text-base text-gray-900 border border-gray-300 md:rounded-2xl rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 md:ps-10 ps-4 dark:bg-gray-700 dark:border-gray-400 dark:placeholder-[#AAAAAA] dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -405,13 +405,15 @@ export default {
     }
   },
   methods: {
+    searchOrder(){
+      checkSearch = true
+    },
     async fetchCustomer(customerID) {
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/customers/${customerID}`
         )
         this.customer = response.data
-        console.log('customer data', this.customer)
       } catch (error) {
         console.error('Error fetching customer data:', error)
       }
@@ -449,6 +451,26 @@ export default {
         this.hasError = true
       }
     },
+    async validateSearch() {
+  try {
+    // ส่งคำขอ GET เพื่อตรวจสอบ order ID ที่ URL ระบุ
+    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders/${this.searchOrderID}`);
+    
+    // ตรวจสอบสถานะของการข้อของเซิร์ฟเวอร์
+    if (response.status === 200) {
+      // หาก order ID มีอยู่จริง
+      // ทำสิ่งที่คุณต้องการ เช่น แสดงข้อมูลออร์เดอร์
+      console.log('Order ID found:', response.data);
+    } else {
+      // หากไม่พบ order ID
+      // แสดงข้อความเตือนหรือทำสิ่งที่เหมาะสม
+      console.log('Order ID not found');
+    }
+  } catch (error) {
+    // หากเกิดข้อผิดพลาดในการส่งคำขอ
+    console.error('Error validating order ID:', error);
+  }
+},
     async showPopup() {
       if (this.hasError) return
       this.isPopupVisible = true
