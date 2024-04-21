@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#F5F5F5] mt-12 py-6">
+  <div class="bg-[#F5F5F5] mt-16 md:mt-12 py-6">
     <router-view></router-view>
     <div class="p-4 md:p-10">
       <div class="bg-white rounded-lg shadow-md">
@@ -23,11 +23,11 @@
           <div class="flex flex-wrap">
             <div class="w-full">
               <ul
-                class="flex flex-row flex-wrap pt-3 mb-0 list-none border-b-[#D4D4D4] border-b-2"
+                class="flex flex-row flex-wrap pt-3 mb-0 list-none border-b-[#D4D4D4] border-b-2 "
               >
                 <li class="flex -mb-px text-center last:mr-0">
                   <a
-                    class="block px-12 py-3 leading-normal text-meduim"
+                    class="block px-3 py-3 text-xs leading-normal md:px-12 md:text-lg"
                     v-on:click="toggleTabs(1)"
                     v-bind:class="{
                       'border-b-[#F5821F] border-b-4 ': openTab === 1
@@ -38,7 +38,7 @@
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
                   <a
-                    class="block px-12 py-3 leading-normal text-medium"
+                    class="block px-3 py-3 text-xs leading-normal md:px-12 md:text-lg"
                     v-on:click="toggleTabs(2)"
                     v-bind:class="{
                       'border-b-[#F5821F] border-b-4 ': openTab === 2
@@ -49,7 +49,7 @@
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
                   <a
-                    class="block px-12 py-3 leading-normal text-medium"
+                    class="block px-3 py-3 text-xs leading-normal md:px-12 md:text-lg"
                     v-on:click="toggleTabs(3)"
                     v-bind:class="{
                       'border-b-[#F5821F] border-b-4 ': openTab === 3
@@ -60,7 +60,7 @@
                 </li>
                 <li class="flex -mb-px text-center last:mr-0">
                   <a
-                    class="block px-12 py-3 leading-normal text-medium"
+                    class="block px-3 py-3 text-xs leading-normal md:px-12 md:text-lg"
                     v-on:click="toggleTabs(4)"
                     v-bind:class="{
                       'border-b-[#F5821F] border-b-4 ': openTab === 4
@@ -71,7 +71,7 @@
                 </li>
               </ul>
               <div
-                class="relative flex flex-col w-full min-w-0 mb-6 break-words"
+                class="flex flex-col w-full min-w-0 mb-6 break-words "
               >
                 <div class="flex-auto px-4 py-5">
                   <div class="tab-content tab-space">
@@ -81,11 +81,10 @@
                         block: openTab === 1
                       }"
                     >
-                      <div class="flex py-5">
-                        <div class="">
+                      <div class="flex py-5 ">
                           <select
                             v-model="selectedSearch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 md:text-lg text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4 "
                           >
                             <option value="orderID">
                               {{ $t('orderList.orderid') }}
@@ -97,47 +96,29 @@
                               {{ $t('orderList.productName') }}
                             </option>
                           </select>
-                        </div>
-                        <div class="relative">
-                          <div
-                            class="absolute left-0 flex items-center py-3 pl-3 mx-3 mt-1 text-gray-700 pointer-events-none opacity-80"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                fill="currentColor"
-                                d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z"
-                              />
-                            </svg>
-                          </div>
-                        </div>
 
                         <!-- Order list All -->
                         <input
                           v-if="selectedSearch === 'orderID'"
                           type="number"
                           v-model="searchOrderID"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'customerName'"
                           type="text"
                           v-model="searchCustomerName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'eyewearName'"
                           type="text"
                           v-model="searchEyewearName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
+                            class="flex items-center px-4 py-2 text-xs md:text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
                             @click="reset"
                           >
                             Reset
@@ -150,10 +131,10 @@
                       </div>
                       <div class="mt-4 overflow-x-auto">
                         <div
-                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
+                          class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA] "
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] w-fit md:w-full"
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -198,7 +179,7 @@
                         <div
                           v-for="(order, index) in filteredResult"
                           :key="index"
-                          class="mt-2 border"
+                          class="mt-2 border w-fit md:w-full"
                         >
                           <div
                             class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
@@ -224,10 +205,10 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div class="flex justify-between px-10 py-3">
+                          <div class="flex justify-between px-4 py-3 md:px-10">
                             <div class="w-full">
                               <div
-                                class="flex flex-row justify-between"
+                                class="flex flex-row justify-between gap-10"
                                 v-for="eyewear in getEyewearForOrder(
                                   order.orderID
                                 )"
@@ -240,7 +221,7 @@
                                     class="w-8 h-8 mr-2 text-primary-color"
                                   />
                                 </div>
-                                <div class="flex flex-col gap-2">
+                                <div class="flex flex-col gap-0 md:gap-2">
                                   <p id="eyewearDetail">
                                     {{ eyewear.eyewearName }}
                                   </p>
@@ -258,10 +239,10 @@
                               </div>
                             </div>
 
-                            <div class="self-center pl-40 whitespace-nowrap">
+                            <div class="self-center pl-12 md:pl-40 whitespace-nowrap">
                               {{ order.price }} {{ $t('orderList.bath') }}
                             </div>
-                            <div class="flex items-stretch pl-40">
+                            <div class="flex items-stretch pl-12 md:pl-40">
                               <div class="self-center">
                                 <button
                                   @click="fetchOrderDetails(order.orderID)"
@@ -299,76 +280,61 @@
                         block: openTab === 2
                       }"
                     >
-                      <div class="flex py-5">
-                        <div class="">
+                    <div class="flex py-5">
                           <select
                             v-model="selectedSearch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 md:text-lg text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4 "
                           >
                             <option value="orderID">
                               {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="customerName">
+                              {{ $t('orderList.cusName') }}
                             </option>
                             <option value="eyewearName">
                               {{ $t('orderList.productName') }}
                             </option>
                           </select>
-                        </div>
-                        <div class="relative">
-                          <div
-                            class="absolute left-0 flex items-center py-3 pl-3 mx-3 mt-1 text-gray-700 pointer-events-none opacity-80"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                fill="currentColor"
-                                d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z"
-                              />
-                            </svg>
-                          </div>
-                        </div>
+
+                        <!-- Order list All -->
                         <input
                           v-if="selectedSearch === 'orderID'"
                           type="number"
                           v-model="searchOrderID"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'customerName'"
                           type="text"
                           v-model="searchCustomerName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'eyewearName'"
                           type="text"
                           v-model="searchEyewearName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
+                            class="flex items-center px-4 py-2 text-xs md:text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
                             @click="reset"
                           >
                             Reset
                           </button>
                         </div>
                       </div>
-
                       <!-- Table Head of All Order List -->
-                      <div class="mt-4 text-xl font-mediumtext-black">
+                      <div class="mt-4 text-xl font-mediumtext-black ">
                         {{ getPreparingOrdersCount() }}
                         {{ $t('orderList.eyewears') }}
                       </div>
-                      <div class="mt-4 overflow-x-auto">
+                      <div class="mt-4 overflow-x-auto ">
                         <div
                           class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] w-fit md:w-full"
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -410,12 +376,12 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
                         :class="{
-                          'mt-2 border': preparingEyewearList.some(
+                          'mt-2 border w-fit md:w-full ': preparingEyewearList.some(
                             (eyewear) =>
                               eyewear.orderID === order.orderID &&
                               eyewear.orderStatus === 'Preparing'
@@ -433,7 +399,7 @@
                           "
                         >
                           <div
-                            class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center"
+                            class="bg-[#EAEAEA] rounded-sm flex justify-between px-6 self-center "
                           >
                             <div
                               v-for="(
@@ -456,7 +422,7 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div class="flex justify-between px-10 py-3">
+                          <div class="flex justify-between px-4 py-3 md:px-10">
                             <div class="w-full">
                               <div
                                 v-for="eyewear in preparingEyewearList"
@@ -464,7 +430,7 @@
                               >
                                 <!-- Check if the eyewear item has status 'Preparing' for the current order -->
                                 <div
-                                  class="flex flex-row justify-between"
+                                  class="flex flex-row justify-between gap-10"
                                   v-if="
                                     eyewear.orderID === order.orderID &&
                                     eyewear.orderStatus === 'Preparing'
@@ -477,7 +443,7 @@
                                       class="w-8 h-8 mr-2 text-primary-color"
                                     />
                                   </div>
-                                  <div class="flex flex-col gap-2">
+                                  <div class="flex flex-col gap-0 md:gap-2">
                                     <p id="eyewearDetail">
                                       {{ eyewear.eyewearName }}
                                     </p>
@@ -495,10 +461,10 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="self-center pl-40 whitespace-nowrap">
+                            <div class="self-center pl-12 md:pl-40 whitespace-nowrap">
                               {{ order.price }} {{ $t('orderList.bath') }}
                             </div>
-                            <div class="flex items-stretch pl-40">
+                            <div class="flex items-stretch pl-12 md:pl-40">
                               <div class="self-center">
                                 <button
                                   @click="fetchOrderDetails(order.orderID)"
@@ -529,6 +495,7 @@
                           </div>
                         </template>
                       </div>
+                      </div>
                     </div>
                     <div
                       v-bind:class="{
@@ -536,65 +503,50 @@
                         block: openTab === 3
                       }"
                     >
-                      <div class="flex py-5">
-                        <div class="">
+                    <div class="flex py-5">
                           <select
                             v-model="selectedSearch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 md:text-lg text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4 "
                           >
                             <option value="orderID">
                               {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="customerName">
+                              {{ $t('orderList.cusName') }}
                             </option>
                             <option value="eyewearName">
                               {{ $t('orderList.productName') }}
                             </option>
                           </select>
-                        </div>
-                        <div class="relative">
-                          <div
-                            class="absolute left-0 flex items-center py-3 pl-3 mx-3 mt-1 text-gray-700 pointer-events-none opacity-80"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                fill="currentColor"
-                                d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z"
-                              />
-                            </svg>
-                          </div>
-                        </div>
+
+                        <!-- Order list All -->
                         <input
                           v-if="selectedSearch === 'orderID'"
                           type="number"
                           v-model="searchOrderID"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'customerName'"
                           type="text"
                           v-model="searchCustomerName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'eyewearName'"
                           type="text"
                           v-model="searchEyewearName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
+                            class="flex items-center px-4 py-2 text-xs md:text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
                             @click="reset"
                           >
                             Reset
                           </button>
                         </div>
                       </div>
-
                       <!-- Table Head of All Order List -->
                       <div class="mt-4 text-xl font-mediumtext-black">
                         {{ getProcessingOrdersCount() }}
@@ -605,7 +557,7 @@
                           class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] w-fit md:w-full"
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -647,12 +599,11 @@
                             </div>
                           </div>
                         </div>
-                      </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
                         :class="{
-                          'mt-2 border': processingEyewearList.some(
+                          'mt-2 border w-fit md:w-full': processingEyewearList.some(
                             (eyewear) =>
                               eyewear.orderID === order.orderID &&
                               eyewear.orderStatus === 'Processing'
@@ -693,7 +644,7 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div class="flex justify-between px-10 py-3">
+                          <div class="flex justify-between px-4 py-3 md:px-10">
                             <div class="w-full">
                               <div
                                 v-for="eyewear in processingEyewearList"
@@ -701,7 +652,7 @@
                               >
                                 <!-- Check if the eyewear item has status 'Preparing' for the current order -->
                                 <div
-                                  class="flex flex-row justify-between"
+                                  class="flex flex-row justify-between gap-10"
                                   v-if="
                                     eyewear.orderID === order.orderID &&
                                     eyewear.orderStatus === 'Processing'
@@ -714,7 +665,7 @@
                                       class="w-8 h-8 mr-2 text-primary-color"
                                     />
                                   </div>
-                                  <div class="flex flex-col gap-2">
+                                  <div class="flex flex-col gap-0 md:gap-2">
                                     <p id="eyewearDetail">
                                       {{ eyewear.eyewearName }}
                                     </p>
@@ -732,10 +683,10 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="self-center pl-40 whitespace-nowrap">
+                            <div class="self-center pl-12 md:pl-40 whitespace-nowrap">
                               {{ order.price }} {{ $t('orderList.bath') }}
                             </div>
-                            <div class="flex items-stretch pl-40">
+                            <div class="flex items-stretch pl-12 md:pl-40">
                               <div class="self-center">
                                 <button
                                   @click="fetchOrderDetails(order.orderID)"
@@ -765,6 +716,8 @@
                             </div>
                           </div>
                         </template>
+
+                      </div>
                       </div>
                     </div>
                     <div
@@ -773,59 +726,44 @@
                         block: openTab === 4
                       }"
                     >
-                      <div class="flex py-5">
-                        <div class="">
+                    <div class="flex py-5">
                           <select
                             v-model="selectedSearch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 md:text-lg text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 md:w-48 md:px-4 "
                           >
                             <option value="orderID">
                               {{ $t('orderList.orderid') }}
+                            </option>
+                            <option value="customerName">
+                              {{ $t('orderList.cusName') }}
                             </option>
                             <option value="eyewearName">
                               {{ $t('orderList.productName') }}
                             </option>
                           </select>
-                        </div>
-                        <div class="relative">
-                          <div
-                            class="absolute left-0 flex items-center py-3 pl-3 mx-3 mt-1 text-gray-700 pointer-events-none opacity-80"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="20"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                fill="currentColor"
-                                d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z"
-                              />
-                            </svg>
-                          </div>
-                        </div>
+
+                        <!-- Order list All -->
                         <input
                           v-if="selectedSearch === 'orderID'"
                           type="number"
                           v-model="searchOrderID"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'customerName'"
                           type="text"
                           v-model="searchCustomerName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
                         <input
                           v-if="selectedSearch === 'eyewearName'"
                           type="text"
                           v-model="searchEyewearName"
-                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 md:w-full"
+                          class="px-10 mx-3 text-lg text-gray-900 border border-gray-300 rounded-lg w-60 bg-gray-50 md:w-full"
                         />
-
                         <div class="flex gap-2 align-items-center">
                           <button
-                            class="flex items-center px-4 py-2 text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
+                            class="flex items-center px-4 py-2 text-xs md:text-base font-medium text-center text-black bg-white border rounded-lg md:py-3 md:px-8 border-[#D4D4D4]"
                             @click="reset"
                           >
                             Reset
@@ -842,7 +780,7 @@
                           class="w-full text-sm text-left text-[#2B2B2B] rtl:text-right dark:text-[##EAEAEA]"
                         >
                           <div
-                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA]"
+                            class="text-xs text-[##808080] bg-[#EAEAEA] dark:bg-gray-700 dark:text-[#EAEAEA] w-fit md:w-full"
                           >
                             <div class="flex flex-row justify-between">
                               <div
@@ -884,12 +822,11 @@
                             </div>
                           </div>
                         </div>
-                      </div>
                       <div
                         v-for="(order, index) in filteredResult"
                         :key="index"
                         :class="{
-                          'mt-2 border': completeEyewearList.some(
+                          'mt-2 border w-fit md:w-full': completeEyewearList.some(
                             (eyewear) =>
                               eyewear.orderID === order.orderID &&
                               eyewear.orderStatus === 'Complete'
@@ -930,7 +867,7 @@
                               {{ $t('orderList.orderid') }}: {{ order.orderID }}
                             </div>
                           </div>
-                          <div class="flex justify-between px-10 py-3">
+                          <div class="flex justify-between px-4 py-3 md:px-10">
                             <div class="w-full">
                               <div
                                 v-for="eyewear in completeEyewearList"
@@ -938,7 +875,7 @@
                               >
                                 <!-- Check if the eyewear item has status 'Complete' for the current order -->
                                 <div
-                                  class="flex flex-row justify-between"
+                                  class="flex flex-row justify-between gap-10"
                                   v-if="
                                     eyewear.orderID === order.orderID &&
                                     eyewear.orderStatus === 'Complete'
@@ -951,7 +888,7 @@
                                       class="w-8 h-8 mr-2 text-primary-color"
                                     />
                                   </div>
-                                  <div class="flex flex-col gap-2">
+                                  <div class="flex flex-col gap-0 md:gap-2">
                                     <p id="eyewearDetail">
                                       {{ eyewear.eyewearName }}
                                     </p>
@@ -969,10 +906,10 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="self-center pl-40 whitespace-nowrap">
+                            <div class="self-center pl-12 md:pl-40 whitespace-nowrap">
                               {{ order.price }} {{ $t('orderList.bath') }}
                             </div>
-                            <div class="flex items-stretch pl-40">
+                            <div class="flex items-stretch pl-12 md:pl-40">
                               <div class="self-center">
                                 <button
                                   @click="fetchOrderDetails(order.orderID)"
@@ -1002,6 +939,8 @@
                             </div>
                           </div>
                         </template>
+
+                      </div>
                       </div>
                     </div>
                   </div>

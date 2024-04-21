@@ -1,6 +1,6 @@
 <template>
   <div class="mt-16 md:mt-12">
-    <div class="p-4 md:px-24 md:py-16 custom-gradient">
+    <div class="p-4 md:px-24 md:py-16 custom-gradient ">
       <div
         class="grid items-center justify-between grid-cols-4 gap-1 pt-10 md:gap-4"
       >

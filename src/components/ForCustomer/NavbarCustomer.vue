@@ -8,7 +8,7 @@
           <Icon icon="iconoir:map-pin" />
         </div>
         <div class="text-[8px] md:text-sm font-normal leading-snug text-white">
-          {{$t("navbar.address")}}
+          {{ $t('navbar.address') }}
         </div>
       </div>
       <div class="flex items-center justify-start gap-5">
@@ -29,7 +29,7 @@
           <div
             class="text-[8px] md:text-sm font-normal leading-snug text-right text-white"
           >
-          BuddyGlassesOfficial@gmail.com
+            BuddyGlassesOfficial@gmail.com
           </div>
         </div>
       </div>
@@ -48,7 +48,6 @@
                 </div>
               </div>
             </div>
-
             <!-- Mobile -->
             <div class="block md:hidden">
               <div class="w-10 h-10 ml-4 rounded-full bg-primary-color">
@@ -64,7 +63,7 @@
           <div class="relative flex items-center">
             <button
               tabindex="0"
-              @click="toggleDropdown"
+              @click="toggleDropdown()"
               class="p-2 mr-2 font-bold rounded-md md:hidden focus:outline-none"
             >
               <svg
@@ -81,51 +80,6 @@
                 ></path>
               </svg>
             </button>
-            <div
-              v-show="isDropdownVisible"
-              class="absolute w-full -ml-20 transition-all duration-300 bg-white rounded-lg opacity-0 pointer-events-auto md:inline-block top-5 focus:top-12 focus:opacity-100 focus:visible"
-            >
-              <!-- เนื้อหาเมนูที่นี่ -->
-              <div>
-                <ul class="flex flex-col justify-start gap-3 px-8 py-8">
-                  <router-link
-                    to="/"
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    Home
-                  </router-link>
-
-                  <router-link
-                    to="/customer"
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    Customer
-                  </router-link>
-
-                  <router-link
-                    to="/order"
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    Order
-                  </router-link>
-
-                  <li
-                    class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
-                  >
-                    Content
-                  </li>
-
-                  <li>
-                    <a
-                      href="#customer"
-                      class="block py-2 pl-3 pr-4 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white md:hover:bg-transparent md:hover:text-cyan-400 md:p-0 dark:text-gray-400 md:dark:hover:bg-transparent dark:border-gray-700"
-                    >
-                      About
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
             <!-- Web application  -->
             <div
               class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -136,14 +90,14 @@
                 <router-link
                   to="/forcustomer"
                   :class="{
-                    'bg-[#F5821F4D] items-center inline-flex gap-1 rounded-xl':
+                    'bg-[#F5821F4D]  items-center inline-flex gap-1 rounded-xl':
                       $route.path === '/forcustomer',
                     'bg-white': $route.path !== '/forcustomer'
                   }"
                   ><div
-                    class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
+                    class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl whitespace-nowrap"
                   >
-                  {{$t("navbar.home")}}
+                    {{ $t('navbar.home') }}
                   </div></router-link
                 >
                 <router-link
@@ -156,7 +110,7 @@
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.about")}}
+                    {{ $t('navbar.about') }}
                   </div></router-link
                 >
                 <router-link
@@ -169,7 +123,7 @@
                   ><div
                     class="cursor-pointer hover:bg-[#F5821F4D] md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
                   >
-                  {{$t("navbar.contact")}}
+                    {{ $t('navbar.contact') }}
                   </div></router-link
                 >
               </ul>
@@ -181,28 +135,72 @@
             <ul
               class="flex flex-col items-center mt-4 border border-gray-100 rounded-lg peer bg-gray-50 md:flex-row md:space-x-4 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 dark:border-gray-700"
             >
-            <div
-                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl"
+              <div
+                class="cursor-pointer md:px-4 md:py-1.5 items-center inline-flex gap-1 rounded-xl w-full"
               >
                 <Icon
                   icon="ion:earth-sharp"
                   class="inline-flex items-center h-6 md:mr-1 md:w-5"
                 />
-                  <select @change="changeLanguage($event.target.value)" class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none">
-                    <option value="en">EN</option>
-                    <option value="th">TH</option>
-                  </select>
+                <select
+                  @change="changeLanguage($event.target.value)"
+                  class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none"
+                >
+                  <option value="en">EN</option>
+                  <option value="th">TH</option>
+                </select>
               </div>
             </ul>
           </div>
         </div>
       </nav>
     </div>
+    <div
+      v-show="isDropdownVisible"
+      class="absolute w-full mt-4 bg-white rounded-lg md:inline-block"
+    >
+      <!-- เนื้อหาเมนูที่นี่ -->
+      <div>
+        <ul class="flex flex-col justify-center gap-4 px-8 py-8 text-cente">
+          <router-link
+            to="/forcustomer"
+            class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
+          >
+            Home
+          </router-link>
+          <router-link
+            to="/forcustomer/about"
+            class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
+          >
+            About
+          </router-link>
+          <router-link
+            to="/forcustomer/contact"
+            class="p-3 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white"
+          >
+            Contact
+          </router-link>
+          <li
+            class="block py-2 pl-3 pr-4 text-gray-700 rounded-md cursor-pointer hover:bg-primary-color hover:text-white md:hover:bg-transparent md:hover:text-cyan-400 md:p-0 dark:text-gray-400 md:dark:hover:bg-transparent dark:border-gray-700"
+          >
+            <Icon
+              icon="ion:earth-sharp"
+              class="inline-flex items-center h-6 md:mr-1 md:w-5"
+            />
+            <select
+              @change="changeLanguage($event.target.value)"
+              class="appearance-none cursor-pointer bg-transparent px-3 py-1.5 text-sm text-gray-700 border border-white rounded-xl focus:outline-none"
+            >
+              <option value="en">EN</option>
+              <option value="th">TH</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-
   <router-view></router-view>
 </template>
-
 <script>
 import { Icon } from '@iconify/vue'
 export default {

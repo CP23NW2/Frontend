@@ -14,7 +14,6 @@ import Home from "../../components/Admin/Home.vue";
 import Contact from "../../components/Contact.vue";
 import About from "../../components/About.vue";
 import Footer from "../../components/Footer.vue";
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 export default {
   components: {

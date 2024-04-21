@@ -1,41 +1,41 @@
 <template>
-    <div class="w-full h-full bg-[#F5821F] relative overflow-hidden mt-16 md:mt-12 ">
-    <div class="absolute z-10 -top-10 -left-10">
+    <div class="w-full h-full bg-[#F5821F] md:relative overflow-hidden mt-16 md:mt-12">
+    <div class="z-10 hidden md:absolute -top-10 -left-1 md:block">
       <div
         class="rounded-full opacity-50 w-72 h-72 bg-gradient-to-b from-[#F9F9F9] blur-sm"
       ></div>
     </div>
-    <div class="absolute z-10 mt-40 md:-mt-10 md:-end-10 -end-40">
+    <div class="z-10 hidden mt-40 md:absolute md:-mt-10 md:-end-10 -end-40 md:block">
       <div
-        class="rounded-full opacity-50 w-72 h-72 bg-gradient-to-b from-[#F9F9F9] blur-sm"
+        class="rounded-full opacity-50 w-72 h-72 bg-gradient-to-b from-[#F9F9F9] blur-sm "
       ></div>
     </div>
-    <div class="absolute md:left-[700px] md:-bottom-[200px] z-10 -bottom-40 -left-40">
+    <div class="md:absolute md:left-[700px] md:-bottom-[200px] z-10 -bottom-40 -left-40 hidden md:block">
       <div
-        class="rounded-full opacity-50 w-80 h-80 bg-gradient-to-b from-[#F9F9F9] blur-sm"
+        class="rounded-full opacity-50 w-80 h-80 bg-gradient-to-b from-[#F9F9F9] blur-sm "
       ></div>
     </div>
-    <div class="relative z-20 gap-16 p-7 md:p-[130px] md:inline-flex">
+    <div class="md:relative z-20 gap-16 p-7 md:p-[130px] md:inline-flex pt-14">
      
-      <div class="grid gap-2 md:gap-4">
-        <div class="h-32 md:h-full md:w-full">
+      <div class="grid gap-0 md:gap-4">
+        <div class="h-72 md:h-full md:w-full">
           <img
-            class="object-cover w-full h-full rounded shadow"
+            class="object-cover w-full h-full rounded md:shadow"
             src="/Public/images/image-content1.png"
             alt="Image 2"
           />
         </div>
-        <div class="flex items-start gap-2 md:gap-5">
-          <div class="relative z-10 md:w-72 md:h-72">
+        <div class="items-start gap-2 md:flex md:gap-5">
+          <div class="z-10 md:relative md:w-72 md:h-72">
             <img
-              class="object-cover w-full h-full rounded shadow"
+              class="object-cover w-full h-full rounded md:shadow"
               src="/Public/images/image-content2.png"
               alt="Image 1"
             />
           </div>
           <div class="z-10 md:w-72 md:h-72">
             <img
-              class="object-cover w-full h-full rounded shadow"
+              class="object-cover w-full h-full rounded md:shadow"
               src="/Public/images/image-content3.png"
               alt="Image 3"
             />
