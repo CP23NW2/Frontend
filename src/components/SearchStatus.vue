@@ -12,10 +12,11 @@
         <div class="flex w-full ">
           <input
             v-model="searchOrderID"
+            :class="{ 'border-red-500 border-2': isError, 'shake': isError }"
             type="text"
             id="voice-search"
             class="block w-full md:p-5 p-2 text-xs md:text-base text-gray-900 border border-gray-300 md:rounded-2xl rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 md:ps-10 ps-4 dark:bg-gray-700 dark:border-gray-400 dark:placeholder-[#AAAAAA] dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Put order number for 10 characters ex. 4759093895"
+            placeholder="Put order ID for 10 characters ex. 4759093895"
             required
           />
           <button
@@ -29,7 +30,7 @@
           </button>
         </div>
         <button
-          @click="showPopup"
+          @click="checkOrder"
           type="submit"
           class="inline-flex items-center py-2 px-4 md:p-5 md:px-10 text-xs md:text-base font-medium text-white bg-[#2B2B2B] rounded-lg md:rounded-2xl border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
         >
@@ -52,9 +53,9 @@
                 <div class="p-4">
                   <input
                     type="text"
-                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg md:w-[70px] md:h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 md:mx-3 h-20 w-20 mx-2 ml-8"
                     v-model="inputNumber1"
+                    :class="{ 'border-red-500 border-2': phoneNotFound, 'shake': phoneNotFound }"
                     @input="() => handleInput(1)"
                     ref="inputNumber1"
                     maxlength="1"
@@ -62,9 +63,9 @@
 
                   <input
                     type="text"
-                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg md:w-[70px] md:h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 md:mx-3 h-20 w-20 mx-2"
                     v-model="inputNumber2"
+                    :class="{ 'border-red-500 border-2': phoneNotFound, 'shake': phoneNotFound }"
                     @input="() => handleInput(2)"
                     ref="inputNumber2"
                     maxlength="1"
@@ -72,20 +73,20 @@
 
                   <input
                     type="text"
-                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg md:w-[70px] md:h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 md:mx-3 h-20 w-20 mx-2 "
                     v-model="inputNumber3"
                     @input="() => handleInput(3)"
+                    :class="{ 'border-red-500 border-2': phoneNotFound, 'shake': phoneNotFound }"
                     ref="inputNumber3"
                     maxlength="1"
                   />
 
                   <input
                     type="text"
-                    :class="{ 'border-red': hasError }"
                     class="text-center text-lg md:w-[70px] md:h-[70px] rounded-full shadow-xl border-b-2 border-gray-300 mx-3 h-20 w-20 mx-2 mr-8"
                     v-model="inputNumber4"
                     @input="() => handleInput(4)"
+                    :class="{ 'border-red-500 border-2': phoneNotFound, 'shake': phoneNotFound }"
                     ref="inputNumber4"
                     maxlength="1"
                   />
@@ -343,9 +344,9 @@
         </div>
       </div>
     </div>
-
+    <a v-if="orderNotFound" :class="{ 'shake': orderNotFound }" class="flex ml-1 mt-2 text-red-500">Check Order ID again!</a>
     <div
-      v-else
+      v-if="orderNotFound"
       class="inline-flex items-center w-full justify-center md:gap-10 gap-2 md:my-[40px] px-7 my-4"
     >
       <img src="/Public/images/found.png" class="w-52 md:min-w-fit md:h-fit" />
@@ -375,6 +376,7 @@ export default {
   data() {
     return {
       searchOrderID: '',
+      isError: false,
       orderStatus: [],
       inputNumber1: '',
       inputNumber2: '',
@@ -383,7 +385,9 @@ export default {
       showResults: false,
       isPopupVisible: false,
       customer: null,
-      hasError: false
+      hasError: false,
+      orderNotFound: false,
+      phoneNotFound: false
     }
   },
   computed: {
@@ -407,9 +411,35 @@ export default {
     }
   },
   methods: {
-    searchOrder(){
-      checkSearch = true
+    clearInput(){
+      this.inputNumber1 = '';
+      this.inputNumber2 = '';
+      this.inputNumber3 = '';
+      this.inputNumber4 = '';
     },
+    checkOrder() {
+  if (!this.searchOrderID.trim()) {
+    this.isError = true;
+  } else {
+    this.isError = false;
+    axios.get(`${import.meta.env.VITE_BASE_URL}/orders/${this.searchOrderID}`)
+      .then(response => {
+        if (response.status === 200) {
+          this.isError = false;
+          this.orderNotFound = false;
+          this.showPopup();
+        } else {
+          this.isError = true;
+          this.orderNotFound = true;
+        }
+      })
+      .catch(error => {
+        // หากเกิดข้อผิดพลาดในการส่งคำขอ
+        this.isError = true;
+        this.orderNotFound = true;
+      });
+  }
+},
     async fetchCustomer(customerID) {
       try {
         const response = await axios.get(
@@ -447,31 +477,24 @@ export default {
           this.isPopupVisible = true
         }
       } catch (error) {
-        console.error('Error fetching data:', error)
-        // แสดง Popup แจ้งเตือนเมื่อเกิดข้อผิดพลาดในการดึงข้อมูล
-        this.isPopupVisible = true
-        this.hasError = true
+        this.phoneNotFound = true;
+        this.isPopupVisible = true;
+        this.isError = true;
+        this.hasError = true;
+        this.clearInput();
       }
     },
     async validateSearch() {
-  try {
-    // ส่งคำขอ GET เพื่อตรวจสอบ order ID ที่ URL ระบุ
-    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders/${this.searchOrderID}`);
-    
-    // ตรวจสอบสถานะของการข้อของเซิร์ฟเวอร์
-    if (response.status === 200) {
-      // หาก order ID มีอยู่จริง
-      // ทำสิ่งที่คุณต้องการ เช่น แสดงข้อมูลออร์เดอร์
-      console.log('Order ID found:', response.data);
-    } else {
-      // หากไม่พบ order ID
-      // แสดงข้อความเตือนหรือทำสิ่งที่เหมาะสม
-      console.log('Order ID not found');
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/orders/${this.searchOrderID}`);
+      if (response.status === 200) {
+        console.log('Order ID found:', response.data);
+      } else {
+        console.log('Order ID not found');
+      }
+    } catch (error) {
+      console.error('Error validating order ID:', error);
     }
-  } catch (error) {
-    // หากเกิดข้อผิดพลาดในการส่งคำขอ
-    console.error('Error validating order ID:', error);
-  }
 },
     async showPopup() {
       if (this.hasError) return
@@ -515,29 +538,20 @@ export default {
       }
     },
     async submitForm() {
-      this.showResults = false
-      this.isPopupVisible = false
-      this.hasError = false
-
-      if (
-        this.inputNumber1 &&
-        this.inputNumber2 &&
-        this.inputNumber3 &&
-        this.inputNumber4 &&
-        this.searchOrderID
-      ) {
-        
-        await this.fetchData()
-
-        this.inputNumber1 = ''
-        this.inputNumber2 = ''
-        this.inputNumber3 = ''
-        this.inputNumber4 = ''
-        this.searchOrderID = ''
-      } else {
-        this.isPopupVisible = true
-        this.hasError = true
-      }
+  try {
+    if (!this.inputNumber1.trim() && !this.inputNumber2.trim() && !this.inputNumber3.trim() && !this.inputNumber4.trim()) {
+      this.phoneNotFound = true;
+    } else if (this.inputNumber1 && this.inputNumber2 && this.inputNumber3 && this.inputNumber4 && this.searchOrderID) {
+      await this.fetchData();
+    } else {
+      this.phoneNotFound = true;
+      this.isPopupVisible = true;
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    this.clearInput()
+    this.phoneNotFound = true; // Set phoneNotFound to true in case of an error
+  }
     },
     formatDate(dateString) {
       const inputDate = new Date(dateString)
@@ -576,5 +590,17 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.2s ease-in-out;
 }
 </style>

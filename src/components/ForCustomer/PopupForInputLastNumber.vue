@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="popup" @click.stop>
     <div class="bg-white rounded-lg md:w-[500px] md:h-[449px]">
       <div class="flex items-center justify-center mt-3">
@@ -99,7 +99,6 @@ export default {
       fetchData()
     })
 
-    // Use emit function to trigger the close event
     const { emit } = getCurrentInstance()
 
     const closePopup = () => {
@@ -123,9 +122,6 @@ export default {
 
       if (matchingPhoneNumbers.length > 0) {
         console.log('Success! Found matching phone numbers.')
-        // Display or use the matching phone numbers as needed
-
-        // Emit an event with the matching customer data
         emit(
           'matchingCustomer',
           customer.value.find(
@@ -136,7 +132,6 @@ export default {
         console.error('Error! No matching phone numbers found.')
       }
     }
-
     return {
       customerTel,
       customer,
@@ -151,45 +146,6 @@ export default {
   components: {
     Icon
   }
-
-  //Combine the input numbers to form the complete input phone number
-  // const inputPhoneNumber =
-  //   this.inputNumber1 +
-  //   this.inputNumber2 +
-  //   this.inputNumber3 +
-  //   this.inputNumber4;
-
-  // Replace this condition with your actual verification logic
-  // if (this.isPhoneNumberCorrect(inputPhoneNumber, phoneNumber)) {
-  //   // Phone number is correct, show alert or perform other actions
-  //   alert("Phone number verified!");
-  // } else {
-  //   // Phone number is incorrect, you can show an error message or handle it as needed
-  //   alert("Incorrect phone number. Please try again.");
-  // }
-  //   } catch (error) {
-  //     // Handle the error (e.g., show an error message)
-  //     console.error("Error fetching data:", error);
-  //   }
-  // },
-
-  // isPhoneNumberCorrect(inputPhoneNumber, serverPhoneNumber) {
-  //   // Replace this with your actual verification logic
-  //   // Compare the last 4 digits of the input and server phone numbers
-  //   const inputLast4Digits = inputPhoneNumber.slice(-4);
-  //   const serverLast4Digits = serverPhoneNumber.slice(-4);
-  //   return inputLast4Digits === serverLast4Digits;
-  // },
-
-  // handleInput(index) {
-  //   const nextInput = this.$refs[`inputNumber${index + 1}`];
-  //   if (nextInput && this[`inputNumber${index}`].length === 1) {
-  //     nextInput.focus();
-  //   }
-
-  //   // Filter out non-numeric characters
-  //   this[`inputNumber${index}`] = this[`inputNumber${index}`].replace(/[^0-9]/g, '');
-  //  },
 }
 </script>
 <style scoped>
@@ -206,4 +162,4 @@ export default {
   align-items: center;
   z-index: 1000;
 }
-</style>
+</style> -->

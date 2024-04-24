@@ -45,7 +45,7 @@ const i18n = createI18n({
         createOrder: 'Create New Order'
       },
       searchStatus: {
-        searchProduct: 'Search product status',
+        searchProduct: 'Search Order ID',
         search: 'Search',
         inputPhone: 'Input your last 4 Phone Number',
         ok: 'OK',
@@ -167,7 +167,7 @@ const i18n = createI18n({
         createOrder: 'เพิ่มรายการสั่งซื้อ'
       },
       searchStatus: {
-        searchProduct: 'ตรวจสอบสถานะแว่นตา',
+        searchProduct: 'ค้นหาหมายเลขสินค้า',
         search: 'ค้นหา',
         inputPhone: 'ใส่หมายเลขโทรศัพท์​ 4 ตัวท้าย',
         ok: 'ตกลง',
