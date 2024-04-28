@@ -7,7 +7,7 @@
         >{{ $t('searchStatus.searchProduct') }}</label
       >
       <div
-        class="flex items-center justify-between gap-1 pt-2 md:pt-2 md:gap-2"
+        class="flex items-center justify-between gap-1 pt-2 pb-10 md:pt-2 md:gap-2"
       >
         <div class="flex w-full ">
           <input
@@ -344,7 +344,7 @@
         </div>
       </div>
     </div>
-    <a v-if="orderNotFound" :class="{ 'shake': orderNotFound }" class="flex ml-1 mt-2 text-red-500">Check Order ID again!</a>
+    <a v-if="orderNotFound" :class="{ 'shake': orderNotFound }" class="flex mt-2 ml-1 text-red-500">Check Order ID again!</a>
     <div
       v-if="orderNotFound"
       class="inline-flex items-center w-full justify-center md:gap-10 gap-2 md:my-[40px] px-7 my-4"
