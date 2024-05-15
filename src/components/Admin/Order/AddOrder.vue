@@ -635,6 +635,7 @@
 import axios from 'axios'
 import VueHtmlToPaper from 'vue-html-to-paper'
 import Swal from 'sweetalert2'
+import addressCus from "../../../../Public/addressOfThailand.json";
 
 export default {
   data() {
@@ -782,8 +783,8 @@ export default {
   },
     async fetchDataAddress() {
       try {
-        const response = await axios.get("public/addressOfThailand.json");
-        this.addresses = response.data;
+        console.log(addressCus);
+        this.addresses =  addressCus
         this.provinces = Array.from(new Set(this.addresses.map(address => address.ProvinceThai)));
       } catch (error) {
         console.error('Error fetching addresses:', error);
